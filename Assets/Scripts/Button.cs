@@ -30,8 +30,8 @@ namespace com.NW84P
         private UnityEvent m_OnButtonReleased = new();
 
         private Transform m_InteractorTransform = null;
-        private Vector3 m_ButtonOriginalPosition = Vector3.negativeInfinity;
-        private float m_EntryPointY = float.PositiveInfinity;
+        private Vector3 m_ButtonOriginalLocalPosition = Vector3.positiveInfinity;
+        private Vector3 m_EntryPoint = Vector3.positiveInfinity;
         private bool m_IsCorrectSide = false;
         private float m_ButtonPressLimit = 0;
 
@@ -44,7 +44,7 @@ namespace com.NW84P
             base.OnEnable();
             if (m_ButtonTransform != null)
             {
-                m_ButtonOriginalPosition = m_ButtonTransform.position;
+                m_ButtonOriginalLocalPosition = m_ButtonTransform.localPosition;
                 m_ButtonPressLimit = GetPressLimit();
                 hoverEntered.AddListener(HoverStarted);
                 hoverExited.AddListener(HoverEnded);
@@ -59,9 +59,7 @@ namespace com.NW84P
         {
             hoverEntered.RemoveListener(HoverStarted);
             hoverExited.RemoveListener(HoverEnded);
-            m_InteractorTransform = null;
-            IsPressed = false;
-            m_EntryPointY = float.PositiveInfinity;
+            ResetState(triggerOnButtonRelease: false);
             base.OnDisable();
         }
 
@@ -93,21 +91,22 @@ namespace com.NW84P
 
         private float CalculateButtonHeight()
         {
-            var diff = Mathf.Max(0, m_EntryPointY - m_InteractorTransform.position.y - m_ButtonOffset);
-            var newHeight = Mathf.Clamp(m_ButtonOriginalPosition.y - diff, m_ButtonPressLimit, m_ButtonOriginalPosition.y);
-            m_ButtonTransform.position = new(m_ButtonOriginalPosition.x, newHeight, m_ButtonOriginalPosition.z);
+            var distance = transform.InverseTransformDirection(m_EntryPoint - m_InteractorTransform.position);
+            var diff = Mathf.Max(0, distance.y - m_ButtonOffset);
+            var newHeight = Mathf.Clamp(m_ButtonOriginalLocalPosition.y - diff, m_ButtonPressLimit, m_ButtonOriginalLocalPosition.y);
+            m_ButtonTransform.localPosition = new(m_ButtonOriginalLocalPosition.x, newHeight, m_ButtonOriginalLocalPosition.z);
             return newHeight;
         }
 
         private void SetEntryPoint()
         {
-            if (float.IsPositiveInfinity(m_EntryPointY))
+            if (m_EntryPoint.y == Vector3.positiveInfinity.y)
             {
-                m_EntryPointY = m_InteractorTransform.position.y;
+                m_EntryPoint = m_InteractorTransform.position;
             }
         }
 
-        private float GetPressLimit() => m_ButtonOriginalPosition.y - m_DistanceToBePressed;
+        private float GetPressLimit() => m_ButtonOriginalLocalPosition.y - m_DistanceToBePressed;
 
         private void InvokeAction(bool pressed, Action action)
         {
@@ -125,7 +124,16 @@ namespace com.NW84P
                 m_InteractorTransform = args.interactorObject.GetAttachTransform(this);
 
                 // improve is correct side check
-                m_IsCorrectSide = m_InteractorTransform.position.y > m_ButtonOriginalPosition.y;
+                VerifyCorrectSize();
+            }
+        }
+
+        private void VerifyCorrectSize()
+        {
+            if (!m_IsCorrectSide)
+            {
+                var interactorLocalPosition = m_ButtonTransform.InverseTransformDirection(m_InteractorTransform.position);
+                m_IsCorrectSide = interactorLocalPosition.y > m_ButtonOriginalLocalPosition.y;
             }
         }
 
@@ -134,18 +142,28 @@ namespace com.NW84P
             // do this on disable?
             if (m_InteractorTransform != null)
             {
-                m_InteractorTransform = null;
-                m_EntryPointY = float.PositiveInfinity;
-                m_ButtonTransform.position = m_ButtonOriginalPosition;
-                InvokeAction(pressed: false, () => OnButtonReleased.Invoke());
+                m_ButtonTransform.localPosition = m_ButtonOriginalLocalPosition;
+                ResetState(triggerOnButtonRelease: true);
             }
+        }
+
+        private void ResetState(bool triggerOnButtonRelease)
+        {
+            m_InteractorTransform = null;
+            m_EntryPoint = Vector3.positiveInfinity;
+            m_IsCorrectSide = false;
+            if(!triggerOnButtonRelease)
+            {
+                IsPressed = false;
+            }
+            InvokeAction(pressed: false, () => OnButtonReleased.Invoke());
         }
 
 #if UNITY_EDITOR
 
         public void OnValidate()
         {
-            if (m_ButtonOriginalPosition != Vector3.negativeInfinity)
+            if (m_ButtonOriginalLocalPosition != Vector3.positiveInfinity)
             {
                 m_ButtonPressLimit = GetPressLimit();
             }
