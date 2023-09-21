@@ -149,15 +149,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 219422352}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.49189174, w: 0.8706564}
-  m_LocalPosition: {x: 0.34, y: 0.78459996, z: 0.142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.423, y: 0.78459996, z: 0.1386}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1546134190}
   - {fileID: 1014404831}
   m_Father: {fileID: 1145920874}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 58.93}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &219422354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_ButtonTransform: {fileID: 1546134190}
-  m_ButtonOffset: 0.14
+  m_ButtonOffset: 0.017
   m_DistanceToBePressed: 0.01
   m_OnButtonPressed:
     m_PersistentCalls:
@@ -281,19 +281,7 @@ MonoBehaviour:
         m_CallState: 2
   m_OnButtonReleased:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 219422355}
-        m_TargetAssemblyTypeName: UnityEngine.AudioSource, UnityEngine
-        m_MethodName: PlayOneShot
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 16fba6d30ed741d4a9fdd6e79ee2f3ac, type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!82 &219422355
 AudioSource:
   m_ObjectHideFlags: 0
@@ -314,10 +302,10 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.5
+  MaxDistance: 2
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -325,23 +313,32 @@ AudioSource:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: 0
+      time: 0.25
       value: 1
-      inSlope: 0
-      outSlope: 0
+      inSlope: -4.0016
+      outSlope: -4.0016
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.3079071
+      value: 0.36827087
+      inSlope: -1.0004
+      outSlope: -1.0004
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: -0.042129602
+      outSlope: -0.042129602
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
+      inWeight: 0.58072746
+      outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
@@ -819,7 +816,6 @@ GameObject:
   - component: {fileID: 1014404831}
   - component: {fileID: 1014404834}
   - component: {fileID: 1014404833}
-  - component: {fileID: 1014404835}
   m_Layer: 0
   m_Name: Base
   m_TagString: Untagged
@@ -891,28 +887,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1014404830}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &1014404835
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1014404830}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1019494594
 GameObject:
@@ -1365,7 +1339,7 @@ Transform:
   m_GameObject: {fileID: 1546134189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0395, y: 0.03, z: -0.002}
+  m_LocalPosition: {x: -0.0286, y: 0.03, z: -0.002}
   m_LocalScale: {x: 0.05, y: 0.01, z: 0.05}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1497,7 +1471,7 @@ Transform:
   m_GameObject: {fileID: 1820778402}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.366, y: 0.3823, z: 0.139}
+  m_LocalPosition: {x: 0.449, y: 0.3823, z: 0.139}
   m_LocalScale: {x: 0.25, y: 0.3823, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []

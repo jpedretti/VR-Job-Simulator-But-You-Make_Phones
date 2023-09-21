@@ -107,7 +107,7 @@ namespace com.NW84P
         }
 
         private Vector3 GetIteractorLocalPosition()
-            => m_ThisTransform.InverseTransformDirection(m_InteractorTransform.position);
+            => m_ThisTransform.InverseTransformPoint(m_InteractorTransform.position);
 
         private float GetPressLimit() => m_ButtonOriginalLocalPosition.y - m_DistanceToBePressed;
 
