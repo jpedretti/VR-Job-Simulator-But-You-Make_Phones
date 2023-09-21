@@ -5,21 +5,32 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.NW84P
 {
+    /// <summary>
+    /// Button is a custom XR interactable class that represents a pressable button.
+    /// It inherits from XRBaseInteractable and provides functionality for detecting button press and release events.
+    /// The class exposes UnityEvents for button press and release actions, allowing users to easily configure custom behaviors.
+    /// </summary>
     public class Button : XRBaseInteractable
     {
         [Header("Button Configuration")]
+
+        [Tooltip("The transform of the button object. Needs to be a child of this object")]
         [SerializeField]
         private Transform m_ButtonTransform;
 
+        [Tooltip("The offset of the button. Adjust this value if the button starts moving sooner or later than expected")]
         [SerializeField]
         private float m_ButtonOffset;
 
+        [Tooltip("The distance the button needs to be pushed to be considered as pressed.")]
         [SerializeField]
         private float m_DistanceToBePressed;
 
+        [Tooltip("The event triggered when the button is pressed.")]
         [SerializeField]
         private UnityEvent m_OnButtonPressed = new();
 
+        [Tooltip("The event triggered when the button is released.")]
         [SerializeField]
         private UnityEvent m_OnButtonReleased = new();
 
@@ -153,6 +164,16 @@ namespace com.NW84P
             if (m_ButtonOriginalLocalPosition.y != Vector3.positiveInfinity.y)
             {
                 m_ButtonPressLimit = GetPressLimit();
+            }
+
+            if (m_ButtonTransform == null)
+            {
+                Debug.LogError($"The button transform is not set in {gameObject}");
+            }
+
+            if (!m_ButtonTransform.IsChildOf(transform))
+            {
+                Debug.LogError($"The button transform is not a child of {gameObject}");
             }
         }
 
