@@ -155,7 +155,7 @@ namespace com.NW84P
                 m_ButtonPressLimit = GetPressLimit();
             }
         }
-    }
 
 #endif
+    }
 }
