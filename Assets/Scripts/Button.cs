@@ -3,12 +3,6 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
-#if UNITY_EDITOR
-
-using UnityEditor;
-
-#endif
-
 namespace com.NW84P
 {
     public class Button : XRBaseInteractable
@@ -18,7 +12,7 @@ namespace com.NW84P
         private Transform m_ButtonTransform;
 
         [SerializeField]
-        private float m_ButtonOffset = 0;
+        private float m_ButtonOffset;
 
         [SerializeField]
         private float m_DistanceToBePressed;
@@ -30,8 +24,8 @@ namespace com.NW84P
         private UnityEvent m_OnButtonReleased = new();
 
         private Transform m_InteractorTransform = null;
+        private Transform m_ThisTransform;
         private Vector3 m_ButtonOriginalLocalPosition = Vector3.positiveInfinity;
-        private Vector3 m_EntryPoint = Vector3.positiveInfinity;
         private bool m_IsCorrectSide = false;
         private float m_ButtonPressLimit = 0;
 
@@ -42,6 +36,7 @@ namespace com.NW84P
         protected override void OnEnable()
         {
             base.OnEnable();
+            m_ThisTransform = transform;
             if (m_ButtonTransform != null)
             {
                 m_ButtonOriginalLocalPosition = m_ButtonTransform.localPosition;
@@ -66,12 +61,14 @@ namespace com.NW84P
         protected override void ProcessInteractionStrength(XRInteractionUpdateOrder.UpdatePhase updatePhase)
         {
             base.ProcessInteractionStrength(updatePhase);
-            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic && m_InteractorTransform != null)
             {
-                if (m_InteractorTransform != null && m_IsCorrectSide)
+                var interactorLocalPosition = GetIteractorLocalPosition();
+                VerifyCorrectSide(interactorLocalPosition);
+
+                if (m_IsCorrectSide)
                 {
-                    SetEntryPoint();
-                    float newHeight = CalculateButtonHeight();
+                    float newHeight = CalculateButtonHeight(interactorLocalPosition);
                     InvokeEvents(pressed: newHeight <= m_ButtonPressLimit);
                 }
             }
@@ -89,22 +86,17 @@ namespace com.NW84P
             }
         }
 
-        private float CalculateButtonHeight()
+        private float CalculateButtonHeight(Vector3 interactorLocalPosition)
         {
-            var distance = transform.InverseTransformDirection(m_EntryPoint - m_InteractorTransform.position);
-            var diff = Mathf.Max(0, distance.y - m_ButtonOffset);
+            var distance = interactorLocalPosition - m_ButtonOriginalLocalPosition;
+            var diff = Mathf.Max(0, m_ButtonOffset - distance.y);
             var newHeight = Mathf.Clamp(m_ButtonOriginalLocalPosition.y - diff, m_ButtonPressLimit, m_ButtonOriginalLocalPosition.y);
             m_ButtonTransform.localPosition = new(m_ButtonOriginalLocalPosition.x, newHeight, m_ButtonOriginalLocalPosition.z);
             return newHeight;
         }
 
-        private void SetEntryPoint()
-        {
-            if (m_EntryPoint.y == Vector3.positiveInfinity.y)
-            {
-                m_EntryPoint = m_InteractorTransform.position;
-            }
-        }
+        private Vector3 GetIteractorLocalPosition()
+            => m_ThisTransform.InverseTransformDirection(m_InteractorTransform.position);
 
         private float GetPressLimit() => m_ButtonOriginalLocalPosition.y - m_DistanceToBePressed;
 
@@ -122,24 +114,20 @@ namespace com.NW84P
             if (m_InteractorTransform == null)
             {
                 m_InteractorTransform = args.interactorObject.GetAttachTransform(this);
-
-                // improve is correct side check
-                VerifyCorrectSize();
+                VerifyCorrectSide(GetIteractorLocalPosition());
             }
         }
 
-        private void VerifyCorrectSize()
+        private void VerifyCorrectSide(Vector3 interactorLocalPosition)
         {
             if (!m_IsCorrectSide)
             {
-                var interactorLocalPosition = m_ButtonTransform.InverseTransformDirection(m_InteractorTransform.position);
-                m_IsCorrectSide = interactorLocalPosition.y > m_ButtonOriginalLocalPosition.y;
+                m_IsCorrectSide = interactorLocalPosition.y > m_ButtonOriginalLocalPosition.y + m_ButtonOffset;
             }
         }
 
         private void HoverEnded(HoverExitEventArgs args)
         {
-            // do this on disable?
             if (m_InteractorTransform != null)
             {
                 m_ButtonTransform.localPosition = m_ButtonOriginalLocalPosition;
@@ -150,9 +138,8 @@ namespace com.NW84P
         private void ResetState(bool triggerOnButtonRelease)
         {
             m_InteractorTransform = null;
-            m_EntryPoint = Vector3.positiveInfinity;
             m_IsCorrectSide = false;
-            if(!triggerOnButtonRelease)
+            if (!triggerOnButtonRelease)
             {
                 IsPressed = false;
             }
@@ -163,7 +150,7 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (m_ButtonOriginalLocalPosition != Vector3.positiveInfinity)
+            if (m_ButtonOriginalLocalPosition.y != Vector3.positiveInfinity.y)
             {
                 m_ButtonPressLimit = GetPressLimit();
             }
