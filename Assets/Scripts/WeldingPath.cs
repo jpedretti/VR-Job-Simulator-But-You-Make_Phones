@@ -25,14 +25,9 @@ namespace com.NW84P
 
         public void Weld(string gameObjectName)
         {
-            if (_pathPoints.Remove(gameObjectName, out var point))
+            if (_pathPoints.Remove(gameObjectName) && _pathPoints.Count == 0)
             {
-                Destroy(point);
-                if (_pathPoints.Count == 0)
-                {
-                    _onWelded.Invoke();
-                    Debug.Log("Welding path completed!");
-                }
+                _onWelded.Invoke();
             }
         }
     }
