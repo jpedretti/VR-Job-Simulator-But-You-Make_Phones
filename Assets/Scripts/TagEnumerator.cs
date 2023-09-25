@@ -71,7 +71,7 @@ namespace Tzar
 
             for (int i = 0; i < tags.Length; i++)
             {
-                members = members + "public const string T_" + ClearSpecialCharacters(tags[i]) + " = @\"" + tags[i] + "\";\n";
+                members = members + "public const string " + ClearSpecialCharacters(tags[i]) + " = @\"" + tags[i] + "\";\n";
             }
 
             return members;
