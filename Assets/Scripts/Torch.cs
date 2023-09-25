@@ -6,7 +6,6 @@ namespace com.NW84P
     [Tooltip("The Torch class represents a grabbable torch object in a VR environment with a fire particle effect and a capsule collider for interaction.")]
     public class Torch : XRGrabInteractable
     {
-
         private const float _ParticleLifeTime = 0.15f;
         private const float _FireColliderHeight = 0.017f;
 
