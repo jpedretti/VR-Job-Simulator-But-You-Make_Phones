@@ -15,6 +15,10 @@ namespace com.NW84P
         private void Start()
         {
             _weldingPath = GetComponentInParent<WeldingPath>();
+            if(_weldingPath == null)
+            {
+                Debug.LogError($"WeldingPath is null on {gameObject.name}");
+            }
             _fireParticle = GetComponent<ParticleSystem>();
             _lineRenderer = GetComponent<LineRenderer>();
         }
@@ -47,11 +51,27 @@ namespace com.NW84P
 
         private IEnumerator Weld()
         {
-            yield return new WaitForSeconds(_TIME_TO_WELD);
+            yield return WaitForSecondsCache.Get(_TIME_TO_WELD);
             _isWelded = true;
             _fireParticle.Stop();
             _lineRenderer.enabled = false;
             _weldingPath.Weld(name);
         }
+
+#if UNITY_EDITOR
+
+        public void OnValidate()
+        {
+            if (GetComponent<ParticleSystem>() == null)
+            {
+                Debug.LogError($"FireParticle is null on {gameObject.name}");
+            }
+            if (GetComponent<LineRenderer>() == null)
+            {
+                Debug.LogError($"LineRenderer is null on {gameObject.name}");
+            }
+        }
+
+#endif
     }
 }
