@@ -30,5 +30,17 @@ namespace com.NW84P
                 _onWelded.Invoke();
             }
         }
+
+#if UNITY_EDITOR
+
+        public void OnValidate()
+        {
+            if (_pathPointsParent == null)
+            {
+                Debug.LogError($"PathPointsParent is null on {gameObject.name}");
+            }
+        }
+
+#endif
     }
 }

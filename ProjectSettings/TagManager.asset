@@ -4,11 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - WeldPath
-  - Anchor
   - TorchFire
-  - Torch
-  - BatteryConnector
+  - Battery
+  - Anchor
   layers:
   - Default
   - TransparentFX
