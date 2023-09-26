@@ -1967,6 +1967,10 @@ PrefabInstance:
       propertyPath: weldingPath
       value: 
       objectReference: {fileID: 1190128975}
+    - target: {fileID: 883893970843120604, guid: 0e592a8c5e15c784dafb47485b400fc5, type: 3}
+      propertyPath: m_MovementType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4996287978364753132, guid: 0e592a8c5e15c784dafb47485b400fc5, type: 3}
       propertyPath: m_TagString
       value: TorchFire
