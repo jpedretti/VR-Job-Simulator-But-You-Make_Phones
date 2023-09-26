@@ -5,9 +5,12 @@ namespace com.NW84P
 {
     public class WeldingPoint : MonoBehaviour
     {
+        private const float _TIME_TO_WELD = 0.6f;
+
         private WeldingPath _weldingPath;
         private ParticleSystem _fireParticle;
         private LineRenderer _lineRenderer;
+        private bool _isWelded;
 
         private void Start()
         {
@@ -18,7 +21,7 @@ namespace com.NW84P
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag(Tags.TorchFire))
+            if (!_isWelded && other.CompareTag(Tags.TorchFire))
             {
                 _fireParticle.Play();
                 StartCoroutine(Weld());
@@ -27,7 +30,7 @@ namespace com.NW84P
 
         public void OnTriggerExit(Collider other)
         {
-            if (other.CompareTag(Tags.TorchFire))
+            if (!_isWelded && other.CompareTag(Tags.TorchFire))
             {
                 _fireParticle.Stop();
                 StopAllCoroutines();
@@ -36,7 +39,7 @@ namespace com.NW84P
 
         public void OnParticleSystemStopped()
         {
-            if (!_lineRenderer.enabled)
+            if (_isWelded)
             {
                 Destroy(gameObject);
             }
@@ -44,9 +47,10 @@ namespace com.NW84P
 
         private IEnumerator Weld()
         {
-            yield return new WaitForSeconds(2);
-            _lineRenderer.enabled = false;
+            yield return new WaitForSeconds(_TIME_TO_WELD);
+            _isWelded = true;
             _fireParticle.Stop();
+            _lineRenderer.enabled = false;
             _weldingPath.Weld(name);
         }
     }
