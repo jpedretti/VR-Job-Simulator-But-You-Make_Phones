@@ -7,6 +7,8 @@ TagManager:
   - WeldPath
   - Anchor
   - TorchFire
+  - Torch
+  - BatteryConnector
   layers:
   - Default
   - TransparentFX
