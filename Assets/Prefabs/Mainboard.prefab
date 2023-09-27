@@ -104394,8 +104394,8 @@ GameObject:
   - component: {fileID: 8147913086045000819}
   - component: {fileID: 2705316993884102110}
   - component: {fileID: 1735739243918161224}
-  - component: {fileID: 3628216008770837053}
   - component: {fileID: 9071550223780852013}
+  - component: {fileID: 6341451326564580615}
   m_Layer: 0
   m_Name: Mainboard
   m_TagString: Untagged
@@ -104517,8 +104517,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.0008072047, y: 0.000036671914, z: 0.000025771857}
-  m_Center: {x: 0.000010242089, y: 0.000093576105, z: -0.0000033456085}
+  m_Size: {x: 0.00080720475, y: 0.000036671914, z: 0.000032038464}
+  m_Center: {x: 0.00001024209, y: 0.000093576105, z: -0.000004137504}
 --- !u!54 &1735739243918161224
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -104546,7 +104546,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!114 &3628216008770837053
+--- !u!114 &9071550223780852013
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104555,7 +104555,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7381822299415718909}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60523e0647cc6ab43acc73cb266a32a7, type: 3}
+  m_Script: {fileID: 11500000, guid: 1a1fc558c37a2be46af44d2b1b3bf092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _weldedMainBoardPrefab: {fileID: 6022375796958321309, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
+--- !u!114 &6341451326564580615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7381822299415718909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88005883326d450498d1044999338187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
@@ -104578,9 +104591,9 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8213645588057704155}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
+      - m_Target: {fileID: 8147913086045000819}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -104590,9 +104603,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 8147913086045000819}
-        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
-        m_MethodName: set_enabled
+      - m_Target: {fileID: 8213645588057704155}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -104630,19 +104643,6 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
---- !u!114 &9071550223780852013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7381822299415718909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a1fc558c37a2be46af44d2b1b3bf092, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _weldedMainBoardPrefab: {fileID: 6022375796958321309, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
 --- !u!1 &7683065543410020914
 GameObject:
   m_ObjectHideFlags: 0
