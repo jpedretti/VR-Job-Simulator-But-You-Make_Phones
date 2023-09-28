@@ -3,7 +3,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.NW84P
 {
-    public class MainboardSocket : XRSocketInteractor
+    public class CustomSocket : XRSocketInteractor
     {
         private bool _isSnapped;
         private IXRSelectInteractor _hand;
