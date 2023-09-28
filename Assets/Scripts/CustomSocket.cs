@@ -7,10 +7,10 @@ namespace com.NW84P
     {
         private bool _isSnapped;
         private IXRSelectInteractor _hand;
-        private XRGrabInteractable _battery;
+        private XRGrabInteractable _interactable;
 
         private const float _SNAPPING_ALIGNMENT_THRESHOLD = 0.994f;
-        private const float _UNSNAPPING_DISTANCE_THRESHOLD = 1f;
+        private const float _UNSNAPPING_DISTANCE_THRESHOLD = 0.8f;
 
         protected override void OnEnable()
         {
@@ -18,14 +18,14 @@ namespace com.NW84P
             hoverSocketSnapping = false;
             hoverEntered.AddListener(HoverStarted);
             hoverExited.AddListener(HoverEnded);
-            selectExited.AddListener(BatteryDeselected);
+            selectExited.AddListener(InteractableDeselected);
         }
 
         protected override void OnDisable()
         {
             hoverEntered.RemoveListener(HoverStarted);
             hoverExited.RemoveListener(HoverEnded);
-            selectExited.RemoveListener(BatteryDeselected);
+            selectExited.RemoveListener(InteractableDeselected);
             base.OnDisable();
         }
 
@@ -33,46 +33,57 @@ namespace com.NW84P
         {
             base.ProcessInteractor(updatePhase);
 
-            if (_battery != null && _hand != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+            if (_interactable != null && _hand != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
-                var batteryTransform = _battery.transform;
-                StartSnap(batteryTransform);
-                EndSnap(batteryTransform);
+                var interactableTransform = _interactable.transform;
+                StartSnap(interactableTransform);
+                EndSnap(interactableTransform);
             }
         }
 
-        private void EndSnap(Transform batteryTransform)
+        private void EndSnap(Transform interactableTransform)
         {
-            if (_isSnapped && Vector3.Distance(batteryTransform.position, _hand.transform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
+            if (_isSnapped && Vector3.Distance(interactableTransform.position, _hand.transform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
             {
-                EndSocketSnapping(_battery);
+                EndSocketSnapping(_interactable);
                 _isSnapped = false;
             }
         }
 
-        private void StartSnap(Transform batteryTransform)
+        private void StartSnap(Transform interactableTransform)
         {
-            var batteryLocalUp = batteryTransform.InverseTransformDirection(Vector3.up);
-            var attachLocalUp = attachTransform.InverseTransformDirection(Vector3.up);
-
-            if (!_isSnapped && Vector3.Dot(batteryLocalUp, attachLocalUp) >= _SNAPPING_ALIGNMENT_THRESHOLD)
+            if (!_isSnapped && IsAtRightPosition(interactableTransform))
             {
-                StartSocketSnapping(_battery);
+                StartSocketSnapping(_interactable);
                 _isSnapped = true;
             }
         }
 
-        private void BatteryDeselected(SelectExitEventArgs args) => _isSnapped = false;
+        private bool IsAtRightPosition(Transform interactableTransform)
+        {
+            var interactableLocalUp = interactableTransform.InverseTransformDirection(Vector3.up);
+            var attachLocalUp = attachTransform.InverseTransformDirection(Vector3.up);
+
+            var interactableLocalForward = interactableTransform.InverseTransformDirection(Vector3.forward);
+            var attachLocalForward = attachTransform.InverseTransformDirection(Vector3.forward);
+
+            var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= _SNAPPING_ALIGNMENT_THRESHOLD;
+            var rightForward = Vector3.Dot(interactableLocalForward, attachLocalForward) >= _SNAPPING_ALIGNMENT_THRESHOLD;
+
+            return rightUp && rightForward;
+        }
+
+        private void InteractableDeselected(SelectExitEventArgs args) => _isSnapped = false;
 
         private void HoverStarted(HoverEnterEventArgs args)
         {
-            _battery = args.interactableObject as XRGrabInteractable;
+            _interactable = args.interactableObject as XRGrabInteractable;
 
-            if(_battery == null) return;
-            if(_battery.interactorsSelecting.Count == 0) return;
+            if(_interactable == null) return;
+            if(_interactable.interactorsSelecting.Count == 0) return;
 
-            _battery.selectExited.AddListener(BatterySelectExited);
-            _hand = _battery.interactorsSelecting[0];
+            _interactable.selectExited.AddListener(InteractableSelectExited);
+            _hand = _interactable.interactorsSelecting[0];
         }
 
         private void HoverEnded(HoverExitEventArgs args)
@@ -81,7 +92,7 @@ namespace com.NW84P
             Cleanup();
         }
 
-        private void BatterySelectExited(SelectExitEventArgs args)
+        private void InteractableSelectExited(SelectExitEventArgs args)
         {
             if (args.interactableObject == _hand)
             {
@@ -93,10 +104,10 @@ namespace com.NW84P
         {
             _hand = null;
 
-            if (_battery != null)
+            if (_interactable != null)
             {
-                _battery.selectExited.RemoveListener(BatterySelectExited);
-                _battery = null;
+                _interactable.selectExited.RemoveListener(InteractableSelectExited);
+                _interactable = null;
             }
         }
     }
