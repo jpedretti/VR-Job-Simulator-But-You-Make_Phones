@@ -43,7 +43,8 @@ namespace com.NW84P
 
         private void EndSnap(Transform interactableTransform)
         {
-            if (_isSnapped && Vector3.Distance(interactableTransform.position, _hand.transform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
+            if (_isSnapped
+                && Vector3.Distance(interactableTransform.position, _hand.transform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
             {
                 EndSocketSnapping(_interactable);
                 _isSnapped = false;
@@ -79,11 +80,11 @@ namespace com.NW84P
         {
             _interactable = args.interactableObject as XRGrabInteractable;
 
-            if(_interactable == null) return;
-            if(_interactable.interactorsSelecting.Count == 0) return;
-
-            _interactable.selectExited.AddListener(InteractableSelectExited);
-            _hand = _interactable.interactorsSelecting[0];
+            if (_interactable != null && _interactable.interactorsSelecting.Count > 0)
+            {
+                _interactable.selectExited.AddListener(InteractableSelectExited);
+                _hand = _interactable.interactorsSelecting[0];
+            }
         }
 
         private void HoverEnded(HoverExitEventArgs args)
