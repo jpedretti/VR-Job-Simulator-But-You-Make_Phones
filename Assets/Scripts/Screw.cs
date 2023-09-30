@@ -197,10 +197,23 @@ namespace com.NW84P
 
         private void RotateScrewdriverWithHand()
         {
-            var sourceEuler = _screwSocketTransform.rotation.eulerAngles;
-            var originalRotationAxisRotation = _handOriginalRotation + _handTransform.rotation.eulerAngles.z;
-            var newRotation = Quaternion.Euler(sourceEuler.x, sourceEuler.y, originalRotationAxisRotation);
-            _screwdriverTransform.rotation = newRotation;
+            var normalizedScrewDistance = ScrewDistance / _DISTANCE_TO_BE_SCREWED;
+            _rotationMultiplier = Mathf.Lerp(1f, 0.25f, normalizedScrewDistance);
+
+            var currentRotation = _handTransform.rotation;
+            var rotationDelta = currentRotation * Quaternion.Inverse(_handPreviousRotation);
+
+            rotationDelta.ToAngleAxis(out float angle, out Vector3 axis);
+            // Normalize the angle to be within the range of 0 to 360 degrees
+            angle = (angle %= 360) > 180 ? angle - 360 : angle;
+            var side = Vector3.Dot(axis, _vector3RotationAxis) < 0 ? -1 : 1;
+            angle = angle == 0 ? angle : angle * _rotationMultiplier;
+            _screwdriverTransform.Rotate(_vector3RotationAxis, angle * side);
+            _handPreviousRotation = currentRotation;
+            //var sourceEuler = _screwSocketTransform.rotation.eulerAngles;
+            //var originalRotationAxisRotation = _handPreviousRotation + _handTransform.rotation.eulerAngles.z;
+            //var newRotation = Quaternion.Euler(sourceEuler.x, sourceEuler.y, originalRotationAxisRotation * _rotationMultiplier);
+            //_screwdriverTransform.rotation = newRotation;
         }
 
         private bool IsAtRightPosition()
