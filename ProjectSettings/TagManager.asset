@@ -6,11 +6,8 @@ TagManager:
   tags:
   - ScrewDriverAttach
   - ScrewDriver
-  - Torch
   - TorchFire
   - Battery
-  - Anchor
-  - ScrewSocket
   layers:
   - Default
   - TransparentFX
