@@ -4,9 +4,13 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - ScrewDriverAttach
+  - ScrewDriver
+  - Torch
   - TorchFire
   - Battery
   - Anchor
+  - ScrewSocket
   layers:
   - Default
   - TransparentFX

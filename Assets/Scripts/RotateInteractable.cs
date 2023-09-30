@@ -5,13 +5,6 @@ namespace com.NW84P
 {
     public class RotateInteractable : XRBaseInteractable
     {
-        public enum RotationAxis
-        {
-            X,
-            Y,
-            Z
-        }
-
         [Header("Rotation Configuration")]
         [SerializeField]
         private RotationAxis _rotationAxis = RotationAxis.Y;
@@ -36,18 +29,10 @@ namespace com.NW84P
             }
         }
 
-        private Vector3 GetRotationAxisVector() => _rotationAxis switch
-        {
-            RotationAxis.X => Vector3.right,
-            RotationAxis.Y => Vector3.up,
-            RotationAxis.Z => Vector3.forward,
-            _ => Vector3.up,
-        };
-
         protected override void OnEnable()
         {
             base.OnEnable();
-            _vector3RotationAxis = GetRotationAxisVector();
+            _vector3RotationAxis = _rotationAxis.ToVector3Axis();
             selectEntered.AddListener(SeclectStarted);
             selectExited.AddListener(SelectEnded);
         }
