@@ -12,5 +12,4 @@ public const string ScrewDriver = @"ScrewDriver";
 public const string TorchFire = @"TorchFire";
 public const string Battery = @"Battery";
 public const string Torch = @"Torch";
-public const string Anchor = @"Anchor";
 }

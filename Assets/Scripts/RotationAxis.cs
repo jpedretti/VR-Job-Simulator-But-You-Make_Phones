@@ -11,20 +11,40 @@ namespace com.NW84P
 
     public static class RotationAxisExtensions
     {
-        public static Vector3 ToVector3Axis(this RotationAxis rotationAxis) => rotationAxis switch
+        public static Vector3 ToVector3Axis(this RotationAxis rotationAxis)
         {
-            RotationAxis.X => Vector3.right,
-            RotationAxis.Y => Vector3.up,
-            RotationAxis.Z => Vector3.forward,
-            _ => Vector3.up,
-        };
+            Vector3 result = rotationAxis switch
+            {
+                RotationAxis.X => Vector3.right,
+                RotationAxis.Y => Vector3.up,
+                RotationAxis.Z => Vector3.forward,
+                _ => Vector3.up,
+            };
+            return result;
+        }
 
-        public static float GetAxisValue(this RotationAxis rotationAxis, Vector3 vector3) => rotationAxis switch
+        public static float GetAxisValue(this RotationAxis rotationAxis, Vector3 vector3)
         {
-            RotationAxis.X => vector3.x,
-            RotationAxis.Y => vector3.y,
-            RotationAxis.Z => vector3.z,
-            _ => vector3.y,
-        };
+            float result = rotationAxis switch
+            {
+                RotationAxis.X => vector3.x,
+                RotationAxis.Y => vector3.y,
+                RotationAxis.Z => vector3.z,
+                _ => vector3.y,
+            };
+            return result;
+        }
+
+        public static Quaternion EulerAxisValue(this RotationAxis rotationAxis, Vector3 fixedPart, Vector3 rotationPart)
+        {
+            Quaternion result = rotationAxis switch
+            {
+                RotationAxis.X => Quaternion.Euler(rotationPart.x, fixedPart.y, fixedPart.z),
+                RotationAxis.Y => Quaternion.Euler(fixedPart.x, rotationPart.y, fixedPart.z),
+                RotationAxis.Z => Quaternion.Euler(fixedPart.x, fixedPart.y, rotationPart.z),
+                _ => Quaternion.Euler(fixedPart.x, rotationPart.y, fixedPart.z),
+            };
+            return result;
+        }
     }
 }
