@@ -1,21 +1,27 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.NW84P
 {
     public class Screw : MonoBehaviour
     {
+        #region Serialized Fields
+
         [SerializeField]
         private RotationAxis _rotationAxis = RotationAxis.Y;
 
         [SerializeField]
-        private float _rotationMultiplier = 1f;
-
-        [SerializeField]
         private Transform _screwSocketTransform;
 
-        private const float _SCREW_MOVE_DISTANCE = 0.00003f;
+        #endregion Serialized Fields
+
+        #region Constants
+
+        private const float _SCREW_MOVE_DISTANCE = 0.00001f;
         private const float _SCREW_DISTANCE = 0.006F;
+
+        #endregion Constants
 
         #region Screw
 
@@ -31,27 +37,40 @@ namespace com.NW84P
         private Transform _screwdriverAttachTransform;
         private Quaternion _screwdriverPreviousRotation;
         private XRGrabInteractable _screwdriverInteractable;
+        private Vector3 _screwdriverAttachDistance;
 
         #endregion ScrewDriver
 
         #region Hand
 
         private float _handOriginalRotation;
+        private Transform _handTransform;
 
         #endregion Hand
 
-        private Transform _handTransform;
+        #region Configurations
+
+        private float _rotationMultiplier = 1f;
         private bool _isSnapped;
-        private Vector3 _distance;
         private bool _isValidTriggerEnter;
         private bool _canSnap;
+
+        #endregion Configurations
+
+        #region Private Properties
 
         private bool IsScrewPositionBelowInitial
             => _rotationAxis.GetAxisValue(_screwTransform.position) < _rotationAxis.GetAxisValue(_screwInitialPosition);
 
-        private bool IsScrewPositionExceedingMaxDistance
+        private bool IsScrewScrewed
             => _rotationAxis.GetAxisValue(_screwTransform.position) - _rotationAxis.GetAxisValue(_screwInitialPosition)
                 > _SCREW_DISTANCE;
+
+        #endregion Private Properties
+
+        public bool IsScrewed { get; private set; }
+
+        public UnityEvent OnScrewed = new();
 
         private void Start()
         {
@@ -115,7 +134,7 @@ namespace com.NW84P
                 }
             }
 
-            _distance = new(0, 0, _screwdriverAttachTransform.position.z - _screwdriverTransform.position.z);
+            _screwdriverAttachDistance = new(0, 0, _screwdriverAttachTransform.position.z - _screwdriverTransform.position.z);
         }
 
         public void OnTriggerExit(Collider other)
@@ -131,13 +150,12 @@ namespace com.NW84P
             _isValidTriggerEnter = true;
             _isSnapped = false;
             _canSnap = false;
-            _distance = Vector3.zero;
+            _screwdriverAttachDistance = Vector3.zero;
             _screwdriverTransform = null;
             _screwdriverAttachTransform = null;
             if (_screwdriverInteractable != null)
             {
-                _screwdriverInteractable.trackPosition = true;
-                _screwdriverInteractable.trackRotation = true;
+                EnableInteractableTracking(enabled: true);
                 _screwdriverInteractable.selectExited.RemoveListener(SelectionEnded);
                 _screwdriverInteractable.activated.RemoveListener(ActivationStarted);
                 _screwdriverInteractable = null;
@@ -146,13 +164,12 @@ namespace com.NW84P
 
         public void Update()
         {
-            if (_screwdriverTransform != null)
+            if (_screwdriverTransform != null && !IsScrewed)
             {
                 if (!_isSnapped && _canSnap && IsAtRightPosition())
                 {
                     _isSnapped = true;
-                    _screwdriverInteractable.trackPosition = false;
-                    _screwdriverInteractable.trackRotation = false;
+                    EnableInteractableTracking(enabled: false);
                     RotateScrewdriverWithHand();
                     _screwdriverPreviousRotation = _screwdriverTransform.rotation;
                 }
@@ -160,17 +177,22 @@ namespace com.NW84P
                 if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > 0.15f))
                 {
                     _isSnapped = false;
-                    _screwdriverInteractable.trackPosition = true;
-                    _screwdriverInteractable.trackRotation = true;
+                    EnableInteractableTracking(enabled: true);
                 }
 
                 if (_isSnapped)
                 {
                     RotateScrewdriverWithHand();
                     PerformScrew();
-                    _screwdriverTransform.position = _screwSocketTransform.position - _distance;
+                    _screwdriverTransform.position = _screwSocketTransform.position - _screwdriverAttachDistance;
                 }
             }
+        }
+
+        private void EnableInteractableTracking(bool enabled)
+        {
+            _screwdriverInteractable.trackPosition = enabled;
+            _screwdriverInteractable.trackRotation = enabled;
         }
 
         private void RotateScrewdriverWithHand()
@@ -190,7 +212,7 @@ namespace com.NW84P
 
         private void PerformScrew()
         {
-            if (!IsScrewPositionBelowInitial && !IsScrewPositionExceedingMaxDistance)
+            if (!IsScrewPositionBelowInitial && !IsScrewScrewed)
             {
                 var currentRotation = _screwdriverTransform.rotation;
                 var rotationDelta = currentRotation * Quaternion.Inverse(_screwdriverPreviousRotation);
@@ -215,10 +237,19 @@ namespace com.NW84P
             {
                 _screwTransform.position = _screwInitialPosition;
             }
-            else if (IsScrewPositionExceedingMaxDistance)
+            else if (IsScrewScrewed)
             {
                 _screwTransform.position = _screwInitialPosition + _vector3RotationAxis * _SCREW_DISTANCE;
+                UpdateToScrewedState();
             }
+        }
+
+        private void UpdateToScrewedState()
+        {
+            EnableInteractableTracking(enabled: true);
+            IsScrewed = true;
+            _canSnap = false;
+            OnScrewed.Invoke();
         }
 
         private void SelectionEnded(SelectExitEventArgs args) => _canSnap = false;
