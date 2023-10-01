@@ -46,5 +46,17 @@ namespace com.NW84P
             };
             return result;
         }
+
+        public static RotationAxis[] Others(this RotationAxis rotationAxis)
+        {
+            RotationAxis[] result = rotationAxis switch
+            {
+                RotationAxis.X => new RotationAxis[] { RotationAxis.Y, RotationAxis.Z },
+                RotationAxis.Y => new RotationAxis[] { RotationAxis.X, RotationAxis.Z },
+                RotationAxis.Z => new RotationAxis[] { RotationAxis.X, RotationAxis.Y },
+                _ => new RotationAxis[] { RotationAxis.Y, RotationAxis.Z },
+            };
+            return result;
+        }
     }
 }

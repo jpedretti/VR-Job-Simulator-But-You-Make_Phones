@@ -135,9 +135,6 @@ namespace com.NW84P
                     break;
                 }
             }
-            var screwdriverAttachPosition = _rotationAxis.GetAxisValue(_screwdriverAttachTransform.position);
-            var screwdriverPosition = _rotationAxis.GetAxisValue(_screwdriverTransform.position);
-            _screwdriverAttachDistance = new(0, 0, screwdriverAttachPosition - screwdriverPosition);
         }
 
         public void OnTriggerExit(Collider other)
@@ -157,8 +154,8 @@ namespace com.NW84P
                     _isSnapped = true;
                     EnableInteractableTracking(enabled: false);
                     var sourceEuler = _screwSocketTransform.rotation.eulerAngles;
-                    var newRotation = _rotationAxis.EulerAxisValue(sourceEuler, _handTransform.rotation.eulerAngles);
-                    _screwdriverTransform.rotation = newRotation;
+                    _screwdriverTransform.rotation = _rotationAxis.EulerAxisValue(sourceEuler, _handTransform.rotation.eulerAngles);
+                    _screwdriverAttachDistance = _screwdriverAttachTransform.position - _screwdriverTransform.position;
                 }
 
                 if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > _DISTANCE_TO_DETACH))
@@ -196,15 +193,14 @@ namespace com.NW84P
 
         private void PerformScrew()
         {
-            float angle = GetNewAngle();
+            var angle = GetNewAngle();
 
             // In this case the Z axis of the screw is in the opposite direction of the screwdriver So we need to rotate
             // the screwdriver in the opposite direction maybe it is better to make this configurable
             _screwdriverTransform.Rotate(_vector3RotationAxis, angle * -1);
 
             _screwTransform.Rotate(_vector3RotationAxis, angle);
-            float moveDistance = angle * _SCREW_MOVE_DISTANCE;
-            _screwTransform.position += _vector3RotationAxis * moveDistance;
+            _screwTransform.position += _vector3RotationAxis * angle * _SCREW_MOVE_DISTANCE;
 
             _screwdriverTransform.position = _screwSocketTransform.position - _screwdriverAttachDistance;
         }
