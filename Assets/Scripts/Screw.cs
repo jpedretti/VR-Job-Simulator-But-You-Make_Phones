@@ -20,6 +20,10 @@ namespace com.NW84P
 
         private const float _SCREW_MOVE_DISTANCE = 0.00001f;
         private const float _DISTANCE_TO_BE_SCREWED = 0.006F;
+        private const float _DISTANCE_TO_DETACH = 0.15f;
+        private const float _ALIGNEMENT_TRASHOLD = 0.85f;
+        private const float _MIN_ROTATION_MULTIPLIER = 0.25f;
+        private const float _MAX_ROTATION_MULTIPLIER = 1f;
 
         #endregion Constants
 
@@ -73,7 +77,7 @@ namespace com.NW84P
 
         private void Start()
         {
-            _screwTransform = transform.parent;
+            _screwTransform = transform;
             _vector3RotationAxis = _rotationAxis.ToVector3Axis();
             _screwInitialPosition = _screwTransform.position;
             _isValidTriggerEnter = true;
@@ -85,14 +89,14 @@ namespace com.NW84P
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag(Tags.ScrewDriver) && _isValidTriggerEnter)
+            if (_isValidTriggerEnter && other.gameObject.CompareTag(Tags.ScrewDriver))
             {
                 _screwdriverTransform = other.gameObject.transform;
                 if (InitializeXRComponents())
                 {
-                    _canSnap = true;
                     _isValidTriggerEnter = false;
                     SetScrewdriverAttach();
+                    _canSnap = true;
                 }
             }
         }
@@ -100,7 +104,7 @@ namespace com.NW84P
         private bool InitializeXRComponents()
         {
             var result = false;
-            if (_screwdriverTransform.gameObject.TryGetComponent<XRGrabInteractable>(out var interactable))
+            if (_screwdriverTransform != null && _screwdriverTransform.gameObject.TryGetComponent<XRGrabInteractable>(out var interactable))
             {
                 _screwdriverInteractable = interactable;
                 if (interactable.interactorsSelecting.Count > 0)
@@ -157,7 +161,7 @@ namespace com.NW84P
                     _screwdriverTransform.rotation = newRotation;
                 }
 
-                if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > 0.15f))
+                if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > _DISTANCE_TO_DETACH))
                 {
                     _isSnapped = false;
                     EnableInteractableTracking(enabled: true);
@@ -208,7 +212,7 @@ namespace com.NW84P
         private float GetNewAngle()
         {
             var normalizedScrewDistance = ScrewDistance / _DISTANCE_TO_BE_SCREWED;
-            var rotationMultiplier = Mathf.Lerp(1f, 0.25f, normalizedScrewDistance);
+            var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, normalizedScrewDistance);
 
             var currentRotation = _handTransform.rotation;
             var rotationDelta = currentRotation * Quaternion.Inverse(_handPreviousRotation);
@@ -217,8 +221,13 @@ namespace com.NW84P
 
             // Normalize the angle to be within the range of 0 to 360 degrees
             angle = (angle %= 360) > 180 ? angle - 360 : angle;
-            var side = Vector3.Dot(axis, _vector3RotationAxis) < 0 ? 1 : -1;
-            angle = angle == 0 ? angle : angle * rotationMultiplier * side;
+
+            if (angle != 0)
+            {
+                var side = Vector3.Dot(axis, _vector3RotationAxis) < 0 ? 1 : -1;
+                angle = angle * rotationMultiplier * side;
+            }
+
             _handPreviousRotation = currentRotation;
             return angle;
         }
@@ -227,7 +236,7 @@ namespace com.NW84P
         {
             var interactableLocalUp = _screwdriverAttachTransform.InverseTransformDirection(_vector3RotationAxis);
             var attachLocalUp = _screwSocketTransform.InverseTransformDirection(_vector3RotationAxis);
-            return Vector3.Dot(interactableLocalUp, attachLocalUp) >= 0.85f;
+            return Vector3.Dot(interactableLocalUp, attachLocalUp) >= _ALIGNEMENT_TRASHOLD;
         }
 
         private void UpdateToScrewedState()
