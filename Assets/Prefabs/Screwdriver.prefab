@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 210970675532456754}
   - component: {fileID: 2217761758227085836}
   m_Layer: 0
-  m_Name: Screwdriver_Mod
+  m_Name: Screwdriver
   m_TagString: ScrewDriver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

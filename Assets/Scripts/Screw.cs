@@ -110,7 +110,6 @@ namespace com.NW84P
                 if (interactable.interactorsSelecting.Count > 0)
                 {
                     _handTransform = interactable.interactorsSelecting[0].transform;
-                    _handPreviousRotation = _handTransform.rotation;
                     interactable.selectExited.AddListener(SelectionEnded);
                     interactable.activated.AddListener(ActivationStarted);
                     result = true;
@@ -156,6 +155,7 @@ namespace com.NW84P
                     var sourceEuler = _screwSocketTransform.rotation.eulerAngles;
                     _screwdriverTransform.rotation = _rotationAxis.EulerAxisValue(sourceEuler, _handTransform.rotation.eulerAngles);
                     _screwdriverAttachDistance = _screwdriverAttachTransform.position - _screwdriverTransform.position;
+                    _handPreviousRotation = _handTransform.rotation;
                 }
 
                 if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > _DISTANCE_TO_DETACH))
@@ -230,9 +230,9 @@ namespace com.NW84P
 
         private bool IsAtRightPosition()
         {
-            var interactableLocalUp = _screwdriverAttachTransform.InverseTransformDirection(_vector3RotationAxis);
-            var attachLocalUp = _screwSocketTransform.InverseTransformDirection(_vector3RotationAxis);
-            return Vector3.Dot(interactableLocalUp, attachLocalUp) >= _ALIGNEMENT_TRASHOLD;
+            var screwdriverLocalAxis = _screwdriverAttachTransform.InverseTransformDirection(_vector3RotationAxis).normalized;
+            var screwSocketLocalAxis = _screwSocketTransform.InverseTransformDirection(_vector3RotationAxis).normalized;
+            return Vector3.Dot(screwdriverLocalAxis, screwSocketLocalAxis) >= _ALIGNEMENT_TRASHOLD;
         }
 
         private void UpdateToScrewedState()
