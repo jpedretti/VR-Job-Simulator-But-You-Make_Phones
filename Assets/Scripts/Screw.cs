@@ -18,9 +18,9 @@ namespace com.NW84P
 
         #region Constants
 
-        private const float _SCREW_MOVE_DISTANCE = 0.00001f;
+        private const float _SCREW_MOVE_DISTANCE = 0.000015f;
         private const float _DISTANCE_TO_BE_SCREWED = 0.006F;
-        private const float _DISTANCE_TO_DETACH = 0.15f;
+        private const float _DISTANCE_TO_DETACH = 0.08f;
         private const float _ALIGNEMENT_TRASHOLD = 0.85f;
         private const float _MIN_ROTATION_MULTIPLIER = 0.25f;
         private const float _MAX_ROTATION_MULTIPLIER = 1f;

@@ -8,6 +8,9 @@ TagManager:
   - ScrewDriver
   - TorchFire
   - Battery
+  - Torch
+  - Anchor
+  - ScrewSpawnPoint
   layers:
   - Default
   - TransparentFX
