@@ -200,7 +200,7 @@ namespace com.NW84P
             _screwdriverTransform.Rotate(_vector3RotationAxis, angle * -1);
 
             _screwTransform.Rotate(_vector3RotationAxis, angle);
-            _screwTransform.position += _vector3RotationAxis * angle * _SCREW_MOVE_DISTANCE;
+            _screwTransform.position += _SCREW_MOVE_DISTANCE * angle * _vector3RotationAxis;
 
             _screwdriverTransform.position = _screwSocketTransform.position - _screwdriverAttachDistance;
         }
@@ -209,6 +209,18 @@ namespace com.NW84P
         {
             var normalizedScrewDistance = ScrewDistance / _DISTANCE_TO_BE_SCREWED;
             var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, normalizedScrewDistance);
+
+            //if Vector3.Dot(_screwdriverAttachTransform.forward, _handTransform.forward) >= _ALIGNEMENT_TRASHOLD;
+
+            // Vector3 previousUp = transform.up; // Store the up vector before any changes ... (rotation changes)
+            // Vector3 currentUp = transform.up; // Get the up vector after changes
+
+            //float angleDelta = Vector3.Angle(previousUp, currentUp); // Calculate the angle
+            //Vector3 cross = Vector3.Cross(previousForward, currentForward);
+            //if (cross.y < 0) // Assuming y is your up axis
+            //{
+            //    angleDelta = -angleDelta;
+            //}
 
             var currentRotation = _handTransform.rotation;
             var rotationDelta = currentRotation * Quaternion.Inverse(_handPreviousRotation);
@@ -229,11 +241,7 @@ namespace com.NW84P
         }
 
         private bool IsAtRightPosition()
-        {
-            var screwdriverLocalAxis = _screwdriverAttachTransform.InverseTransformDirection(_vector3RotationAxis).normalized;
-            var screwSocketLocalAxis = _screwSocketTransform.InverseTransformDirection(_vector3RotationAxis).normalized;
-            return Vector3.Dot(screwdriverLocalAxis, screwSocketLocalAxis) >= _ALIGNEMENT_TRASHOLD;
-        }
+            => Vector3.Dot(_screwdriverAttachTransform.forward, _screwSocketTransform.forward) >= _ALIGNEMENT_TRASHOLD;
 
         private void UpdateToScrewedState()
         {
