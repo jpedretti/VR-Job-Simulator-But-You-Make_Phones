@@ -21,7 +21,7 @@ namespace com.NW84P
         private const float _SCREW_MOVE_DISTANCE = 0.000015f;
         private const float _DISTANCE_TO_BE_SCREWED = 0.006F;
         private const float _DISTANCE_TO_DETACH = 0.08f;
-        private const float _ALIGNEMENT_TRASHOLD = 0.85f;
+        private const float _ALIGNEMENT_THRESHOLD = 0.85f;
         private const float _MIN_ROTATION_MULTIPLIER = 0.25f;
         private const float _MAX_ROTATION_MULTIPLIER = 1f;
 
@@ -243,7 +243,7 @@ namespace com.NW84P
         }
 
         private bool IsCorrectAlignment()
-            => Vector3.Dot(_screwdriverAttachTransform.forward, _screwSocketTransform.forward) >= _ALIGNEMENT_TRASHOLD;
+            => Vector3.Dot(_screwdriverAttachTransform.forward, _screwSocketTransform.forward) >= _ALIGNEMENT_THRESHOLD;
 
         private void UpdateToScrewedState()
         {
