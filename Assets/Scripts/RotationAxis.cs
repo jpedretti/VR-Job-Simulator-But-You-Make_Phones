@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace com.NW84P
@@ -16,9 +17,19 @@ namespace com.NW84P
             Vector3 result = rotationAxis switch
             {
                 RotationAxis.X => Vector3.right,
-                RotationAxis.Y => Vector3.up,
                 RotationAxis.Z => Vector3.forward,
-                _ => Vector3.up,
+                _ => Vector3.up, // Including RotationAxis.Y
+            };
+            return result;
+        }
+
+        public static Vector3 ToVector3Axis(this RotationAxis rotationAxis, Transform transform)
+        {
+            Vector3 result = rotationAxis switch
+            {
+                RotationAxis.X => transform.right,
+                RotationAxis.Z => transform.forward,
+                _ => transform.up, // Including RotationAxis.Y
             };
             return result;
         }
@@ -28,9 +39,8 @@ namespace com.NW84P
             float result = rotationAxis switch
             {
                 RotationAxis.X => vector3.x,
-                RotationAxis.Y => vector3.y,
                 RotationAxis.Z => vector3.z,
-                _ => vector3.y,
+                _ => vector3.y, // Including RotationAxis.Y
             };
             return result;
         }
@@ -40,21 +50,19 @@ namespace com.NW84P
             Quaternion result = rotationAxis switch
             {
                 RotationAxis.X => Quaternion.Euler(rotationPart.x, fixedPart.y, fixedPart.z),
-                RotationAxis.Y => Quaternion.Euler(fixedPart.x, rotationPart.y, fixedPart.z),
                 RotationAxis.Z => Quaternion.Euler(fixedPart.x, fixedPart.y, rotationPart.z),
-                _ => Quaternion.Euler(fixedPart.x, rotationPart.y, fixedPart.z),
+                _ => Quaternion.Euler(fixedPart.x, rotationPart.y, fixedPart.z), // Including RotationAxis.Y
             };
             return result;
         }
 
-        public static RotationAxis[] Others(this RotationAxis rotationAxis)
+        public static Tuple<Vector3, Vector3> OthersVector3Axis(this RotationAxis rotationAxis, Transform transform)
         {
-            RotationAxis[] result = rotationAxis switch
+            Tuple<Vector3, Vector3> result = rotationAxis switch
             {
-                RotationAxis.X => new RotationAxis[] { RotationAxis.Y, RotationAxis.Z },
-                RotationAxis.Y => new RotationAxis[] { RotationAxis.X, RotationAxis.Z },
-                RotationAxis.Z => new RotationAxis[] { RotationAxis.X, RotationAxis.Y },
-                _ => new RotationAxis[] { RotationAxis.Y, RotationAxis.Z },
+                RotationAxis.X => new(transform.up, transform.forward),
+                RotationAxis.Z => new(transform.right, transform.up),
+                _ => new(transform.right, transform.forward), // Including RotationAxis.Y
             };
             return result;
         }

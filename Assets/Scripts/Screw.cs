@@ -41,14 +41,14 @@ namespace com.NW84P
         private Transform _screwdriverAttachTransform;
         private XRGrabInteractable _screwdriverInteractable;
         private Vector3 _screwdriverAttachDistance;
-        private Vector3 _screwdirverInitialHandPosition;
 
         #endregion ScrewDriver
 
         #region Hand
 
-        private Quaternion _handPreviousRotation;
         private Transform _handTransform;
+        private Vector3 _handInitialPosition;
+        private Vector3 _handPreviousOtherTransformVector;
 
         #endregion Hand
 
@@ -95,7 +95,6 @@ namespace com.NW84P
                 _screwdriverTransform = other.gameObject.transform;
                 if (InitializeXRComponents())
                 {
-                    _screwdirverInitialHandPosition = _handTransform.position;
                     _isValidTriggerEnter = false;
                     SetScrewdriverAttach();
                     _canSnap = true;
@@ -157,10 +156,11 @@ namespace com.NW84P
                     var sourceEuler = _screwSocketTransform.rotation.eulerAngles;
                     _screwdriverTransform.rotation = _rotationAxis.EulerAxisValue(sourceEuler, _handTransform.rotation.eulerAngles);
                     _screwdriverAttachDistance = _screwdriverAttachTransform.position - _screwdriverTransform.position;
-                    _handPreviousRotation = _handTransform.rotation;
+                    _handPreviousOtherTransformVector = GetHandCurrentOtherTransformVector();
+                    _handInitialPosition = _handTransform.position;
                 }
 
-                if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdirverInitialHandPosition, _handTransform.position) > _DISTANCE_TO_DETACH))
+                if (_isSnapped && (!_canSnap || Vector3.Distance(_handInitialPosition, _handTransform.position) > _DISTANCE_TO_DETACH))
                 {
                     _isSnapped = false;
                     EnableInteractableTracking(enabled: true);
@@ -212,34 +212,47 @@ namespace com.NW84P
             var normalizedScrewDistance = ScrewDistance / _DISTANCE_TO_BE_SCREWED;
             var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, normalizedScrewDistance);
 
-            //if Vector3.Dot(_screwdriverAttachTransform.forward, _handTransform.forward) >= _ALIGNEMENT_TRASHOLD;
+            var handCurrentOtherTransformVector = GetHandCurrentOtherTransformVector();
+            var angleDelta = Vector3.Angle(_handPreviousOtherTransformVector, handCurrentOtherTransformVector);
 
-            // Vector3 previousUp = transform.up; // Store the up vector before any changes ... (rotation changes)
-            // Vector3 currentUp = transform.up; // Get the up vector after changes
-
-            //float angleDelta = Vector3.Angle(previousUp, currentUp); // Calculate the angle
-            //Vector3 cross = Vector3.Cross(previousForward, currentForward);
-            //if (cross.y < 0) // Assuming y is your up axis
-            //{
-            //    angleDelta = -angleDelta;
-            //}
-
-            var currentRotation = _handTransform.rotation;
-            var rotationDelta = currentRotation * Quaternion.Inverse(_handPreviousRotation);
-
-            rotationDelta.ToAngleAxis(out float angle, out Vector3 axis);
-
-            // Normalize the angle to be within the range of 0 to 360 degrees
-            angle = (angle %= 360) > 180 ? angle - 360 : angle;
-
-            if (angle != 0)
+            if (angleDelta != 0)
             {
-                var side = Vector3.Dot(axis, _vector3RotationAxis) < 0 ? 1 : -1;
-                angle = angle * rotationMultiplier * side;
+                angleDelta *= rotationMultiplier;
+
+                angleDelta = FixAngleRotationSide(handCurrentOtherTransformVector, angleDelta);
+
+                angleDelta = FixRotationSideBasedOnScrewdriverDirection(angleDelta);
             }
 
-            _handPreviousRotation = currentRotation;
-            return angle;
+            _handPreviousOtherTransformVector = handCurrentOtherTransformVector;
+
+            return angleDelta;
+        }
+
+        private Vector3 GetHandCurrentOtherTransformVector() => _rotationAxis.OthersVector3Axis(_handTransform).Item1;
+
+        private float FixRotationSideBasedOnScrewdriverDirection(float angleDelta)
+        {
+            // verify if the screwdriver rotation axis is in the same direction of the rotation axis world equivalent
+            var screwdrivervector3RotationAxis = _rotationAxis.ToVector3Axis(_screwdriverTransform).normalized;
+            if (Vector3.Dot(screwdrivervector3RotationAxis, _rotationAxis.ToVector3Axis()) < 0)
+            {
+                angleDelta = -angleDelta;
+            }
+
+            return angleDelta;
+        }
+
+        private float FixAngleRotationSide(Vector3 handCurrentOtherTransformVector, float angleDelta)
+        {
+            // verify if the angle is clockwise or counterclockwise
+            var cross = Vector3.Cross(_handPreviousOtherTransformVector, handCurrentOtherTransformVector);
+            if (_rotationAxis.GetAxisValue(cross) > 0)
+            {
+                angleDelta = -angleDelta;
+            }
+
+            return angleDelta;
         }
 
         private bool IsCorrectAlignment()
@@ -273,5 +286,15 @@ namespace com.NW84P
                 _screwdriverInteractable = null;
             }
         }
+
+#if UNITY_EDITOR
+        public void OnValidate()
+        {
+            if (_screwSocketTransform == null)
+            {
+                Debug.LogError($"ScrewSocketTransform is null on {gameObject.name}");
+            }
+        }
+#endif
     }
 }
