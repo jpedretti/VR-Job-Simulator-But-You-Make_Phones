@@ -41,6 +41,7 @@ namespace com.NW84P
         private Transform _screwdriverAttachTransform;
         private XRGrabInteractable _screwdriverInteractable;
         private Vector3 _screwdriverAttachDistance;
+        private Vector3 _screwdirverInitialHandPosition;
 
         #endregion ScrewDriver
 
@@ -94,6 +95,7 @@ namespace com.NW84P
                 _screwdriverTransform = other.gameObject.transform;
                 if (InitializeXRComponents())
                 {
+                    _screwdirverInitialHandPosition = _handTransform.position;
                     _isValidTriggerEnter = false;
                     SetScrewdriverAttach();
                     _canSnap = true;
@@ -148,7 +150,7 @@ namespace com.NW84P
         {
             if (_screwdriverTransform != null && !IsScrewed)
             {
-                if (!_isSnapped && _canSnap && IsAtRightPosition())
+                if (!_isSnapped && _canSnap && IsCorrectAlignment())
                 {
                     _isSnapped = true;
                     EnableInteractableTracking(enabled: false);
@@ -158,7 +160,7 @@ namespace com.NW84P
                     _handPreviousRotation = _handTransform.rotation;
                 }
 
-                if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdriverTransform.position, _handTransform.position) > _DISTANCE_TO_DETACH))
+                if (_isSnapped && (!_canSnap || Vector3.Distance(_screwdirverInitialHandPosition, _handTransform.position) > _DISTANCE_TO_DETACH))
                 {
                     _isSnapped = false;
                     EnableInteractableTracking(enabled: true);
@@ -240,7 +242,7 @@ namespace com.NW84P
             return angle;
         }
 
-        private bool IsAtRightPosition()
+        private bool IsCorrectAlignment()
             => Vector3.Dot(_screwdriverAttachTransform.forward, _screwSocketTransform.forward) >= _ALIGNEMENT_TRASHOLD;
 
         private void UpdateToScrewedState()
