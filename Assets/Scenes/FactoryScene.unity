@@ -1521,7 +1521,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1826347290059847179, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0632
+      value: -0.0518
       objectReference: {fileID: 0}
     - target: {fileID: 1826347290059847179, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1529,7 +1529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1826347290059847179, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.2412
+      value: 0.1621
       objectReference: {fileID: 0}
     - target: {fileID: 1826347290059847179, guid: 7d629b6d5f0d3054cb2ff37516489315, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1943,6 +1943,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+    - target: {fileID: 1554786110849313622, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: _onlySelectIfSnaped
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1739741152967320662, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.042
@@ -2006,6 +2010,18 @@ PrefabInstance:
     - target: {fileID: 8221434914010355826, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_Name
       value: Body Support
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963778330724459618, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Size.x
+      value: 0.000106246014
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963778330724459618, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Center.x
+      value: -0.000022008624
+      objectReference: {fileID: 0}
+    - target: {fileID: 8963778330724459618, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Center.z
+      value: 9.30304e-14
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2206,6 +2222,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+    - target: {fileID: 5658047838918006844, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
+      propertyPath: _onlySelectIfSnaped
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6626618562244179425, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
       propertyPath: m_Name
       value: Mainboard Support
