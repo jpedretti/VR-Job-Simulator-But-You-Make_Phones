@@ -69,10 +69,10 @@ namespace com.NW84P
             base.OnDisable();
         }
 
-        protected override void ProcessInteractionStrength(XRInteractionUpdateOrder.UpdatePhase updatePhase)
+        public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
         {
-            base.ProcessInteractionStrength(updatePhase);
-            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic && m_InteractorTransform != null)
+            base.ProcessInteractable(updatePhase);
+            if (m_InteractorTransform != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
                 var interactorLocalPosition = GetIteractorLocalPosition();
                 VerifyCorrectSide(interactorLocalPosition);
