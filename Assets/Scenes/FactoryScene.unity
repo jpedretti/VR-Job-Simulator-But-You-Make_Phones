@@ -1623,7 +1623,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 116e83dc63f14794a92b628519dcecda, type: 2}
+  - {fileID: 2100000, guid: 729890bb7c4b86f47a492f61aea74b2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1939,6 +1939,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 371818096220658140, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
     - target: {fileID: 1739741152967320662, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.042
@@ -1979,6 +1983,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2838723656602972878, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.16499996
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838723656602972878, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0081
+      objectReference: {fileID: 0}
+    - target: {fileID: 2838723656602972878, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0115
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240388555454956923, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
     - target: {fileID: 6821930100210289063, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_Colliders.Array.size
       value: 1
@@ -2182,6 +2202,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2178472965112401260, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
     - target: {fileID: 6626618562244179425, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
       propertyPath: m_Name
       value: Mainboard Support
