@@ -7,5 +7,6 @@ namespace com.NW84P
         public const int BATTERY = 1 << 1;
         public const int WELDED_MAINBOARD = 1 << 2;
         public const int SCREW_DRIVER = 1 << 3;
+        public const int ASSEMBLED_BODY = 1 << 4;
     }
 }
