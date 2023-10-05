@@ -42,9 +42,9 @@ namespace com.NW84P
             base.OnDisable();
         }
 
-        protected override void ProcessInteractionStrength(XRInteractionUpdateOrder.UpdatePhase updatePhase)
+        public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
         {
-            base.ProcessInteractionStrength(updatePhase);
+            base.ProcessInteractable(updatePhase);
 
             if (_controller != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
