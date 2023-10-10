@@ -14,4 +14,5 @@ public const string Battery = @"Battery";
 public const string Torch = @"Torch";
 public const string Anchor = @"Anchor";
 public const string ScrewSpawnPoint = @"ScrewSpawnPoint";
+public const string RoundArrows = @"RoundArrows";
 }

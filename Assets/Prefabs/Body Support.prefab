@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 3306822878993913914}
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
-  m_LocalPosition: {x: 0.000500001, y: -0.0024, z: 0.0127}
-  m_LocalScale: {x: 0.09, y: 0.15296744, z: 0.0185865}
+  m_LocalPosition: {x: 0.000500001, y: -0.0081, z: 0.0115}
+  m_LocalScale: {x: 0.09, y: 0.16499996, z: 0.0185865}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1739741152967320662}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -260,7 +260,6 @@ MonoBehaviour:
   m_InteractionManager: {fileID: 0}
   m_Colliders:
   - {fileID: 7909158333015844548}
-  - {fileID: 9142628625860934164}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -371,6 +370,10 @@ PrefabInstance:
       value: Phone Body
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: _onlySelectIfSnaped
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
@@ -469,6 +472,18 @@ PrefabInstance:
     - target: {fileID: 5339885457436951001, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Size.x
+      value: 0.000106246014
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Center.x
+      value: -0.000022008624
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Center.z
+      value: 9.30304e-14
       objectReference: {fileID: 0}
     - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_IsActive

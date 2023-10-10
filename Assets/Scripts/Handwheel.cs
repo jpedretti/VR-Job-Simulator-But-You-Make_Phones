@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -10,73 +9,73 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _pressCylinder;
 
-        private List<InteractorHandlePair> _interactorHandlePairs = new(2);
+        [SerializeField]
+        private GameObject _handwheel;
+
+        private IXRSelectInteractor _hand;
+        private Quaternion _handwheelInitialRotation;
+        private float _handwheelXAngleDelta;
+        private Transform _handwheelTransform;
+        private Rigidbody _handwheelRigidbody;
 
         protected override void OnEnable()
         {
             base.OnEnable();
 
-            selectMode = InteractableSelectMode.Multiple;
             selectEntered.AddListener(SelectStarted);
             selectExited.AddListener(SelectExited);
+            _handwheelTransform = _handwheelTransform.transform;
+            _handwheelRigidbody = _handwheelTransform.GetComponent<Rigidbody>();
+            _handwheelInitialRotation = _handwheelTransform.rotation;
         }
 
         protected override void OnDisable()
         {
+            ResetState();
             selectEntered.RemoveListener(SelectStarted);
             selectExited.RemoveListener(SelectExited);
-            _interactorHandlePairs.Clear();
             base.OnDisable();
+        }
+
+        public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
+        {
+            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
+            {
+                if (_hand != null)
+                {
+                    // track distance between hand and handwheel and apply torque to handwheel rigidbody. the force must
+                    // be applied in the direction of the handwheel's forward vector and should be proportional to
+                    // distance in the forward direction.
+                }
+                else if (_handwheelXAngleDelta <= 0)
+                {
+                    _handwheelTransform.rotation = _handwheelInitialRotation;
+                    _handwheelXAngleDelta = 0;
+                }
+                else
+                {
+                    // should apply torque to handwheel rigidbody to rotate it back to its initial rotation.
+                }
+            }
+            else if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+            {
+                // track handwheel's X rotation delta and update the cylinder's height to match the handwheel's rotation.
+            }
         }
 
         private void SelectStarted(SelectEnterEventArgs args)
         {
             if (args.interactorObject.transform.gameObject.CompareTag(Tags.Player))
             {
-                var direction = (colliders[0].transform.position - args.interactorObject.transform.position).normalized;
-                var distance = Vector3.Distance(colliders[0].transform.position, args.interactorObject.transform.position);
-                Debug.DrawRay(args.interactorObject.transform.position, direction * distance, Color.red, 5f);
-                Debug.Log($"Interacted with player");
-
-                if(Physics.Raycast(args.interactorObject.transform.position, direction, out RaycastHit hit))
-                {
-                    Debug.Log($"Hit {hit.collider.transform.gameObject.name}");
-                    _interactorHandlePairs.Add(
-                        new InteractorHandlePair(args.interactorObject, hit.collider.transform.gameObject)
-                    );
-                }
-
+                _hand = args.interactorObject;
             }
         }
 
-        private void SelectExited(SelectExitEventArgs args)
+        private void SelectExited(SelectExitEventArgs args) => ResetState();
+
+        private void ResetState()
         {
-            if (args.interactorObject.transform.gameObject.CompareTag(Tags.Player))
-            {
-                for (int i = 0; i < _interactorHandlePairs.Count; i++)
-                {
-                    if (_interactorHandlePairs[i].Interactor == args.interactorObject)
-                    {
-                        _interactorHandlePairs.RemoveAt(i);
-                        break;
-                    }
-                }
-            }
-        }
-
-        private readonly struct InteractorHandlePair
-        {
-            public InteractorHandlePair(IXRSelectInteractor interactor, GameObject handle)
-            {
-                _handle = handle;
-                _interactor = interactor;
-            }
-
-            private readonly GameObject _handle;
-            private readonly IXRSelectInteractor _interactor;
-
-            public readonly GameObject Handle => _handle;
-            public readonly IXRSelectInteractor Interactor => _interactor;
+            _hand = null;
         }
     }
 }
