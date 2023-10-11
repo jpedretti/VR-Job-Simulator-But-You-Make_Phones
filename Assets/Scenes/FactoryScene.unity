@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
+  m_Sun: {fileID: 299639868}
   m_IndirectSpecularColor: {r: 0.18306622, g: 0.2287434, b: 0.30669293, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
@@ -1967,6 +1967,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 371818096220658140, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
     - target: {fileID: 1739741152967320662, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.042
@@ -2007,6 +2011,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2838723656602972878, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.089999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5240388555454956923, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
     - target: {fileID: 8221434914010355826, guid: 95388b18869d7ab43ad7715e3463229c, type: 3}
       propertyPath: m_Name
       value: Body Support
@@ -2206,6 +2218,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2178472965112401260, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
     - target: {fileID: 6626618562244179425, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
       propertyPath: m_Name
       value: Mainboard Support
@@ -2320,10 +2336,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2688756325259346637, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
+    - target: {fileID: 5436536289998292438, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
     - target: {fileID: 6048977078086796215, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
       propertyPath: m_Name
       value: Press Machine
       objectReference: {fileID: 0}
+    - target: {fileID: 7082928486798994147, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
