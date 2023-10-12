@@ -5,6 +5,7 @@ namespace com.NW84P
     [RequireComponent(typeof(Rigidbody))]
     public class Handwheel : MonoBehaviour
     {
+        private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f;
 
         [SerializeField]
         private Transform _pressCylinder;
@@ -13,14 +14,15 @@ namespace com.NW84P
         private Rigidbody _handwheelRigidbody;
         private Quaternion _handwheelInitialRotation;
         private float _handwheelXAngleDelta;
-        private  float _handwheelPreviousXAngle;
         private GameObject _roundArrows;
+        private Vector3 _previousUpRotation;
 
         public void OnEnable()
         {
             _handwheelTransform = transform;
             _handwheelRigidbody = _handwheelTransform.GetComponent<Rigidbody>();
             _handwheelInitialRotation = _handwheelTransform.rotation;
+            _previousUpRotation = _handwheelTransform.up;
 
             SetRoundArrows();
         }
@@ -39,22 +41,43 @@ namespace com.NW84P
 
         public void Update()
         {
-            // track handwheel's X rotation delta and update the cylinder's height to match the handwheel's rotation.
-
-            if (_handwheelXAngleDelta < 0)
+            if (_handwheelRigidbody.angularVelocity.x != 0)
             {
-                _handwheelTransform.rotation = _handwheelInitialRotation;
-                _handwheelXAngleDelta = 0;
+                var angle = GetDeltaAngle();
+                _handwheelXAngleDelta += angle;
+
+                if (_handwheelXAngleDelta < 0)
+                {
+                    _handwheelTransform.rotation = _handwheelInitialRotation;
+                    _handwheelXAngleDelta = 0;
+                    _handwheelRigidbody.angularVelocity = Vector3.zero;
+                    angle = 0;
+                }
+
+
+                _pressCylinder.position += _CYLINDER_POSITION_MULTIPLIER * angle * Vector3.down;
+                _previousUpRotation = _handwheelTransform.up;
+
+                Debug.Log($"_handwheelXAngleDelta: {_handwheelXAngleDelta}");
+                Debug.Log("=====================================");
             }
         }
 
         public void ApplyTorque(float torque)
         {
-            // should apply torque to handwheel rigidbody to rotate it back to its initial rotation.
             _handwheelRigidbody.AddRelativeTorque(torque, 0, 0);
         }
 
+        private float GetDeltaAngle()
+        {
+            var angle = Vector3.Angle(_handwheelTransform.up, _previousUpRotation);
+            var cross = Vector3.Cross(_handwheelTransform.up, _previousUpRotation);
+
+            return cross.x > 0 ? angle : -angle;
+        }
+
 #if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_pressCylinder == null)
@@ -69,6 +92,7 @@ namespace com.NW84P
                 Debug.LogError($"Round Arrows is not set in {gameObject}.");
             }
         }
+
 #endif
     }
 }
