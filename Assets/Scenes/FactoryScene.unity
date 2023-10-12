@@ -2340,10 +2340,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Press Machine
       objectReference: {fileID: 0}
-    - target: {fileID: 7324002549836715161, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

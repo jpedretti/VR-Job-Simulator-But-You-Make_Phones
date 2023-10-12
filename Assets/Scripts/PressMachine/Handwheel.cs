@@ -6,7 +6,7 @@ namespace com.NW84P
     public class Handwheel : MonoBehaviour
     {
         private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f;
-        private const int _MAX_X_ANGLE = 142;
+        private const int _MAX_X_ANGLE = 140;
         [SerializeField]
         private Transform _pressCylinder;
 
@@ -18,14 +18,21 @@ namespace com.NW84P
         private Vector3 _previousUpPosition;
         private float _torque;
 
-        public void OnEnable()
+        public void Start()
         {
             _handwheelTransform = transform;
             _handwheelRigidbody = _handwheelTransform.GetComponent<Rigidbody>();
             _handwheelInitialRotation = _handwheelTransform.rotation;
             _previousUpPosition = _handwheelTransform.up;
-            SetRoundArrows();
         }
+
+        public void OnEnable()
+        {
+            SetRoundArrows();
+            _roundArrows.SetActive(true);
+        }
+
+        public void OnDisable() => _roundArrows.SetActive(false);
 
         public void Update()
         {
