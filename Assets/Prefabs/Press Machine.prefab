@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1032507394572570181}
   - component: {fileID: 3405742464907967227}
   - component: {fileID: 7324002549836715161}
+  - component: {fileID: 1090112167660934716}
   m_Layer: 0
   m_Name: 'LatheHandwheel '
   m_TagString: Untagged
@@ -96,9 +97,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 365926658837436056}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 2
   m_Drag: 0
-  m_AngularDrag: 7
+  m_AngularDrag: 20
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -115,6 +116,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 110
   m_CollisionDetection: 2
+--- !u!114 &1090112167660934716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365926658837436056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a959380660b40548bc8637cde52b423, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pressCylinder: {fileID: 87428278481397673}
 --- !u!1 &603215936746528113
 GameObject:
   m_ObjectHideFlags: 0
@@ -125,7 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9005307878019157788}
   - component: {fileID: 8834216907059962191}
-  - component: {fileID: 8564487485182707864}
+  - component: {fileID: 2222945412515605827}
   m_Layer: 0
   m_Name: Handle 1
   m_TagString: Untagged
@@ -171,7 +185,7 @@ CapsuleCollider:
   m_Height: 1.1392853
   m_Direction: 1
   m_Center: {x: -0.003425089, y: 0.069639005, z: -0.007684666}
---- !u!114 &8564487485182707864
+--- !u!114 &2222945412515605827
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -180,11 +194,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 603215936746528113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a959380660b40548bc8637cde52b423, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cff6819a1dedcf418849ac6623a60c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 8834216907059962191}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -273,8 +288,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  _pressCylinder: {fileID: 8576607868908603000}
-  _handwheel: {fileID: 365926658837436056}
+  _handwheel: {fileID: 1090112167660934716}
 --- !u!1 &737876596351460030
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +382,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8442692498801830571}
   - component: {fileID: 5513416550890790455}
-  - component: {fileID: 8706894753267642234}
+  - component: {fileID: 4459515600080741241}
   m_Layer: 0
   m_Name: Handle 2
   m_TagString: Untagged
@@ -414,7 +428,7 @@ CapsuleCollider:
   m_Height: 1.1392853
   m_Direction: 1
   m_Center: {x: -0.003425089, y: 0.069639005, z: -0.007684666}
---- !u!114 &8706894753267642234
+--- !u!114 &4459515600080741241
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -423,11 +437,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1224659607914922816}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a959380660b40548bc8637cde52b423, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cff6819a1dedcf418849ac6623a60c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 5513416550890790455}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -516,8 +531,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  _pressCylinder: {fileID: 8576607868908603000}
-  _handwheel: {fileID: 365926658837436056}
+  _handwheel: {fileID: 1090112167660934716}
 --- !u!1 &1519584613635188564
 GameObject:
   m_ObjectHideFlags: 0
@@ -764,7 +778,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1959870126564689224}
   - component: {fileID: 6875049195494231116}
-  - component: {fileID: 1013798526463814129}
+  - component: {fileID: 6396490447175557573}
   m_Layer: 0
   m_Name: Handle 3
   m_TagString: Untagged
@@ -810,7 +824,7 @@ CapsuleCollider:
   m_Height: 1.1392853
   m_Direction: 1
   m_Center: {x: -0.003425089, y: 0.069639005, z: -0.007684666}
---- !u!114 &1013798526463814129
+--- !u!114 &6396490447175557573
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -819,11 +833,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 6941881304503312279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4a959380660b40548bc8637cde52b423, type: 3}
+  m_Script: {fileID: 11500000, guid: 6cff6819a1dedcf418849ac6623a60c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionManager: {fileID: 0}
-  m_Colliders: []
+  m_Colliders:
+  - {fileID: 6875049195494231116}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -912,8 +927,7 @@ MonoBehaviour:
   m_OnDeactivate:
     m_PersistentCalls:
       m_Calls: []
-  _pressCylinder: {fileID: 8576607868908603000}
-  _handwheel: {fileID: 365926658837436056}
+  _handwheel: {fileID: 1090112167660934716}
 --- !u!1 &7209313040800925325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1059,7 +1073,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+  - {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1164,7 +1178,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+  - {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1248,7 +1262,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+  - {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
