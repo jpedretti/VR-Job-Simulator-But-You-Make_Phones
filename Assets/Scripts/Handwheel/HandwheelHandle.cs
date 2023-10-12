@@ -12,6 +12,7 @@ namespace com.NW84P
         private Transform _handTransform;
         private Transform _handleTransform;
         private Vector3 _selectionPoint;
+        private Vector3 _previousHandlePosition;
 
         protected override void OnEnable()
         {
@@ -32,17 +33,16 @@ namespace com.NW84P
 
         public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
         {
-            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic && _handTransform != null)
             {
-                if (_handTransform != null)
-                {
-                    var direction = _handTransform.position - _handleTransform.position;
-                    var magnitude = direction.magnitude;
-                    var dot = Vector3.Dot(direction.normalized, _handleTransform.forward.normalized);
+                var direction = _handTransform.position - _selectionPoint;
+                var magnitude = direction.magnitude;
+                var dot = Vector3.Dot(direction.normalized, _handleTransform.forward.normalized);
+                var torque = dot * magnitude;
 
-                    var torque = dot * magnitude;
-                    _handwheel.ApplyTorque(torque);
-                }
+                _handwheel.ApplyTorque(torque);
+                _selectionPoint += _handleTransform.position - _previousHandlePosition;
+                _previousHandlePosition = _handleTransform.position;
             }
         }
 
@@ -52,6 +52,7 @@ namespace com.NW84P
             {
                 _handTransform = args.interactorObject.transform;
                 _selectionPoint = _handTransform.position;
+                _previousHandlePosition = _handleTransform.position;
             }
         }
 
