@@ -32,7 +32,7 @@ namespace com.NW84P
 
         public override void ProcessInteractable(XRInteractionUpdateOrder.UpdatePhase updatePhase)
         {
-            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Fixed)
+            if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
                 if (_handTransform != null)
                 {
