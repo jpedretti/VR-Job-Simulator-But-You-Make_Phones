@@ -6,7 +6,7 @@ namespace com.NW84P
     public class Handwheel : MonoBehaviour
     {
         private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f;
-
+        private const int _MAX_X_ANGLE = 142;
         [SerializeField]
         private Transform _pressCylinder;
 
@@ -58,9 +58,9 @@ namespace com.NW84P
             {
                 SetHandwheelData(0, _handwheelInitialRotation, out angle);
             }
-            else if (_handwheelXAngleDelta > 142)
+            else if (_handwheelXAngleDelta > _MAX_X_ANGLE)
             {
-                SetHandwheelData(142, _handwheelInitialRotation * Quaternion.Euler(142, 0, 0), out angle);
+                SetHandwheelData(_MAX_X_ANGLE, _handwheelInitialRotation * Quaternion.Euler(_MAX_X_ANGLE, 0, 0), out angle);
             }
 
             return angle;
@@ -75,12 +75,7 @@ namespace com.NW84P
         }
 
         private float GetDeltaAngle()
-        {
-            var angle = Vector3.Angle(_handwheelTransform.up, _previousUpPosition);
-            var cross = Vector3.Cross(_handwheelTransform.up, _previousUpPosition);
-
-            return cross.x > 0 ? angle : -angle;
-        }
+            => Vector3.SignedAngle(_handwheelTransform.up, _previousUpPosition, -_handwheelTransform.right);
 
         private void SetRoundArrows()
         {
