@@ -213,14 +213,11 @@ namespace com.NW84P
             var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, normalizedScrewDistance);
 
             var handCurrentOtherTransformVector = GetHandCurrentOtherTransformVector();
-            var angleDelta = Vector3.Angle(_handPreviousOtherTransformVector, handCurrentOtherTransformVector);
+            var angleDelta = Vector3.SignedAngle(_handPreviousOtherTransformVector, handCurrentOtherTransformVector, -_vector3RotationAxis);
 
             if (angleDelta != 0)
             {
                 angleDelta *= rotationMultiplier;
-
-                angleDelta = FixAngleRotationSide(handCurrentOtherTransformVector, angleDelta);
-
                 angleDelta = FixRotationSideBasedOnScrewdriverDirection(angleDelta);
             }
 
@@ -236,18 +233,6 @@ namespace com.NW84P
             // verify if the screwdriver rotation axis is in the same direction of the rotation axis world equivalent
             var screwdrivervector3RotationAxis = _rotationAxis.ToVector3Axis(_screwdriverTransform).normalized;
             if (Vector3.Dot(screwdrivervector3RotationAxis, _rotationAxis.ToVector3Axis()) < 0)
-            {
-                angleDelta = -angleDelta;
-            }
-
-            return angleDelta;
-        }
-
-        private float FixAngleRotationSide(Vector3 handCurrentOtherTransformVector, float angleDelta)
-        {
-            // verify if the angle is clockwise or counterclockwise
-            var cross = Vector3.Cross(_handPreviousOtherTransformVector, handCurrentOtherTransformVector);
-            if (_rotationAxis.GetAxisValue(cross) > 0)
             {
                 angleDelta = -angleDelta;
             }
