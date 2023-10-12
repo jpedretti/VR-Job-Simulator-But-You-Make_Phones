@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace com.NW84P
@@ -7,6 +8,7 @@ namespace com.NW84P
     {
         private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f;
         private const int _MAX_X_ANGLE = 140;
+
         [SerializeField]
         private Transform _pressCylinder;
 
@@ -17,6 +19,9 @@ namespace com.NW84P
         private GameObject _roundArrows;
         private Vector3 _previousUpPosition;
         private float _torque;
+
+        public Action OnFinishedPressing { get; set; }
+        public bool IsPressed { get; set; }
 
         public void Start()
         {
@@ -68,6 +73,12 @@ namespace com.NW84P
             else if (_handwheelXAngleDelta > _MAX_X_ANGLE)
             {
                 SetHandwheelData(_MAX_X_ANGLE, _handwheelInitialRotation * Quaternion.Euler(_MAX_X_ANGLE, 0, 0), out angle);
+                if (!IsPressed)
+                {
+                    OnFinishedPressing?.Invoke();
+                    IsPressed = true;
+                    _roundArrows.transform.Rotate(0, 0, 180);
+                }
             }
 
             return angle;

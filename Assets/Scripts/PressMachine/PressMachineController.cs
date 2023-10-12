@@ -14,21 +14,46 @@ namespace com.NW84P
         [SerializeField]
         private HandwheelHandle[] _handwheelHandles;
 
+        [SerializeField]
+        private GameObject _bodyWithBackGlassPrefab;
+
+        private GameObject _oldPhoneBody;
+
         public void OnEnable()
         {
             _phoneBackGlass.selectEntered.AddListener(BodyAttachedToGlass);
             _phoneBackGlass.selectExited.AddListener(BodyDetachedFromGlass);
+            _handwheel.OnFinishedPressing += HandlePressFinished;
         }
 
-        public void OnDisable()
+        public void OnDisable() => ClearState();
+
+        private void ClearState()
         {
             _phoneBackGlass.selectEntered.RemoveListener(BodyAttachedToGlass);
             _phoneBackGlass.selectExited.RemoveListener(BodyDetachedFromGlass);
+            _handwheel.OnFinishedPressing -= HandlePressFinished;
         }
 
-        private void BodyAttachedToGlass(SelectEnterEventArgs _) => EnableHandwheel(true);
+        private void HandlePressFinished()
+        {
+            Instantiate(_bodyWithBackGlassPrefab, _oldPhoneBody.transform.position, _phoneBackGlass.transform.rotation);
+            ClearState();
+            Destroy(_phoneBackGlass.gameObject);
+            Destroy(_oldPhoneBody);
+        }
 
-        private void BodyDetachedFromGlass(SelectExitEventArgs _) => EnableHandwheel(false);
+        private void BodyAttachedToGlass(SelectEnterEventArgs args)
+        {
+            _oldPhoneBody = args.interactableObject.transform.gameObject;
+            EnableHandwheel(true);
+        }
+
+        private void BodyDetachedFromGlass(SelectExitEventArgs _)
+        {
+            _oldPhoneBody = null;
+            EnableHandwheel(false);
+        }
 
         private void EnableHandwheel(bool enabled)
         {
@@ -40,6 +65,7 @@ namespace com.NW84P
         }
 
 #if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_phoneBackGlass == null)
@@ -52,11 +78,17 @@ namespace com.NW84P
                 Debug.LogError("Handwheel is not assigned.");
             }
 
-            if (_handwheelHandles == null || _handwheelHandles.Length == 0)
+            if (_handwheelHandles == null || _handwheelHandles.Length != 3)
             {
                 Debug.LogError("Handwheel Handles are not assigned.");
             }
+
+            if (_bodyWithBackGlassPrefab == null)
+            {
+                Debug.LogError("Body With Back Glass Prefab is not assigned.");
+            }
         }
+
 #endif
     }
 }
