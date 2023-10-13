@@ -12,6 +12,7 @@ TagManager:
   - Anchor
   - ScrewSpawnPoint
   - RoundArrows
+  - Socket
   layers:
   - Default
   - TransparentFX
