@@ -29,7 +29,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.13052616, y: 0, z: 0, w: 0.9914449}
   m_LocalPosition: {x: 0.000500001, y: -0.0081, z: 0.0115}
-  m_LocalScale: {x: 0.09, y: 0.16499996, z: 0.0185865}
+  m_LocalScale: {x: 0.089999, y: 0.16499996, z: 0.0185865}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1739741152967320662}
@@ -62,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+  - {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -167,7 +167,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: fb3a9234fb95d764da8b47c5d997f865, type: 2}
+  - {fileID: 2100000, guid: 0eb3c9988822643408c042c933a9e8c9, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -371,6 +371,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: _onlySelectIfSnaped
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: _onlySelectIfSnapped
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}

@@ -8,7 +8,7 @@ namespace com.NW84P
         [Header("Custom Configurations")]
         [Tooltip("Only allow selection of the XRGrabInteractable object if it is snapped.")]
         [SerializeField]
-        private bool _onlySelectIfSnaped;
+        private bool _onlySelectIfSnapped = false;
 
         private bool _isSnapped;
         private IXRSelectInteractor _hand;
@@ -27,8 +27,8 @@ namespace com.NW84P
         /// </summary>
         public bool OnlySelectIfSnapped
         {
-            get => _onlySelectIfSnaped;
-            set => _onlySelectIfSnaped = value;
+            get => _onlySelectIfSnapped;
+            set => _onlySelectIfSnapped = value;
         }
 
         protected override void OnEnable()
@@ -61,7 +61,7 @@ namespace com.NW84P
         }
 
         public override bool CanSelect(IXRSelectInteractable interactable)
-            => base.CanSelect(interactable) && (!_onlySelectIfSnaped || _isSnapped);
+            => base.CanSelect(interactable) && (!_onlySelectIfSnapped || _isSnapped);
 
         private void EndSnap(Transform interactableTransform)
         {
