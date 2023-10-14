@@ -10,5 +10,6 @@ namespace com.NW84P
         public const int ASSEMBLED_BODY = 1 << 4;
         public const int BODY_WITH_BACK_GLASS = 1 << 5;
         public const int FRONT_GLASS = 1 << 6;
+        public const int SIM_CARD = 1 << 7;
     }
 }
