@@ -2001,11 +2001,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4838887095281714212, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9980048
+      value: 0.9991662
       objectReference: {fileID: 0}
     - target: {fileID: 4838887095281714212, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.063138895
+      value: 0.040829387
       objectReference: {fileID: 0}
     - target: {fileID: 4838887095281714212, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
       propertyPath: m_LocalRotation.y
@@ -2017,7 +2017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4838887095281714212, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 7.24
+      value: 4.68
       objectReference: {fileID: 0}
     - target: {fileID: 4838887095281714212, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -2146,6 +2146,7 @@ GameObject:
   - component: {fileID: 6001832781781028428}
   - component: {fileID: 3249076408402857293}
   - component: {fileID: 4749674893250200716}
+  - component: {fileID: 6001832781781028429}
   m_Layer: 0
   m_Name: Body Base
   m_TagString: Untagged
@@ -2312,6 +2313,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6694046607655090438}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6001832781781028429
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1320914269693204442}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.99999994, y: 0.9201575, z: 1}
+  m_Center: {x: 0, y: 0.039921265, z: 0}
 --- !u!1001 &6010753497562553300
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2538,6 +2560,7 @@ GameObject:
   - component: {fileID: 4189454842425272132}
   - component: {fileID: 7577019759097496939}
   - component: {fileID: 7577019759097496940}
+  - component: {fileID: 7577019759097496941}
   m_Layer: 0
   m_Name: Body Base Back
   m_TagString: Untagged
@@ -2618,6 +2641,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf154bc3f699024095eebf3496004b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _phoneDonePrefab: {fileID: 229688440933461866, guid: 07805a68c8d2e4643aac57e8ce152567, type: 3}
+--- !u!65 &7577019759097496941
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7577019759097496938}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.0000001, y: 1, z: 1.0000004}
+  m_Center: {x: -0.00000011920929, y: 0.00000047683716, z: 0.00000023841858}
 --- !u!1001 &8339834405822418765
 PrefabInstance:
   m_ObjectHideFlags: 0

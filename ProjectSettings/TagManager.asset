@@ -13,6 +13,8 @@ TagManager:
   - ScrewSpawnPoint
   - RoundArrows
   - Socket
+  - Target
+  - Hammer
   layers:
   - Default
   - TransparentFX
