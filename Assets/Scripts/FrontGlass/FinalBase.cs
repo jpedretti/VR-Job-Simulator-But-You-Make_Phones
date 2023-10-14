@@ -12,7 +12,6 @@ namespace com.NW84P
 
         private CustomSocket _socket;
         private CustomSocket _phoneSocket;
-        private GameObject _phone;
         private FrontGlassController _glassController;
 
         private void Awake() => _socket = GetComponent<CustomSocket>();
@@ -27,46 +26,34 @@ namespace com.NW84P
 
         private void InteractableSelected(SelectEnterEventArgs args)
         {
-            _phone = args.interactableObject.transform.gameObject;
-            RemoveInteractableScripts();
-            AddCustomSocketScript();
-            MakeKinematic();
-            ConfigureCollider();
+            var phone = args.interactableObject.transform.gameObject;
+            RemoveInteractableScripts(phone);
+            AddCustomSocketScript(phone);
+            MakeKinematic(phone);
+            ConfigureCollider(phone);
         }
 
-        private void ConfigureCollider()
+        private static void ConfigureCollider(GameObject phone)
         {
-            if (_phone.TryGetComponent<BoxCollider>(out var collider))
+            if (phone.TryGetComponent<BoxCollider>(out var collider))
             {
                 collider.isTrigger = true;
             }
         }
 
-        private void MakeKinematic()
+        private static void MakeKinematic(GameObject phone)
         {
-            if (_phone.TryGetComponent<Rigidbody>(out var rigidbody))
+            if (phone.TryGetComponent<Rigidbody>(out var rigidbody))
             {
                 rigidbody.useGravity = false;
                 rigidbody.isKinematic = true;
             }
         }
 
-        private void AddCustomSocketScript()
+        private void AddCustomSocketScript(GameObject phone)
         {
-            _phoneSocket = _phone.AddComponent<CustomSocket>();
-            _phoneSocket.hoverSocketSnapping = false;
-            _phoneSocket.OnlySelectIfSnapped = true;
-            _phoneSocket.showInteractableHoverMeshes = false;
-            _phoneSocket.interactionLayers = LayerMasks.FRONT_GLASS;
-            for (int i = 0; i < _phone.transform.childCount; i++)
-            {
-                var child = _phone.transform.GetChild(i);
-                if (child.gameObject.CompareTag(Tags.Socket))
-                {
-                    _phoneSocket.attachTransform = child;
-                    break;
-                }
-            }
+            _phoneSocket = phone.GetComponent<CustomSocket>();
+            _phoneSocket.enabled = true;
             _phoneSocket.selectEntered.AddListener(FrontScreenAttached);
             _phoneSocket.selectExited.AddListener(FrontScreenDetached);
         }
@@ -91,9 +78,10 @@ namespace com.NW84P
         {
             _glassController.OnGlassFixated -= GlassFixed;
             RemovePhoneSocketListeners();
+            var phone = _phoneSocket.transform.gameObject;
+            Instantiate(_phoneDonePrefab, phone.transform.position, phone.transform.rotation);
+            Destroy(phone);
             _phoneSocket = null;
-            Instantiate(_phoneDonePrefab, _phone.transform.position, _phone.transform.rotation);
-            Destroy(_phone);
         }
 
         private void FrontScreenDetached(SelectExitEventArgs args)
@@ -103,13 +91,13 @@ namespace com.NW84P
             _glassController = null;
         }
 
-        private void RemoveInteractableScripts()
+        private void RemoveInteractableScripts(GameObject phone)
         {
-            if (_phone.TryGetComponent<XRGrabInteractable>(out var interactable))
+            if (phone.TryGetComponent<XRGrabInteractable>(out var interactable))
             {
                 Destroy(interactable);
             }
-            if (_phone.TryGetComponent<XRGeneralGrabTransformer>(out var transformer))
+            if (phone.TryGetComponent<XRGeneralGrabTransformer>(out var transformer))
             {
                 Destroy(transformer);
             }
