@@ -48,7 +48,7 @@ namespace com.NW84P
 
             if (_controller != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
-                var triggerValue = _controller.activateInteractionState.value;
+                var triggerValue = _controller.GetActivateStateValue();
                 _mainParticlaModule.startLifetime = triggerValue * _ParticleLifeTime;
                 _fireCollider.height = triggerValue * _FireColliderHeight;
                 _fireCollider.enabled = _fireCollider.height >= _FireColliderHeight / 2;
@@ -59,9 +59,9 @@ namespace com.NW84P
 
         private void Activate(ActivateEventArgs args)
         {
-            if (args.interactorObject is XRBaseControllerInteractor controllerInteractor)
+            if (args.interactorObject.TryGetController(out var controller))
             {
-                _controller = controllerInteractor.xrController;
+                _controller = controller;
                 _fireParticle.Play();
             }
         }
