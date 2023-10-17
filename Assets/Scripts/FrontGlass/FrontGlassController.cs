@@ -1,12 +1,15 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.NW84P
 {
     public class FrontGlassController : MonoBehaviour
     {
         private readonly Dictionary<string, Target> _targets = new();
+
+        private int _targetsHitToMakeGlassUngrabbable;
 
         public Action OnGlassFixated { get; set; }
 
@@ -23,6 +26,8 @@ namespace com.NW84P
                     _targets.Add(target.gameObject.name, target);
                 }
             }
+
+            _targetsHitToMakeGlassUngrabbable = _targets.Count - 1;
         }
 
         public void OnDisable()
@@ -49,6 +54,11 @@ namespace com.NW84P
             {
                 target.OnSuccessfulHit -= TargetHit;
                 Destroy(target.gameObject);
+            }
+
+            if (_targets.Count == _targetsHitToMakeGlassUngrabbable)
+            {
+                GetComponent<XRGrabInteractable>().interactionLayers = LayerMasks.FRONT_GLASS;
             }
 
             if (_targets.Count == 0)
