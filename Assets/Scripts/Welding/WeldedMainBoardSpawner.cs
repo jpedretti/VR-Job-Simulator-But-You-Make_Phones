@@ -40,7 +40,7 @@ namespace com.NW84P
                 Debug.LogError($"WeldedMainBoardSpawner is null on {gameObject.name}");
             }
         }
-    }
 
 #endif
+    }
 }
