@@ -17,6 +17,17 @@ namespace com.NW84P
             return controller != null;
         }
 
+        public static bool TryGetController(this IXRSelectInteractor interactor, out XRBaseController controller)
+        {
+            controller = null;
+            if (interactor is XRBaseControllerInteractor controllerInteractor)
+            {
+                controller = controllerInteractor.GetController();
+            }
+
+            return controller != null;
+        }
+
         public static float GetActivateStateValue(this XRBaseController controller) => controller.activateInteractionState.value;
 
         public static float GetActivateStateValue(this IXRActivateInteractor interactable)
@@ -31,6 +42,14 @@ namespace com.NW84P
         }
 
         public static void SendHapticImpulse(this IXRActivateInteractor controller, float amplitude, float duration)
+        {
+            if (controller.TryGetController(out var xrController))
+            {
+                xrController.SendHapticImpulse(amplitude, duration);
+            }
+        }
+
+        public static void SendHapticImpulse(this IXRSelectInteractor controller, float amplitude, float duration)
         {
             if (controller.TryGetController(out var xrController))
             {

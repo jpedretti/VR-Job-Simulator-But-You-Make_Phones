@@ -24,6 +24,7 @@ namespace com.NW84P
         private const float _ALIGNEMENT_THRESHOLD = 0.85f;
         private const float _MIN_ROTATION_MULTIPLIER = 0.25f;
         private const float _MAX_ROTATION_MULTIPLIER = 1f;
+        private const float _DELTA_ANGLE_TO_ACTIVATE_HAPTIC = 0.21f;
 
         #endregion Constants
 
@@ -47,6 +48,7 @@ namespace com.NW84P
         #region Hand
 
         private Transform _handTransform;
+        private XRBaseController _handController;
         private Vector3 _handInitialPosition;
         private Vector3 _handPreviousOtherTransformVector;
 
@@ -69,6 +71,8 @@ namespace com.NW84P
 
         private float ScrewDistance
             => _rotationAxis.GetAxisValue(_screwTransform.position) - _rotationAxis.GetAxisValue(_screwInitialPosition);
+
+        private float ScrewDistanceNormalized => ScrewDistance / _DISTANCE_TO_BE_SCREWED;
 
         #endregion Private Properties
 
@@ -114,6 +118,7 @@ namespace com.NW84P
                     interactable.selectExited.AddListener(SelectionEnded);
                     interactable.activated.AddListener(ActivationStarted);
                     result = true;
+                    SetHandController(interactable);
                 }
                 else
                 {
@@ -122,6 +127,14 @@ namespace com.NW84P
             }
 
             return result;
+        }
+
+        private void SetHandController(XRGrabInteractable interactable)
+        {
+            if (interactable.interactorsSelecting[0].TryGetController(out var controller))
+            {
+                _handController = controller;
+            }
         }
 
         private void SetScrewdriverAttach()
@@ -205,13 +218,21 @@ namespace com.NW84P
             _screwTransform.position += _SCREW_MOVE_DISTANCE * angle * _vector3RotationAxis;
 
             _screwdriverTransform.position = _screwSocketTransform.position - _screwdriverAttachDistance;
+
+            SendHapticFeedback(angle);
+        }
+
+        private void SendHapticFeedback(float angle)
+        {
+            if (Mathf.Abs(angle) >= _DELTA_ANGLE_TO_ACTIVATE_HAPTIC)
+            {
+                _handController.SendHapticImpulse(ScrewDistanceNormalized, Time.deltaTime);
+            }
         }
 
         private float GetNewAngle()
         {
-            var normalizedScrewDistance = ScrewDistance / _DISTANCE_TO_BE_SCREWED;
-            var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, normalizedScrewDistance);
-
+            var rotationMultiplier = Mathf.Lerp(_MAX_ROTATION_MULTIPLIER, _MIN_ROTATION_MULTIPLIER, ScrewDistanceNormalized);
             var handCurrentOtherTransformVector = GetHandCurrentOtherTransformVector();
             var angleDelta = Vector3.SignedAngle(_handPreviousOtherTransformVector, handCurrentOtherTransformVector, -_vector3RotationAxis);
 
@@ -263,6 +284,8 @@ namespace com.NW84P
             _screwdriverAttachDistance = Vector3.zero;
             _screwdriverTransform = null;
             _screwdriverAttachTransform = null;
+            _handController = null;
+            _handTransform = null;
             if (_screwdriverInteractable != null)
             {
                 EnableInteractableTracking(enabled: true);
@@ -273,6 +296,7 @@ namespace com.NW84P
         }
 
 #if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_screwSocketTransform == null)
@@ -280,6 +304,7 @@ namespace com.NW84P
                 Debug.LogError($"ScrewSocketTransform is null on {gameObject.name}");
             }
         }
+
 #endif
     }
 }
