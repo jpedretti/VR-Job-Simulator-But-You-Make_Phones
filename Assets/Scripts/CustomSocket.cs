@@ -11,8 +11,9 @@ namespace com.NW84P
         private bool _onlySelectIfSnapped = false;
 
         private bool _isSnapped;
-        private IXRSelectInteractor _hand;
+        private Transform _handTransform;
         private XRGrabInteractable _interactable;
+        private Transform _interactableTransform;
 
         private const float _SNAPPING_ALIGNMENT_THRESHOLD = 0.994f;
         private const float _UNSNAPPING_DISTANCE_THRESHOLD = 0.8f;
@@ -52,42 +53,41 @@ namespace com.NW84P
         {
             base.ProcessInteractor(updatePhase);
 
-            if (_interactable != null && _hand != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
+            if (_interactable != null && _handTransform != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
-                var interactableTransform = _interactable.transform;
-                StartSnap(interactableTransform);
-                EndSnap(interactableTransform);
+                StartSnap();
+                EndSnap();
             }
         }
 
         public override bool CanSelect(IXRSelectInteractable interactable)
             => base.CanSelect(interactable) && (!_onlySelectIfSnapped || _isSnapped);
 
-        private void EndSnap(Transform interactableTransform)
+        private void EndSnap()
         {
             if (_isSnapped
-                && Vector3.Distance(interactableTransform.position, _hand.transform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
+                && Vector3.Distance(_interactableTransform.position, _handTransform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
             {
                 EndSocketSnapping(_interactable);
                 _isSnapped = false;
             }
         }
 
-        private void StartSnap(Transform interactableTransform)
+        private void StartSnap()
         {
-            if (!_isSnapped && IsAtRightPosition(interactableTransform))
+            if (!_isSnapped && IsAtRightPosition())
             {
                 StartSocketSnapping(_interactable);
                 _isSnapped = true;
             }
         }
 
-        private bool IsAtRightPosition(Transform interactableTransform)
+        private bool IsAtRightPosition()
         {
-            var interactableLocalUp = interactableTransform.up;
+            var interactableLocalUp = _interactableTransform.up;
             var attachLocalUp = attachTransform.up;
 
-            var interactableLocalForward = interactableTransform.forward;
+            var interactableLocalForward = _interactableTransform.forward;
             var attachLocalForward = attachTransform.forward;
 
             var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= _SNAPPING_ALIGNMENT_THRESHOLD;
@@ -104,8 +104,9 @@ namespace com.NW84P
 
             if (_interactable != null && _interactable.interactorsSelecting.Count > 0)
             {
+                _interactableTransform = _interactable.transform;
                 _interactable.selectExited.AddListener(InteractableSelectExited);
-                _hand = _interactable.interactorsSelecting[0];
+                _handTransform = _interactable.interactorsSelecting[0].transform;
             }
         }
 
@@ -117,7 +118,7 @@ namespace com.NW84P
 
         private void InteractableSelectExited(SelectExitEventArgs args)
         {
-            if (args.interactableObject == _hand)
+            if (args.interactorObject.transform == _handTransform)
             {
                 Cleanup();
             }
@@ -125,10 +126,11 @@ namespace com.NW84P
 
         private void Cleanup()
         {
-            _hand = null;
+            _handTransform = null;
 
             if (_interactable != null)
             {
+                _interactableTransform = null;
                 _interactable.selectExited.RemoveListener(InteractableSelectExited);
                 _interactable = null;
             }
