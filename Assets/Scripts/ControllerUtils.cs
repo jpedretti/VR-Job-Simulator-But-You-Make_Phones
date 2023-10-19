@@ -17,14 +17,20 @@ namespace com.NW84P
             return controller != null;
         }
 
-        public static bool TryGetController(this IXRSelectInteractor interactor, out XRBaseController controller)
+        public static XRBaseController GetController(this IXRSelectInteractor interactor)
         {
-            controller = null;
+            XRBaseController controller = null;
             if (interactor is XRBaseControllerInteractor controllerInteractor)
             {
                 controller = controllerInteractor.GetController();
             }
 
+            return controller;
+        }
+
+        public static bool TryGetController(this IXRSelectInteractor interactor, out XRBaseController controller)
+        {
+            controller = GetController(interactor);
             return controller != null;
         }
 
