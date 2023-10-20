@@ -6,8 +6,9 @@ namespace com.NW84P
     [RequireComponent(typeof(Rigidbody))]
     public class Handwheel : MonoBehaviour
     {
-        private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f;
-        private const int _MAX_X_ANGLE = 140;
+        private const float _ANGLE_CYLINDER_POSITION_RELATION = 1.3f;
+        private const float _CYLINDER_POSITION_MULTIPLIER = 0.001f * _ANGLE_CYLINDER_POSITION_RELATION;
+        private const float _MAX_X_ANGLE = 140 / _ANGLE_CYLINDER_POSITION_RELATION;
 
         [SerializeField]
         private Transform _pressCylinder;
@@ -50,6 +51,8 @@ namespace com.NW84P
 
                 _pressCylinder.position += _CYLINDER_POSITION_MULTIPLIER * angle * Vector3.down;
                 _previousUpPosition = _handwheelTransform.up;
+
+                _handwheelRigidbody.angularVelocity = Vector3.ClampMagnitude(_handwheelRigidbody.angularVelocity, 0.3f);
             }
         }
 
