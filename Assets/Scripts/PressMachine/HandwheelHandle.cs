@@ -5,7 +5,7 @@ namespace com.NW84P
 {
     public class HandwheelHandle : XRBaseInteractable
     {
-        private const float _MAX_TORQUE = 0.13f;
+        private const float _MAX_TORQUE = 0.18f;
 
         [Header("Handwheel Handle Settings")]
         [SerializeField]
@@ -38,33 +38,44 @@ namespace com.NW84P
         {
             if (updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic && _handTransform != null)
             {
-                var direction = _handTransform.position - _selectionPoint;
-                var magnitude = direction.magnitude;
-                var dot = Vector3.Dot(direction.normalized, _handleTransform.forward.normalized);
-                var torque = Mathf.Clamp(dot * magnitude, -_MAX_TORQUE, _MAX_TORQUE);
-
-                _handwheel.ApplyTorque(torque);
-
-                SendHapticFeedback(torque);
-                _selectionPoint += _handleTransform.position - _previousHandlePosition;
-                _previousHandlePosition = _handleTransform.position;
+                var torque = CalculateTorque();
+                var absTorque = Mathf.Abs(torque);
+                if (absTorque <= _MAX_TORQUE)
+                {
+                    _handwheel.ApplyTorque(torque);
+                    SendHapticFeedback(absTorque);
+                    _selectionPoint += _handleTransform.position - _previousHandlePosition;
+                    _previousHandlePosition = _handleTransform.position;
+                }
+                else
+                {
+                    ResetState();
+                }
             }
         }
 
-        private void SendHapticFeedback(float torque)
+        private float CalculateTorque()
+        {
+            var direction = _handTransform.position - _selectionPoint;
+            var dot = Vector3.Dot(direction.normalized, _handleTransform.forward.normalized);
+            return dot * direction.magnitude;
+        }
+
+        private void SendHapticFeedback(float absTorque)
         {
             if (_handController != null)
             {
-                var amplitude = Mathf.Abs(torque) / _MAX_TORQUE;
+                var amplitude = absTorque / _MAX_TORQUE;
                 _handController.SendHapticImpulse(amplitude, 0.1f);
             }
         }
 
         private void SelectStarted(SelectEnterEventArgs args)
         {
-            if (args.interactorObject.transform.gameObject.CompareTag(Tags.Player))
+            var handTransform = args.interactorObject.transform;
+            if (handTransform.gameObject.CompareTag(Tags.Player))
             {
-                _handTransform = args.interactorObject.transform;
+                _handTransform = handTransform;
                 _handController = args.interactorObject.GetController();
                 _selectionPoint = _handTransform.position;
                 _previousHandlePosition = _handleTransform.position;
@@ -73,7 +84,11 @@ namespace com.NW84P
 
         private void SelectExited(SelectExitEventArgs args) => ResetState();
 
-        private void ResetState() => _handTransform = null;
+        private void ResetState()
+        {
+            _handTransform = null;
+            _handController = null;
+        }
 
 #if UNITY_EDITOR
 
