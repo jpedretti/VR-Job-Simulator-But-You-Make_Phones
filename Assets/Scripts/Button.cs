@@ -6,14 +6,13 @@ using UnityEngine.XR.Interaction.Toolkit;
 namespace com.NW84P
 {
     /// <summary>
-    /// Button is a custom XR interactable class that represents a pressable button.
-    /// It inherits from XRBaseInteractable and provides functionality for detecting button press and release events.
-    /// The class exposes UnityEvents for button press and release actions, allowing users to easily configure custom behaviors.
+    /// Button is a custom XR interactable class that represents a pressable button. It inherits from XRBaseInteractable
+    /// and provides functionality for detecting button press and release events. The class exposes UnityEvents for
+    /// button press and release actions, allowing users to easily configure custom behaviors.
     /// </summary>
     public class Button : XRBaseInteractable
     {
         [Header("Button Configuration")]
-
         [Tooltip("The transform of the button object. Needs to be a child of this object")]
         [SerializeField]
         private Transform m_ButtonTransform;
@@ -39,6 +38,7 @@ namespace com.NW84P
         private Vector3 m_ButtonOriginalLocalPosition = Vector3.positiveInfinity;
         private bool m_IsCorrectSide = false;
         private float m_ButtonPressLimit = 0;
+        private XRBaseController _controller;
 
         public UnityEvent OnButtonPressed => m_OnButtonPressed;
         public UnityEvent OnButtonReleased => m_OnButtonReleased;
@@ -89,7 +89,11 @@ namespace com.NW84P
         {
             if (pressed)
             {
-                InvokeAction(pressed, () => OnButtonPressed.Invoke());
+                InvokeAction(pressed, () =>
+                {
+                    OnButtonPressed.Invoke();
+                    _controller.SendHapticImpulse(0.5f, 0.1f);
+                });
             }
             else
             {
@@ -125,6 +129,7 @@ namespace com.NW84P
             if (m_InteractorTransform == null)
             {
                 m_InteractorTransform = args.interactorObject.GetAttachTransform(this);
+                _controller = args.interactorObject.GetController();
                 VerifyCorrectSide(GetIteractorLocalPosition());
             }
         }
@@ -150,6 +155,7 @@ namespace com.NW84P
         {
             m_InteractorTransform = null;
             m_IsCorrectSide = false;
+            _controller = null;
             if (!triggerOnButtonRelease)
             {
                 IsPressed = false;
@@ -157,8 +163,7 @@ namespace com.NW84P
             InvokeAction(pressed: false, () => OnButtonReleased.Invoke());
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (m_ButtonOriginalLocalPosition.y != Vector3.positiveInfinity.y)
@@ -176,7 +181,5 @@ namespace com.NW84P
                 Debug.LogError($"The button transform is not a child of {gameObject}");
             }
         }
-
-#endif
     }
 }
