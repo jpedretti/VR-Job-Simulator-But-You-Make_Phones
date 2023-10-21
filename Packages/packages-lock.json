@@ -122,7 +122,7 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.muse.common": {
-      "version": "0.3.0",
+      "version": "0.4.1",
       "depth": 1,
       "source": "registry",
       "dependencies": {
@@ -135,12 +135,12 @@
       "url": "https://packages.unity.com"
     },
     "com.unity.muse.sprite": {
-      "version": "0.3.0",
+      "version": "0.4.1",
       "depth": 0,
       "source": "registry",
       "dependencies": {
         "com.unity.modules.uielements": "1.0.0",
-        "com.unity.muse.common": "0.3.0"
+        "com.unity.muse.common": "0.4.1"
       },
       "url": "https://packages.unity.com"
     },
