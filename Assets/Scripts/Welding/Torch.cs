@@ -6,38 +6,37 @@ namespace com.NW84P
     [Tooltip("The Torch class represents a grabbable torch object in a VR environment with a fire particle effect and a capsule collider for interaction.")]
     public class Torch : XRGrabInteractable
     {
-        private const float _ParticleLifeTime = 0.15f;
-        private const float _FireColliderHeight = 0.017f;
+        private const float _PARTICLE_LIFE_TIME = 0.07f;
+        private const float _FIRE_COLLIDER_HEIGHT = 0.0112f;
 
         private ParticleSystem _fireParticle;
         private XRBaseController _controller;
-        private ParticleSystem.MainModule _mainParticlaModule;
+        private ParticleSystem.MainModule _mainParticleModule;
         private CapsuleCollider _fireCollider;
         private Vector3 _fireColliderCenter;
+        private bool _isFireActive;
 
         public void Start()
         {
             _fireParticle = GetComponentInChildren<ParticleSystem>();
-            _mainParticlaModule = _fireParticle.main;
+            _mainParticleModule = _fireParticle.main;
             _fireCollider = _fireParticle.GetComponent<CapsuleCollider>();
-            _mainParticlaModule.startLifetime = 0;
+            _mainParticleModule.startLifetime = 0;
             _fireCollider.enabled = false;
-            _fireColliderCenter = new Vector3(_fireCollider.center.x, _fireCollider.center.y, 0);
+            _fireColliderCenter = new Vector3(_fireCollider.center.x, _fireCollider.center.y);
             _fireCollider.center = _fireColliderCenter;
         }
 
         protected override void OnEnable()
         {
             base.OnEnable();
-            activated.AddListener(Activate);
-            deactivated.AddListener(Deactivate);
+            selectEntered.AddListener(SelectEntered);
             selectExited.AddListener(SelectExited);
         }
 
         protected override void OnDisable()
         {
-            activated.RemoveListener(Activate);
-            deactivated.RemoveListener(Deactivate);
+            selectEntered.RemoveListener(SelectEntered);
             selectExited.RemoveListener(SelectExited);
             base.OnDisable();
         }
@@ -49,31 +48,57 @@ namespace com.NW84P
             if (_controller != null && updatePhase == XRInteractionUpdateOrder.UpdatePhase.Dynamic)
             {
                 var triggerValue = _controller.GetActivateStateValue();
-                _mainParticlaModule.startLifetime = triggerValue * _ParticleLifeTime;
-                _fireCollider.height = triggerValue * _FireColliderHeight;
-                _fireCollider.enabled = _fireCollider.height >= _FireColliderHeight / 2;
-                _fireColliderCenter.z = _fireCollider.height;
-                _fireCollider.center = _fireColliderCenter;
+                StartFire(triggerValue);
+                StopFire(triggerValue);
+                ControlFire(triggerValue);
             }
         }
 
-        private void Activate(ActivateEventArgs args)
+        private void ControlFire(float triggerValue)
         {
-            if (args.interactorObject.TryGetController(out var controller))
+            if (_isFireActive)
             {
-                _controller = controller;
+                _mainParticleModule.startLifetime = triggerValue * _PARTICLE_LIFE_TIME;
+                ConfigureFireCollider(triggerValue);
+                _controller.SendHapticImpulse(triggerValue, 0.15f);
+            }
+        }
+
+        private void StopFire(float triggerValue)
+        {
+            if (triggerValue == 0 && _isFireActive)
+            {
+                _isFireActive = false;
+                _fireParticle.Stop();
+            }
+        }
+
+        private void StartFire(float triggerValue)
+        {
+            if (triggerValue > 0 && !_isFireActive)
+            {
+                _isFireActive = true;
                 _fireParticle.Play();
             }
         }
 
-        private void Deactivate(DeactivateEventArgs args) => ResetState();
+        private void ConfigureFireCollider(float triggerValue)
+        {
+            _fireCollider.height = triggerValue * _FIRE_COLLIDER_HEIGHT;
+            _fireCollider.enabled = _fireCollider.height >= _FIRE_COLLIDER_HEIGHT / 2;
+            _fireColliderCenter.z = _fireCollider.height / 2;
+            _fireCollider.center = _fireColliderCenter;
+        }
+
+        private void SelectEntered(SelectEnterEventArgs args) => _controller = args.interactorObject.GetController();
 
         private void SelectExited(SelectExitEventArgs args) => ResetState();
 
         private void ResetState()
         {
             _fireParticle.Stop();
-            _mainParticlaModule.startLifetime = 0;
+            _isFireActive = false;
+            _mainParticleModule.startLifetime = 0;
             _controller = null;
             _fireCollider.enabled = false;
             _fireCollider.height = 0;
@@ -81,8 +106,7 @@ namespace com.NW84P
             _fireCollider.center = _fireColliderCenter;
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         private void OnValidate()
         {
             if (GetComponentInChildren<ParticleSystem>() == null)
@@ -95,7 +119,5 @@ namespace com.NW84P
                 Debug.LogError($"No Capsule Collider found in {gameObject}");
             }
         }
-
-#endif
     }
 }
