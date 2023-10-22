@@ -8,11 +8,13 @@ namespace com.NW84P
     {
         private const float _PARTICLE_LIFE_TIME = 0.07f;
         private const float _FIRE_COLLIDER_HEIGHT = 0.0112f;
-
+        private const float _MIN_FIRE_SOUND_VOLUME = 0.05f;
+        private const float _MAX_FIRE_SOUND_VOLUME = 0.5f;
         private ParticleSystem _fireParticle;
         private XRBaseController _controller;
         private ParticleSystem.MainModule _mainParticleModule;
         private CapsuleCollider _fireCollider;
+        private AudioSource _fireAudioSource;
         private Vector3 _fireColliderCenter;
         private bool _isFireActive;
 
@@ -21,6 +23,7 @@ namespace com.NW84P
             _fireParticle = GetComponentInChildren<ParticleSystem>();
             _mainParticleModule = _fireParticle.main;
             _fireCollider = _fireParticle.GetComponent<CapsuleCollider>();
+            _fireAudioSource = _fireParticle.GetComponent<AudioSource>();
             _mainParticleModule.startLifetime = 0;
             _fireCollider.enabled = false;
             _fireColliderCenter = new Vector3(_fireCollider.center.x, _fireCollider.center.y);
@@ -60,6 +63,7 @@ namespace com.NW84P
             {
                 _mainParticleModule.startLifetime = triggerValue * _PARTICLE_LIFE_TIME;
                 ConfigureFireCollider(triggerValue);
+                _fireAudioSource.volume = Mathf.Lerp(_MIN_FIRE_SOUND_VOLUME, _MAX_FIRE_SOUND_VOLUME, triggerValue);
                 _controller.SendHapticImpulse(triggerValue, 0.15f);
             }
         }
@@ -70,6 +74,7 @@ namespace com.NW84P
             {
                 _isFireActive = false;
                 _fireParticle.Stop();
+                _fireAudioSource.Stop();
             }
         }
 
@@ -79,6 +84,7 @@ namespace com.NW84P
             {
                 _isFireActive = true;
                 _fireParticle.Play();
+                _fireAudioSource.Play();
             }
         }
 
@@ -97,6 +103,7 @@ namespace com.NW84P
         private void ResetState()
         {
             _fireParticle.Stop();
+            _fireAudioSource.Stop();
             _isFireActive = false;
             _mainParticleModule.startLifetime = 0;
             _controller = null;
@@ -111,12 +118,17 @@ namespace com.NW84P
         {
             if (GetComponentInChildren<ParticleSystem>() == null)
             {
-                Debug.LogError($"No Particle System found in {gameObject}");
+                Debug.LogError($"No Particle System found in any {gameObject} children");
             }
 
             if (GetComponentInChildren<CapsuleCollider>() == null)
             {
-                Debug.LogError($"No Capsule Collider found in {gameObject}");
+                Debug.LogError($"No Capsule Collider found in any {gameObject} children");
+            }
+
+            if (GetComponentInChildren<AudioSource>() == null)
+            {
+                Debug.LogError($"No Audio Source found in any {gameObject} children");
             }
         }
     }

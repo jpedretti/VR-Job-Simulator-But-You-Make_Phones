@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 2937400605596697737}
   - component: {fileID: 8109347718586183588}
   - component: {fileID: 6625065347814444462}
+  - component: {fileID: 8457552772149057139}
   m_Layer: 0
   m_Name: Fire
   m_TagString: TorchFire
@@ -59,7 +60,7 @@ Transform:
   m_GameObject: {fileID: 4996287978364753132}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.25460193, z: 0, w: 0.967046}
-  m_LocalPosition: {x: 0.01118, y: -0.0049, z: 0.08341}
+  m_LocalPosition: {x: 0.01118, y: -0.00022, z: 0.08341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -702,8 +703,8 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -0.0006921172, y: 0.024569688, z: -0.009551647}
-    m_Rotation: {x: -0.00001216532, y: -0.000014949191, z: -0.000020860214}
+    m_Position: {x: -0.0006922067, y: 0.001071303, z: -0.009551596}
+    m_Rotation: {x: -0.00068126566, y: -0.00077038014, z: -0.0011681675}
     m_Scale: {x: 0.10000177, y: 0.10000235, z: 0.09999964}
     placementMode: 0
     m_MeshMaterialIndex: 0
@@ -4884,7 +4885,103 @@ CapsuleCollider:
   m_Radius: 0.0016142759
   m_Height: 0.018
   m_Direction: 2
-  m_Center: {x: -0.00013853988, y: 0.0049162954, z: 0.018528437}
+  m_Center: {x: -0.00013853988, y: 0.0002, z: 0.01}
+--- !u!82 &8457552772149057139
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4996287978364753132}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c63513084bf4b9c45aadc1ba5922e1dd, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 0.1
+  MaxDistance: 5
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1001 &6232912551085040853
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5036,7 +5133,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 2
 --- !u!65 &520160429532965877
 BoxCollider:
   m_ObjectHideFlags: 0
