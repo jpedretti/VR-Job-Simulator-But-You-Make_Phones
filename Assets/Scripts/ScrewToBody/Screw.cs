@@ -24,7 +24,7 @@ namespace com.NW84P
         private const float _ALIGNEMENT_THRESHOLD = 0.85f;
         private const float _MIN_ROTATION_MULTIPLIER = 0.25f;
         private const float _MAX_ROTATION_MULTIPLIER = 1f;
-        private const float _DELTA_ANGLE_TO_ACTIVATE_HAPTIC = 0.21f;
+        private const float _DELTA_ANGLE_TO_SEND_FEEDBACK = 0.32f;
 
         #endregion Constants
 
@@ -33,6 +33,7 @@ namespace com.NW84P
         private Transform _screwTransform;
         private Vector3 _screwInitialPosition;
         private Vector3 _vector3RotationAxis;
+        private AudioSource _screwAudioSource;
 
         #endregion Screw
 
@@ -86,6 +87,7 @@ namespace com.NW84P
             _vector3RotationAxis = _rotationAxis.ToVector3Axis();
             _screwInitialPosition = _screwTransform.position;
             _isValidTriggerEnter = true;
+            _screwAudioSource = GetComponent<AudioSource>();
         }
 
         public void OnDestroy() => ResetState();
@@ -219,14 +221,23 @@ namespace com.NW84P
 
             _screwdriverTransform.position = _screwSocketTransform.position - _screwdriverAttachDistance;
 
-            SendHapticFeedback(angle);
+            SendFeedback(angle);
         }
 
-        private void SendHapticFeedback(float angle)
+        private void SendFeedback(float angle)
         {
-            if (Mathf.Abs(angle) >= _DELTA_ANGLE_TO_ACTIVATE_HAPTIC)
+            if (Mathf.Abs(angle) >= _DELTA_ANGLE_TO_SEND_FEEDBACK)
             {
                 _handController.SendHapticImpulse(ScrewDistanceNormalized, Time.deltaTime);
+                _screwAudioSource.pitch = Mathf.Lerp(0.4f, 0.5f, ScrewDistanceNormalized);
+                if (!_screwAudioSource.isPlaying)
+                {
+                    _screwAudioSource.Play();
+                }
+            }
+            else
+            {
+                _screwAudioSource.Stop();
             }
         }
 
@@ -278,6 +289,7 @@ namespace com.NW84P
 
         private void ResetState()
         {
+            _screwAudioSource.Stop();
             _isValidTriggerEnter = true;
             _isSnapped = false;
             _canSnap = false;
@@ -295,16 +307,17 @@ namespace com.NW84P
             }
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (_screwSocketTransform == null)
             {
                 Debug.LogError($"ScrewSocketTransform is null on {gameObject.name}");
             }
+            if (GetComponent<AudioSource>() == null)
+            {
+                Debug.LogError($"ScrewAudioSource is null on {gameObject.name}");
+            }
         }
-
-#endif
     }
 }
