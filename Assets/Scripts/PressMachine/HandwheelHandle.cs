@@ -75,6 +75,7 @@ namespace com.NW84P
             var handTransform = args.interactorObject.transform;
             if (handTransform.gameObject.CompareTag(Tags.Player))
             {
+                _handwheel.IsHolding = true;
                 _handTransform = handTransform;
                 _handController = args.interactorObject.GetController();
                 _selectionPoint = _handTransform.position;
@@ -86,6 +87,8 @@ namespace com.NW84P
 
         private void ResetState()
         {
+            _handwheel.IsHolding = false;
+            _handwheel.ApplyTorque(0);
             _handTransform = null;
             _handController = null;
         }
