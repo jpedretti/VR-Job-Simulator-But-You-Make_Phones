@@ -9,7 +9,7 @@ namespace com.NW84P
         private const float _PARTICLE_LIFE_TIME = 0.07f;
         private const float _FIRE_COLLIDER_HEIGHT = 0.0112f;
         private const float _MIN_FIRE_SOUND_VOLUME = 0.05f;
-        private const float _MAX_FIRE_SOUND_VOLUME = 0.5f;
+        private const float _MAX_FIRE_SOUND_VOLUME = 1f;
         private ParticleSystem _fireParticle;
         private XRBaseController _controller;
         private ParticleSystem.MainModule _mainParticleModule;

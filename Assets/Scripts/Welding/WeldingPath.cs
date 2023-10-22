@@ -12,10 +12,13 @@ namespace com.NW84P
         [SerializeField]
         private UnityEvent _onWelded = new();
 
+        private AudioSource _weldingAudioSource;
         private readonly Dictionary<string, GameObject> _pathPoints = new();
+        private byte _pointsBeingWelded;
 
         private void Start()
         {
+            _weldingAudioSource = GetComponent<AudioSource>();
             for (int i = 0; i < _pathPointsParent.transform.childCount; i++)
             {
                 var child = _pathPointsParent.transform.GetChild(i).gameObject;
@@ -31,8 +34,25 @@ namespace com.NW84P
             }
         }
 
-#if UNITY_EDITOR
+        public void StartedWelding()
+        {
+            _pointsBeingWelded++;
+            if (_pointsBeingWelded == 1)
+            {
+                _weldingAudioSource.Play();
+            }
+        }
 
+        public void StoppedWelding()
+        {
+            _pointsBeingWelded--;
+            if (_pointsBeingWelded == 0)
+            {
+                _weldingAudioSource.Stop();
+            }
+        }
+
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (_pathPointsParent == null)
@@ -40,7 +60,5 @@ namespace com.NW84P
                 Debug.LogError($"PathPointsParent is null on {gameObject.name}");
             }
         }
-
-#endif
     }
 }

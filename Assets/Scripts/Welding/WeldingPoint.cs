@@ -15,10 +15,6 @@ namespace com.NW84P
         private void Start()
         {
             _weldingPath = GetComponentInParent<WeldingPath>();
-            if(_weldingPath == null)
-            {
-                Debug.LogError($"WeldingPath is null on {gameObject.name}");
-            }
             _fireParticle = GetComponent<ParticleSystem>();
             _lineRenderer = GetComponent<LineRenderer>();
         }
@@ -36,6 +32,7 @@ namespace com.NW84P
         {
             if (!_isWelded && other.CompareTag(Tags.TorchFire))
             {
+                _weldingPath.StoppedWelding();
                 _fireParticle.Stop();
                 StopAllCoroutines();
             }
@@ -51,15 +48,16 @@ namespace com.NW84P
 
         private IEnumerator Weld()
         {
+            _weldingPath.StartedWelding();
             yield return WaitForSecondsCache.Get(_TIME_TO_WELD);
             _isWelded = true;
             _fireParticle.Stop();
             _lineRenderer.enabled = false;
             _weldingPath.Weld(name);
+            _weldingPath.StoppedWelding();
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (GetComponent<ParticleSystem>() == null)
@@ -71,7 +69,5 @@ namespace com.NW84P
                 Debug.LogError($"LineRenderer is null on {gameObject.name}");
             }
         }
-
-#endif
     }
 }
