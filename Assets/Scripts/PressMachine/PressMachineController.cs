@@ -60,9 +60,8 @@ namespace com.NW84P
             _handwheel.enabled = enabled;
             for (int i = 0; i < _handwheelHandles.Length; i++)
             {
-                var handle = _handwheelHandles[i];
-                handle.enabled = enabled;
-                handle.gameObject.GetComponent<Collider>().enabled = enabled;
+                _handwheelHandles[i].enabled = enabled;
+                _handwheelHandles[i].gameObject.GetComponent<Collider>().enabled = enabled;
             }
         }
 

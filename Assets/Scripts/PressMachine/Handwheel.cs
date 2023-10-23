@@ -35,7 +35,7 @@ namespace com.NW84P
             set { if (value) _holdingsCount++; else _holdingsCount--; }
         }
 
-        public void Start()
+        public void Awake()
         {
             _handwheelTransform = transform;
             _handwheelRigidbody = GetComponent<Rigidbody>();
@@ -43,13 +43,10 @@ namespace com.NW84P
             _previousUpPosition = _handwheelTransform.up;
             _handwheelAudioSource = GetComponent<AudioSource>();
             _handwheelFinalRotation = _handwheelInitialRotation * Quaternion.Euler(_MAX_X_ANGLE, 0, 0);
+            SetRoundArrows();
         }
 
-        public void OnEnable()
-        {
-            SetRoundArrows();
-            _roundArrows.SetActive(true);
-        }
+        public void OnEnable() => _roundArrows.SetActive(true);
 
         public void OnDisable() => _roundArrows.SetActive(false);
 
@@ -151,9 +148,10 @@ namespace com.NW84P
         {
             for (int i = 0; i < _handwheelTransform.childCount; i++)
             {
-                if (_handwheelTransform.GetChild(i).gameObject.CompareTag(Tags.RoundArrows))
+                var child = _handwheelTransform.GetChild(i);
+                if (child.CompareTag(Tags.RoundArrows))
                 {
-                    _roundArrows = _handwheelTransform.GetChild(i).gameObject;
+                    _roundArrows = child.gameObject;
                     break;
                 }
             }
