@@ -2781,10 +2781,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2328554602734020120, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6048977078086796215, guid: b6e7eab18704ba445823541f48a3b67c, type: 3}
       propertyPath: m_Name
       value: Press Machine
