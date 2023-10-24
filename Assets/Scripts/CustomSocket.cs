@@ -10,13 +10,33 @@ namespace com.NW84P
         [SerializeField]
         private bool _onlySelectIfSnapped = false;
 
+        [SerializeField]
+        [Tooltip("The threshold for the alignment of the interactable object and the socket.")]
+        private float _snapAlignmentThreshold = 0.92f;
+
+        [SerializeField]
+        [Tooltip("the distance between the hand and the interactable so that the interactable will be unsnapped from the socket")]
+        private float _unsnapDistance = 0.8f;
+
+        [SerializeField]
+        [Tooltip("Should play haptic feedback when the interactable is snapped.")]
+        private bool _snapHapticFeedback;
+
+        [SerializeField]
+        [Range(0, 1)]
+        [Tooltip("The amplitude of the haptic feedback when the interactable is snapped.")]
+        private float _snapHapticFeedbackAmplitude = 1;
+
+        [SerializeField]
+        [Range(0, float.PositiveInfinity)]
+        [Tooltip("The duration of the haptic feedback when the interactable is snapped.")]
+        private float _snapHapticFeedbackDuration = 0.1f;
+
         private bool _isSnapped;
         private Transform _handTransform;
+        private XRBaseController _handController;
         private XRGrabInteractable _interactable;
         private Transform _interactableTransform;
-
-        private const float _SNAPPING_ALIGNMENT_THRESHOLD = 0.994f;
-        private const float _UNSNAPPING_DISTANCE_THRESHOLD = 0.8f;
 
         /// <summary>
         /// Returns true if the XRGrabInteractable object is snapped, false otherwise.
@@ -66,7 +86,7 @@ namespace com.NW84P
         private void EndSnap()
         {
             if (_isSnapped
-                && Vector3.Distance(_interactableTransform.position, _handTransform.position) > _UNSNAPPING_DISTANCE_THRESHOLD)
+                && Vector3.Distance(_interactableTransform.position, _handTransform.position) > _unsnapDistance)
             {
                 EndSocketSnapping(_interactable);
                 _isSnapped = false;
@@ -79,6 +99,15 @@ namespace com.NW84P
             {
                 StartSocketSnapping(_interactable);
                 _isSnapped = true;
+                SendHapticFeedback();
+            }
+        }
+
+        private void SendHapticFeedback()
+        {
+            if (_handController != null && _snapHapticFeedback)
+            {
+                _handController.SendHapticImpulse(_snapHapticFeedbackAmplitude, _snapHapticFeedbackDuration);
             }
         }
 
@@ -90,8 +119,8 @@ namespace com.NW84P
             var interactableLocalForward = _interactableTransform.forward;
             var attachLocalForward = attachTransform.forward;
 
-            var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= _SNAPPING_ALIGNMENT_THRESHOLD;
-            var rightForward = Vector3.Dot(interactableLocalForward, attachLocalForward) >= _SNAPPING_ALIGNMENT_THRESHOLD;
+            var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= 0.92f;
+            var rightForward = Vector3.Dot(interactableLocalForward, attachLocalForward) >= 0.92f;
 
             return rightUp && rightForward;
         }
@@ -107,6 +136,7 @@ namespace com.NW84P
                 _interactableTransform = _interactable.transform;
                 _interactable.selectExited.AddListener(InteractableSelectExited);
                 _handTransform = _interactable.interactorsSelecting[0].transform;
+                _handController = _interactable.interactorsSelecting[0].GetController();
             }
         }
 

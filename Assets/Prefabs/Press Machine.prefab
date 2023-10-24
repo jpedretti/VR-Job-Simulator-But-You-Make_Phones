@@ -1594,12 +1594,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 1344145353147130413}
     m_Modifications:
     - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
+      propertyPath: _snapHapticFeedback
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: _onlySelectIfSnapped
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
+      propertyPath: _snapHapticFeedbackAmplitude
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_Size.z
-      value: 0.004251022
+      value: 0.013391153
       objectReference: {fileID: 0}
     - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_Center.x
@@ -1607,7 +1615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_Center.z
-      value: -0.0015959687
+      value: -0.006166035
       objectReference: {fileID: 0}
     - target: {fileID: 5268226434138909590, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_Name

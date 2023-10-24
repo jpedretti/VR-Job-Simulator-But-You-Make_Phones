@@ -320,20 +320,28 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
+      propertyPath: m_Size.x
+      value: 0.0010007785
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: m_Size.y
-      value: 0.00008192831
+      value: 0.00011832023
+      objectReference: {fileID: 0}
+    - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
+      propertyPath: m_Size.z
+      value: 0.00009185688
       objectReference: {fileID: 0}
     - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: m_Center.x
-      value: 0.000010242089
+      value: -0.000008146688
       objectReference: {fileID: 0}
     - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: m_Center.y
-      value: 0.00007094798
+      value: 0.00005275202
       objectReference: {fileID: 0}
     - target: {fileID: 2705316993884102110, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: m_Center.z
-      value: -0.0000041375047
+      value: -0.0000018976582
       objectReference: {fileID: 0}
     - target: {fileID: 3506705954165606082, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -400,7 +408,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6341451326564580615, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
+      propertyPath: _snapHapticFeedback
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341451326564580615, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
       propertyPath: _onlySelectIfSnapped
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6341451326564580615, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}
+      propertyPath: _snapHapticFeedbackAmplitude
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6341451326564580615, guid: ae3931338495b604889726b9ccc1c1f4, type: 3}

@@ -1256,6 +1256,11 @@ MonoBehaviour:
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
   _onlySelectIfSnapped: 1
+  _snapAlignmentThreshold: 0.92
+  _unsnapDistance: 0.8
+  _snapHapticFeedback: 1
+  _snapHapticFeedbackAmplitude: 1
+  _snapHapticFeedbackDuration: 0.1
 --- !u!65 &7381272103099860002
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1275,8 +1280,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.004373759, y: 0.016480088, z: 0.0033802688}
-  m_Center: {x: 0.0013659447, y: -0.000356853, z: 0.000017598271}
+  m_Size: {x: 0.01358816, y: 0.025689542, z: 0.007678017}
+  m_Center: {x: -0.0007850677, y: -0.0003568232, z: 0.00032458454}
 --- !u!114 &4525407259641891171
 MonoBehaviour:
   m_ObjectHideFlags: 0

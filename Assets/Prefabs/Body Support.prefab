@@ -374,7 +374,15 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: _snapHapticFeedback
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: _onlySelectIfSnapped
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: _snapHapticFeedbackAmplitude
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
@@ -479,15 +487,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_Size.x
-      value: 0.000106246014
+      value: 0.00015659397
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Size.y
+      value: 0.00068063196
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Size.z
+      value: 0.0015236628
       objectReference: {fileID: 0}
     - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_Center.x
-      value: -0.000022008624
+      value: -0.00004718253
+      objectReference: {fileID: 0}
+    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_Center.y
+      value: 0.000019765197
       objectReference: {fileID: 0}
     - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_Center.z
-      value: 9.30304e-14
+      value: 0.00000071562863
       objectReference: {fileID: 0}
     - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_IsActive
