@@ -29,12 +29,6 @@ namespace com.NW84P
         public Action OnFinishedPressing { get; set; }
         public bool IsPressed { get; set; }
 
-        public bool IsHolding
-        {
-            get => _holdingsCount > 0;
-            set { if (value) _holdingsCount++; else _holdingsCount--; }
-        }
-
         public void Awake()
         {
             _handwheelTransform = transform;
@@ -52,14 +46,11 @@ namespace com.NW84P
 
         public void Update()
         {
-            if (IsHolding)
-            {
-                var angularVelocity = _handwheelRigidbody.angularVelocity;
-                var clampedAngularVelocityX = Mathf.Clamp(angularVelocity.x, -_MAX_ANGULAR_VELOCITY_MAGNITUDE, _MAX_ANGULAR_VELOCITY_MAGNITUDE);
-                MoveCylinder(angularVelocity, clampedAngularVelocityX);
-                var playSound = !_isInLimitPosition && Mathf.Abs(angularVelocity.x) > 0.005f;
-                PlaySound(playSound, clampedAngularVelocityX);
-            }
+            var angularVelocity = _handwheelRigidbody.angularVelocity;
+            var clampedAngularVelocityX = Mathf.Clamp(angularVelocity.x, -_MAX_ANGULAR_VELOCITY_MAGNITUDE, _MAX_ANGULAR_VELOCITY_MAGNITUDE);
+            MoveCylinder(angularVelocity, clampedAngularVelocityX);
+            var playSound = !_isInLimitPosition && Mathf.Abs(angularVelocity.x) > 0.005f;
+            PlaySound(playSound, clampedAngularVelocityX);
         }
 
         private void MoveCylinder(Vector3 angularVelocity, float clampedAngularVelocityX)
