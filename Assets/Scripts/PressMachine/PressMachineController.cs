@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -21,6 +22,7 @@ namespace com.NW84P
         private AudioSource _cylinderBaseAudioSource;
 
         private GameObject _oldPhoneBody;
+        private XRGrabInteractable _newPhoneGrabInteractable;
 
         public void OnEnable()
         {
@@ -29,9 +31,15 @@ namespace com.NW84P
             _handwheel.OnFinishedPressing += HandlePressFinished;
         }
 
-        public void OnDisable() => ClearState();
+        public void OnDisable()
+        {
+            RemoveBeforePressListeners();
+            EnableHandwheel(false);
+            _newPhoneGrabInteractable.selectEntered.RemoveListener(NewPhoneSelected);
+            _newPhoneGrabInteractable = null;
+        }
 
-        private void ClearState()
+        private void RemoveBeforePressListeners()
         {
             _phoneBackGlass.selectEntered.RemoveListener(BodyAttachedToGlass);
             _phoneBackGlass.selectExited.RemoveListener(BodyDetachedFromGlass);
@@ -41,11 +49,21 @@ namespace com.NW84P
         private void HandlePressFinished()
         {
             _cylinderBaseAudioSource.Play();
-            Instantiate(_bodyWithBackGlassPrefab, _oldPhoneBody.transform.position, _phoneBackGlass.transform.rotation);
-            ClearState();
+            CreateNewPhone();
+            RemoveBeforePressListeners();
             Destroy(_phoneBackGlass.gameObject);
             Destroy(_oldPhoneBody);
+            _oldPhoneBody = null;
         }
+
+        private void CreateNewPhone()
+        {
+            var newPhone = Instantiate(_bodyWithBackGlassPrefab, _oldPhoneBody.transform.position, _phoneBackGlass.transform.rotation);
+            _newPhoneGrabInteractable = newPhone.GetComponent<XRGrabInteractable>();
+            _newPhoneGrabInteractable.selectEntered.AddListener(NewPhoneSelected);
+        }
+
+        private void NewPhoneSelected(SelectEnterEventArgs _) => enabled = false;
 
         private void BodyAttachedToGlass(SelectEnterEventArgs args)
         {
