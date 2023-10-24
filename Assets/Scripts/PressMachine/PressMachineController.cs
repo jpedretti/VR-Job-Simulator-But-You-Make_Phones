@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
@@ -35,8 +34,11 @@ namespace com.NW84P
         {
             RemoveBeforePressListeners();
             EnableHandwheel(false);
-            _newPhoneGrabInteractable.selectEntered.RemoveListener(NewPhoneSelected);
-            _newPhoneGrabInteractable = null;
+            if (_newPhoneGrabInteractable != null)
+            {
+                _newPhoneGrabInteractable.selectEntered.RemoveListener(NewPhoneSelected);
+                _newPhoneGrabInteractable = null;
+            }
         }
 
         private void RemoveBeforePressListeners()
