@@ -17,6 +17,9 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _bodyWithBackGlassPrefab;
 
+        [SerializeField]
+        private AudioSource _cylinderBaseAudioSource;
+
         private GameObject _oldPhoneBody;
 
         public void OnEnable()
@@ -37,6 +40,7 @@ namespace com.NW84P
 
         private void HandlePressFinished()
         {
+            _cylinderBaseAudioSource.Play();
             Instantiate(_bodyWithBackGlassPrefab, _oldPhoneBody.transform.position, _phoneBackGlass.transform.rotation);
             ClearState();
             Destroy(_phoneBackGlass.gameObject);
@@ -65,8 +69,7 @@ namespace com.NW84P
             }
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (_phoneBackGlass == null)
@@ -88,8 +91,11 @@ namespace com.NW84P
             {
                 Debug.LogError("Body With Back Glass Prefab is not assigned.");
             }
-        }
 
-#endif
+            if (_cylinderBaseAudioSource == null)
+            {
+                Debug.LogError("Cylinder Base Audio Source is not assigned.");
+            }
+        }
     }
 }
