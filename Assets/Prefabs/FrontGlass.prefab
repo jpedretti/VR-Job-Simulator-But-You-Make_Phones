@@ -456,7 +456,7 @@ GameObject:
   - component: {fileID: 8512790699454218211}
   m_Layer: 0
   m_Name: FrontGlass
-  m_TagString: Untagged
+  m_TagString: FrontGlass
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -18,4 +18,6 @@ public const string RoundArrows = @"RoundArrows";
 public const string Socket = @"Socket";
 public const string Target = @"Target";
 public const string Hammer = @"Hammer";
+public const string FrontGlass = @"FrontGlass";
+public const string PhoneDone = @"PhoneDone";
 }

@@ -28,7 +28,7 @@ namespace com.NW84P
         {
             var phone = args.interactableObject.transform.gameObject;
             RemoveInteractableScripts(phone);
-            AddCustomSocketScript(phone);
+            EnableCustomSocketScript(phone);
             MakeKinematic(phone);
             ConfigureCollider(phone);
         }
@@ -50,7 +50,7 @@ namespace com.NW84P
             }
         }
 
-        private void AddCustomSocketScript(GameObject phone)
+        private void EnableCustomSocketScript(GameObject phone)
         {
             _phoneSocket = phone.GetComponent<CustomSocket>();
             _phoneSocket.enabled = true;
@@ -103,8 +103,7 @@ namespace com.NW84P
             }
         }
 
-#if UNITY_EDITOR
-
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
             if (_phoneDonePrefab == null)
@@ -112,7 +111,5 @@ namespace com.NW84P
                 Debug.LogError("Phone Done Prefab is null");
             }
         }
-
-#endif
     }
 }
