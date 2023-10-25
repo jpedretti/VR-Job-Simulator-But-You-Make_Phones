@@ -105,8 +105,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055898935, y: 0.055533886, z: 0.0013764913}
-  m_Center: {x: -0.00012432039, y: -0.00073403114, z: -0.00038250364}
+  m_Size: {x: 0.06455612, y: 0.06723523, z: 0.0013764913}
+  m_Center: {x: -0.00014867261, y: -0.0010975319, z: -0.00038250364}
 --- !u!114 &5550485488328798355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,8 +224,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055898935, y: 0.055533886, z: 0.0013764913}
-  m_Center: {x: -0.00012432039, y: -0.00073403114, z: -0.00038250364}
+  m_Size: {x: 0.06463719, y: 0.06670991, z: 0.0013764914}
+  m_Center: {x: -0.00030038506, y: -0.00011687025, z: -0.00038250358}
 --- !u!114 &1438212500882594685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -427,8 +427,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055898935, y: 0.055533886, z: 0.0013764913}
-  m_Center: {x: -0.00012432039, y: -0.00073403114, z: -0.00038250364}
+  m_Size: {x: 0.065589845, y: 0.066168815, z: 0.0013764913}
+  m_Center: {x: -0.00051650405, y: -0.0005637011, z: -0.00038250364}
 --- !u!114 &4627083194372985442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -800,8 +800,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055898935, y: 0.055533886, z: 0.0013764913}
-  m_Center: {x: -0.00012432039, y: -0.00073403114, z: -0.00038250364}
+  m_Size: {x: 0.0636278, y: 0.06386174, z: 0.0013764913}
+  m_Center: {x: 0.0000923099, y: 0.0002414868, z: -0.00038250367}
 --- !u!114 &2866187177151681469
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -919,8 +919,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.055898935, y: 0.055533886, z: 0.0013764913}
-  m_Center: {x: -0.00012432039, y: -0.00073403114, z: -0.00038250364}
+  m_Size: {x: 0.064310774, y: 0.06618317, z: 0.0013764913}
+  m_Center: {x: 0.00007245876, y: -0.0010103531, z: -0.00038250367}
 --- !u!114 &3023584739097535643
 MonoBehaviour:
   m_ObjectHideFlags: 0

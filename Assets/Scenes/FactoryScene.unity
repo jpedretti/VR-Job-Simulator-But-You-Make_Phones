@@ -1583,6 +1583,22 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 1921450421362205674, guid: 5747a40703f43a24791f1907b2d88507, type: 3}
+      propertyPath: m_MovementType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921450421362205674, guid: 5747a40703f43a24791f1907b2d88507, type: 3}
+      propertyPath: m_VelocityScale
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921450421362205674, guid: 5747a40703f43a24791f1907b2d88507, type: 3}
+      propertyPath: m_SmoothRotation
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1921450421362205674, guid: 5747a40703f43a24791f1907b2d88507, type: 3}
+      propertyPath: m_VelocityDamping
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6492964595147021555, guid: 5747a40703f43a24791f1907b2d88507, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.249
@@ -2051,10 +2067,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrontGlass
       objectReference: {fileID: 0}
-    - target: {fileID: 7201009110921299987, guid: 6e24e9155e6b3ba4bbf5caca1938f672, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2331,8 +2343,8 @@ Transform:
   m_GameObject: {fileID: 1320914269693204442}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.000500001, y: -0.14099997, z: -0.0123}
-  m_LocalScale: {x: 0.09, y: 0.136675, z: 0.024592426}
+  m_LocalPosition: {x: 0.000500001, y: -0.14099997, z: -0.0102}
+  m_LocalScale: {x: 0.09, y: 0.136675, z: 0.020596156}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6694046607655090438}

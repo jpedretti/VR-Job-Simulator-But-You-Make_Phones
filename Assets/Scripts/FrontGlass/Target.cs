@@ -6,7 +6,7 @@ namespace com.NW84P
 {
     public class Target : MonoBehaviour
     {
-        private const float _MINIMUM_HAMMER_SPEED = 0.5f;
+        private const float _MINIMUM_HAMMER_SPEED = 0.105f;
 
         private Transform _targetTransform;
         private Rigidbody _hammerRigidbody;
