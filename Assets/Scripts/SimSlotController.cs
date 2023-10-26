@@ -47,6 +47,7 @@ namespace com.NW84P
             }
 
             Destroy(this);
+            GameController.Instance.InsertedSinCard = true;
         }
 
 #if UNITY_EDITOR
