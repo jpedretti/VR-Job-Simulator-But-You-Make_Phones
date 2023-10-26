@@ -144,6 +144,16 @@
       },
       "url": "https://packages.unity.com"
     },
+    "com.unity.muse.texture": {
+      "version": "0.4.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.muse.common": "0.4.1",
+        "com.unity.shadergraph": "14.0.7"
+      },
+      "url": "https://packages.unity.com"
+    },
     "com.unity.performance.profile-analyzer": {
       "version": "1.2.2",
       "depth": 1,
