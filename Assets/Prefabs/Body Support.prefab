@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &2838723656602972878
 Transform:
@@ -122,7 +122,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1695607104659002140
 Transform:
@@ -225,7 +225,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1739741152967320662
 Transform:
@@ -361,6 +361,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 74304917890791210, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 187729799955343193, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 2606266587966814538, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 2670611362817209993, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: _screwPrefab
       value: 
@@ -368,6 +380,10 @@ PrefabInstance:
     - target: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_Name
       value: Phone Body
+      objectReference: {fileID: 0}
+    - target: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: _onlySelectIfSnaped
@@ -441,9 +457,21 @@ PrefabInstance:
       propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 3961954562281075807, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 4683443362020135320, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 5076410800653862999, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5076410800653862999, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5339885457436951001, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_LocalPosition.x
@@ -509,9 +537,21 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0.00000071562863
       objectReference: {fileID: 0}
+    - target: {fileID: 7342683665730635821, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
+    - target: {fileID: 7953088550673282321, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2670611362817209993, guid: ab53bcfde8092544aa53407281991d75, type: 3}
