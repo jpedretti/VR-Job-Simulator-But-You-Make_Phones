@@ -119,8 +119,8 @@ namespace com.NW84P
             var interactableLocalForward = _interactableTransform.forward;
             var attachLocalForward = attachTransform.forward;
 
-            var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= 0.92f;
-            var rightForward = Vector3.Dot(interactableLocalForward, attachLocalForward) >= 0.92f;
+            var rightUp = Vector3.Dot(interactableLocalUp, attachLocalUp) >= _snapAlignmentThreshold;
+            var rightForward = Vector3.Dot(interactableLocalForward, attachLocalForward) >= _snapAlignmentThreshold;
 
             return rightUp && rightForward;
         }
