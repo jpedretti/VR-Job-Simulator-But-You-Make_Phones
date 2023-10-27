@@ -11,6 +11,7 @@ namespace com.NW84P
         private GameObject[] _objectsToEnable;
 
         private bool _isGameStarted = false;
+        private bool _isGameEnded = false;
         private float _timer = 0f;
 
         public bool InsertedSinCard { get; set; } = false;
@@ -30,9 +31,9 @@ namespace com.NW84P
             }
         }
 
-        private void Start() => _startButton.OnButtonPressed.AddListener(EnableObjects);
+        private void Start() => _startButton.OnButtonPressed.AddListener(ButtonPressed);
 
-        private void EnableObjects()
+        private void ButtonPressed()
         {
             if (!_isGameStarted)
             {
@@ -44,14 +45,14 @@ namespace com.NW84P
             }
             if (InsertedSinCard)
             {
-                // end game
+                _isGameEnded = true;
                 Debug.Log($"Game ended. Time: {_timer}");
             }
         }
 
         private void Update()
         {
-            if (_isGameStarted && !InsertedSinCard)
+            if (_isGameStarted && !_isGameEnded)
             {
                 _timer += Time.deltaTime;
             }
