@@ -18,11 +18,11 @@ namespace com.NW84P
         {
             if (_hand != null)
             {
-                Vector3 handDirection = _hand.transform.position - transform.position;
-                Vector3 projection = Vector3.ProjectOnPlane(handDirection, _vector3RotationAxis);
+                var handDirection = _hand.transform.position - transform.position;
+                var projection = Vector3.ProjectOnPlane(handDirection, _vector3RotationAxis);
 
-                float angle = Vector3.SignedAngle(_initialHandDirection, projection, _vector3RotationAxis);
-                Quaternion rotation = Quaternion.AngleAxis(angle, _vector3RotationAxis);
+                var angle = Vector3.SignedAngle(_initialHandDirection, projection, _vector3RotationAxis);
+                var rotation = Quaternion.AngleAxis(angle, _vector3RotationAxis);
 
                 transform.rotation = rotation * _initialObjectRotation;
 
@@ -53,9 +53,6 @@ namespace com.NW84P
             _initialObjectRotation = transform.rotation;
         }
 
-        private void SelectEnded(SelectExitEventArgs args)
-        {
-            _hand = null;
-        }
+        private void SelectEnded(SelectExitEventArgs args) => _hand = null;
     }
 }
