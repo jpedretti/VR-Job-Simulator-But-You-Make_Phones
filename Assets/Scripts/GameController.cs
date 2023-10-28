@@ -10,9 +10,9 @@ namespace com.NW84P
         [SerializeField]
         private GameObject[] _objectsToEnable;
 
-        private bool _isGameStarted = false;
-        private bool _isGameEnded = false;
-        private float _timer = 0f;
+        private float _timer;
+        private bool _buttonPressed;
+        private IGameState _gameState;
 
         public bool InsertedSinCard { get; set; } = false;
 
@@ -29,33 +29,20 @@ namespace com.NW84P
                 Destroy(gameObject);
                 Debug.LogError("GameController: There can only be one GameController");
             }
+
+            _gameState = new GameStart();
         }
 
-        private void Start() => _startButton.OnButtonPressed.AddListener(ButtonPressed);
+        public void OnEnable() => _startButton.OnButtonPressed.AddListener(ButtonPressed);
 
-        private void ButtonPressed()
-        {
-            if (!_isGameStarted)
-            {
-                _isGameStarted = true;
-                foreach (var obj in _objectsToEnable)
-                {
-                    obj.SetActive(true);
-                }
-            }
-            if (InsertedSinCard)
-            {
-                _isGameEnded = true;
-                Debug.Log($"Game ended. Time: {_timer}");
-            }
-        }
+        public void OnDisable() => _startButton.OnButtonPressed.RemoveListener(ButtonPressed);
+
+        private void ButtonPressed() => _buttonPressed = true;
 
         private void Update()
         {
-            if (_isGameStarted && !_isGameEnded)
-            {
-                _timer += Time.deltaTime;
-            }
+            _gameState = _gameState.Update();
+            _buttonPressed = false;
         }
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
@@ -71,5 +58,66 @@ namespace com.NW84P
                 Debug.LogError("Objects to Enable is not set.");
             }
         }
+
+        private class GameStart : IGameState
+        {
+            public GameStart() => Instance._timer = 0f;
+
+            public IGameState Update()
+            {
+                if (Instance._buttonPressed)
+                {
+                    foreach (var obj in Instance._objectsToEnable)
+                    {
+                        obj.SetActive(true);
+                    }
+
+                    return new AssemblingPhone();
+                }
+                return this;
+            }
+        }
+
+        private class AssemblingPhone : IGameState
+        {
+            public IGameState Update()
+            {
+                if (Instance._buttonPressed && Instance.InsertedSinCard)
+                {
+                    return new GameEnd();
+                }
+                else
+                {
+                    Instance._timer += Time.deltaTime;
+                }
+
+                return this;
+            }
+        }
+
+        private class GameEnd : IGameState
+        {
+            public GameEnd() => Debug.Log($"Game ended. Time: {Instance._timer}");
+
+            public IGameState Update() => this;
+        }
+
+        private class GamePaused : IGameState
+        {
+            private IGameState _previousGameState;
+
+            public GamePaused(IGameState previousGameState) => _previousGameState = previousGameState;
+
+            public IGameState Update()
+            {
+                // if UI close pause menu button pressed return previous game state
+                return this;
+            }
+        }
+    }
+
+    public interface IGameState
+    {
+        IGameState Update();
     }
 }
