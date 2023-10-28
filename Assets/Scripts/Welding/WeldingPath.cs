@@ -1,9 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.XR.Interaction.Toolkit;
 
 namespace com.NW84P
 {
+    [RequireComponent(typeof(CustomSocket))]
+    [RequireComponent(typeof(AudioSource))]
     public class WeldingPath : MonoBehaviour
     {
         [SerializeField]
@@ -14,7 +17,10 @@ namespace com.NW84P
 
         private AudioSource _weldingAudioSource;
         private readonly Dictionary<string, GameObject> _pathPoints = new();
+        private byte _weldedPoints;
         private byte _pointsBeingWelded;
+        private CustomSocket _mainboard;
+        private XRGrabInteractable _battery;
 
         private void Start()
         {
@@ -26,15 +32,37 @@ namespace com.NW84P
             }
         }
 
-        public void OnEnable() => _pointsBeingWelded = 0;
+        public void OnEnable()
+        {
+            _mainboard = GetComponent<CustomSocket>();
+            if (_mainboard.hasSelection)
+            {
+                _battery = _mainboard.interactablesSelected[0] as XRGrabInteractable;
+            }
+            _pointsBeingWelded = 0;
+        }
 
-        public void OnDisable() => _weldingAudioSource.Stop();
+        public void OnDisable()
+        {
+            _weldingAudioSource.Stop();
+            _mainboard = null;
+            _battery = null;
+        }
 
         public void Weld(string gameObjectName)
         {
-            if (_pathPoints.Remove(gameObjectName) && _pathPoints.Count == 0)
+            if (_pathPoints.Remove(gameObjectName))
             {
-                _onWelded.Invoke();
+                _weldedPoints++;
+                if (_pathPoints.Count == 0)
+                {
+                    _onWelded.Invoke();
+                }
+            }
+
+            if (_weldedPoints == 1 && _battery != null)
+            {
+                _battery.interactionLayers = LayerMasks.BATTERY;
             }
         }
 
