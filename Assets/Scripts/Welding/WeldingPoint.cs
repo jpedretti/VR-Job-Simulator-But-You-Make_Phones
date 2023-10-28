@@ -19,6 +19,12 @@ namespace com.NW84P
             _lineRenderer = GetComponent<LineRenderer>();
         }
 
+        public void OnDisable()
+        {
+            StopWelding();
+            DestroyWeldingPoint();
+        }
+
         public void OnTriggerEnter(Collider other)
         {
             if (!_isWelded && other.CompareTag(Tags.TorchFire))
@@ -30,7 +36,15 @@ namespace com.NW84P
 
         public void OnTriggerExit(Collider other)
         {
-            if (!_isWelded && other.CompareTag(Tags.TorchFire))
+            if (other.CompareTag(Tags.TorchFire))
+            {
+                StopWelding();
+            }
+        }
+
+        private void StopWelding()
+        {
+            if (!_isWelded)
             {
                 _weldingPath.StoppedWelding();
                 _fireParticle.Stop();
@@ -38,7 +52,9 @@ namespace com.NW84P
             }
         }
 
-        public void OnParticleSystemStopped()
+        public void OnParticleSystemStopped() => DestroyWeldingPoint();
+
+        private void DestroyWeldingPoint()
         {
             if (_isWelded)
             {

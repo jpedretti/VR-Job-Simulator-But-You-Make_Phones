@@ -26,6 +26,10 @@ namespace com.NW84P
             }
         }
 
+        public void OnEnable() => _pointsBeingWelded = 0;
+
+        public void OnDisable() => _weldingAudioSource.Stop();
+
         public void Weld(string gameObjectName)
         {
             if (_pathPoints.Remove(gameObjectName) && _pathPoints.Count == 0)
