@@ -10,6 +10,9 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _phoneDonePrefab;
 
+        [SerializeField]
+        private Transform _playingGameObjectsParent;
+
         private CustomSocket _socket;
         private CustomSocket _phoneSocket;
         private FrontGlassController _glassController;
@@ -79,7 +82,7 @@ namespace com.NW84P
             _glassController.OnGlassFixated -= GlassFixed;
             RemovePhoneSocketListeners();
             var phone = _phoneSocket.transform.gameObject;
-            Instantiate(_phoneDonePrefab, phone.transform.position, phone.transform.rotation);
+            Instantiate(_phoneDonePrefab, phone.transform.position, phone.transform.rotation, _playingGameObjectsParent);
             Destroy(phone);
             _phoneSocket = null;
         }

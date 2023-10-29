@@ -16,6 +16,9 @@ namespace com.NW84P
         [SerializeField]
         private Transform _bodyBaseBack;
 
+        [SerializeField]
+        private Transform _playingGameObjectsParent;
+
         private GameObject[] _screwSpawnPoints;
         private List<Screw> _screws;
         private byte _screwedCount;
@@ -103,7 +106,7 @@ namespace com.NW84P
 
         private void SwapPhoneBodies()
         {
-            Instantiate(_assembledPhonePrefab, transform.position, _bodyBaseBack.rotation);
+            Instantiate(_assembledPhonePrefab, transform.position, _bodyBaseBack.rotation, _playingGameObjectsParent);
             DestroyRotateInteractableScript();
             DestroySelectedInteractables();
             Destroy(gameObject);

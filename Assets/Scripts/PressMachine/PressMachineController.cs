@@ -20,6 +20,9 @@ namespace com.NW84P
         [SerializeField]
         private AudioSource _cylinderBaseAudioSource;
 
+        [SerializeField]
+        private Transform _playingGameObjectsParent;
+
         private GameObject _oldPhoneBody;
         private XRGrabInteractable _newPhoneGrabInteractable;
 
@@ -60,7 +63,12 @@ namespace com.NW84P
 
         private void CreateNewPhone()
         {
-            var newPhone = Instantiate(_bodyWithBackGlassPrefab, _oldPhoneBody.transform.position, _phoneBackGlass.transform.rotation);
+            var newPhone = Instantiate(
+                _bodyWithBackGlassPrefab,
+                _oldPhoneBody.transform.position,
+                _phoneBackGlass.transform.rotation,
+                _playingGameObjectsParent
+            );
             _newPhoneGrabInteractable = newPhone.GetComponent<XRGrabInteractable>();
             _newPhoneGrabInteractable.selectEntered.AddListener(NewPhoneSelected);
         }

@@ -8,9 +8,12 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _weldedMainBoardPrefab;
 
+        [SerializeField]
+        private Transform _playingGameObjectsParent;
+
         public void Spawn()
         {
-            Instantiate(_weldedMainBoardPrefab, transform.position, transform.rotation);
+            Instantiate(_weldedMainBoardPrefab, transform.position, transform.rotation, _playingGameObjectsParent);
             DestroyBattery();
             Destroy(gameObject);
         }
