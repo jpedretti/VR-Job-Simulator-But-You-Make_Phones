@@ -24,7 +24,6 @@ namespace com.NW84P
         [SerializeField]
         private Transform _myXRTransformf;
 
-        private PauseMenu _pauseMenu;
         private bool _pausePressed;
         private IGameState _gameState;
         private GameStateData _gameStateData;
@@ -38,13 +37,13 @@ namespace com.NW84P
             if (Instance == null)
             {
                 Instance = this;
-                _pauseMenu = GetComponent<PauseMenu>();
                 _gameStateData = new GameStateData(
                     interactableParts: _interactableParts,
                     timerText: _timerText,
-                    pauseMenu: _pauseMenu,
+                    pauseMenu: GetComponent<PauseMenu>(),
                     locomotionSystem: _locomotionSystem,
-                    myXRTransform: _myXRTransformf
+                    myXRTransform: _myXRTransformf,
+                    pauseButton: _pauseButton
                 );
                 _gameState = new GameStart();
             }

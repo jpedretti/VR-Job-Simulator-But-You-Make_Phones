@@ -19,6 +19,7 @@ namespace com.NW84P
                 gameStateData.PauseMenu.GameObjectsParent.SetActive(true);
                 gameStateData.LocomotionSystem.SetActive(true);
                 gameStateData.MyXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
+                gameStateData.PauseButton.enabled = true;
                 return _previousGameState;
             }
             else if (!gameStateData.PauseMenu.PauseObjectsParent.activeSelf)
@@ -29,6 +30,7 @@ namespace com.NW84P
                 _previousPosition = gameStateData.MyXRTransform.position;
                 _previousRotation = gameStateData.MyXRTransform.rotation;
                 gameStateData.MyXRTransform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                gameStateData.PauseButton.enabled = false;
             }
 
             return base.Update(gameStateData);
