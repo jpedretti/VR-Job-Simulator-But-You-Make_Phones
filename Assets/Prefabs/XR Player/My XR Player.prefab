@@ -222,14 +222,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7819824948688707756}
     m_Modifications:
-    - target: {fileID: 577376470315511787, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3561192237375372556, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_AimTargetObject
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4592909717057245869, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -273,22 +265,6 @@ PrefabInstance:
     - target: {fileID: 4592909717057245870, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
       propertyPath: m_Name
       value: My XR Origin (XR Rig)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4592909717057245870, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 6107816084693143002, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6301944550269276497, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8804189295263899166, guid: a5fb33cfa2ec5c44883ab3a5c587ccb4, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
