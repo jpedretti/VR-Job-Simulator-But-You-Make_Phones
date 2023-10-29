@@ -742,8 +742,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _startButton: {fileID: 219422354}
   _interactableParts: {fileID: 873168274}
-  _timerText: {fileID: 1556893955}
-  _pauseButton: {fileID: 1556893954}
+  _timerText: {fileID: 0}
+  _pauseButton: {fileID: 0}
 --- !u!1 &1014404830
 GameObject:
   m_ObjectHideFlags: 0
@@ -1683,28 +1683,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07805a68c8d2e4643aac57e8ce152567, type: 3}
---- !u!114 &1556893954 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1160458340981247663, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-  m_PrefabInstance: {fileID: 3414713128160538302}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1556893955 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3590509106133660151, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-  m_PrefabInstance: {fileID: 3414713128160538302}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1820778402
 GameObject:
   m_ObjectHideFlags: 0
@@ -2029,7 +2007,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6985753706304740785, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_Name
-      value: XR Player
+      value: My XR Player
       objectReference: {fileID: 0}
     - target: {fileID: 7819824948688707756, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_LocalPosition.x
