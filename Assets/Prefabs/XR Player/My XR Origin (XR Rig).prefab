@@ -1841,7 +1841,6 @@ GameObject:
   - component: {fileID: 9085173752018915353}
   - component: {fileID: 9085173752018915356}
   - component: {fileID: 8696558881838905266}
-  - component: {fileID: 7904250664841047778}
   m_Layer: 2
   m_Name: My XR Origin (XR Rig)
   m_TagString: Untagged
@@ -1952,34 +1951,6 @@ MonoBehaviour:
   m_MotionControllerModeEnded:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &7904250664841047778
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4592909717057245870}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9b3d17eeb2e6bc47ada81d8f7f638d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_GazeInteractor: {fileID: 0}
-  m_FallbackDivergence: 60
-  m_HideCursorWithNoActiveRays: 1
-  m_RayInteractors:
-  - m_Interactor: {fileID: 3143448401601594500}
-    m_TeleportRay: 0
-  - m_Interactor: {fileID: 2912190272287000459}
-    m_TeleportRay: 1
-  - m_Interactor: {fileID: 2894010094779144207}
-    m_TeleportRay: 0
-  - m_Interactor: {fileID: 690539433770787730}
-    m_TeleportRay: 1
-  m_AimAssistRequiredAngle: 30
-  m_AimAssistRequiredSpeed: 0.25
-  m_AimAssistPercent: 0.8
-  m_AimAssistMaxSpeedPercent: 10
 --- !u!1 &7304374426147550748
 GameObject:
   m_ObjectHideFlags: 0
