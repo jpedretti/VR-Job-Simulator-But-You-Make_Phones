@@ -5,24 +5,32 @@ namespace com.NW84P
     public class GamePaused : BaseGameState
     {
         private IGameState _previousGameState;
+        private Vector3 _previousPosition;
+        private Quaternion _previousRotation;
 
-        public GamePaused(IGameState previousGameState)
-        {
-            Debug.Log("Pausing game");
-            _previousGameState = previousGameState;
-            //Time.timeScale = 0f;
-        }
+        public GamePaused(IGameState previousGameState) => _previousGameState = previousGameState;
 
         public override IGameState Update(GameStateData gameStateData)
         {
-            // if UI close pause menu button pressed return previous game state
-            if (gameStateData.PauseMenuClosed)
+            if (gameStateData.PauseMenu.ResumePressed)
             {
-                // unpause game
-                Debug.Log("Unpausing game");
-                Time.timeScale = 1f;
+                gameStateData.PauseMenu.ResumePressed = false;
+                gameStateData.PauseMenu.PauseObjectsParent.SetActive(false);
+                gameStateData.PauseMenu.GameObjectsParent.SetActive(true);
+                gameStateData.LocomotionSystem.SetActive(true);
+                gameStateData.MyXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
                 return _previousGameState;
             }
+            else if (!gameStateData.PauseMenu.PauseObjectsParent.activeSelf)
+            {
+                gameStateData.PauseMenu.GameObjectsParent.SetActive(false);
+                gameStateData.PauseMenu.PauseObjectsParent.SetActive(true);
+                gameStateData.LocomotionSystem.SetActive(false);
+                _previousPosition = gameStateData.MyXRTransform.position;
+                _previousRotation = gameStateData.MyXRTransform.rotation;
+                gameStateData.MyXRTransform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            }
+
             return base.Update(gameStateData);
         }
     }

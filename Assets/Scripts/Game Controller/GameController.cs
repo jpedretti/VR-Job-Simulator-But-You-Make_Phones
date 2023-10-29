@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace com.NW84P
 {
+    [RequireComponent(typeof(PauseMenu))]
     public partial class GameController : MonoBehaviour
     {
         [SerializeField]
@@ -17,9 +18,16 @@ namespace com.NW84P
         [SerializeField]
         private UnityEngine.UI.Button _pauseButton;
 
+        [SerializeField]
+        private GameObject _locomotionSystem;
+
+        [SerializeField]
+        private Transform _myXRTransformf;
+
+        private PauseMenu _pauseMenu;
         private bool _pausePressed;
         private IGameState _gameState;
-        private GameStateData _gameStateData = new();
+        private GameStateData _gameStateData;
 
         public bool InsertedSinCard { get; set; } = false;
 
@@ -30,6 +38,14 @@ namespace com.NW84P
             if (Instance == null)
             {
                 Instance = this;
+                _pauseMenu = GetComponent<PauseMenu>();
+                _gameStateData = new GameStateData(
+                    interactableParts: _interactableParts,
+                    timerText: _timerText,
+                    pauseMenu: _pauseMenu,
+                    locomotionSystem: _locomotionSystem,
+                    myXRTransform: _myXRTransformf
+                );
                 _gameState = new GameStart();
             }
             else
@@ -50,10 +66,8 @@ namespace com.NW84P
             _gameStateData.Update(
                 buttonPressed: _startButton.IsPressed,
                 pauseButtonPressed: _pausePressed,
-                pauseMenuClosed: false,
-                insertedSinCard: InsertedSinCard,
-                interactableParts: _interactableParts,
-                timerText: _timerText);
+                insertedSinCard: InsertedSinCard
+            );
             _gameState = _gameState.Update(_gameStateData);
             _pausePressed = false;
         }
@@ -79,6 +93,16 @@ namespace com.NW84P
             if (_pauseButton == null)
             {
                 Debug.LogError("Pause Button is not set.");
+            }
+
+            if (_locomotionSystem == null)
+            {
+                Debug.LogError("Locomotion System is not set.");
+            }
+
+            if (_myXRTransformf == null)
+            {
+                Debug.LogError("My XR Transform is not set.");
             }
         }
     }

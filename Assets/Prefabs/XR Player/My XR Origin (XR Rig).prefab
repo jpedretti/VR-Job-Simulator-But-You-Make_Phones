@@ -1501,7 +1501,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 20, y: 20}
+  m_SizeDelta: {x: 21.04, y: 20}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &6034171264952294753
 CanvasRenderer:
@@ -1755,7 +1755,7 @@ GameObject:
   - component: {fileID: 3102264685004473490}
   - component: {fileID: 4140940591525350816}
   m_Layer: 0
-  m_Name: Back Block
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1880,7 +1880,7 @@ MonoBehaviour:
   m_Camera: {fileID: 2912190272890686452}
   m_OriginBaseGameObject: {fileID: 4592909717057245870}
   m_CameraFloorOffsetObject: {fileID: 2912190272664246225}
-  m_RequestedTrackingOriginMode: 0
+  m_RequestedTrackingOriginMode: 2
   m_CameraYOffset: 1.36144
 --- !u!143 &9085173752018915353
 CharacterController:
