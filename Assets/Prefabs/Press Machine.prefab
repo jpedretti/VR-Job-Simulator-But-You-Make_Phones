@@ -835,6 +835,7 @@ MonoBehaviour:
   - {fileID: 6396490447175557573}
   _bodyWithBackGlassPrefab: {fileID: 4942301175854513120, guid: 8af6e4fec67b91d4e9c291d8532ae8f0, type: 3}
   _cylinderBaseAudioSource: {fileID: 3745805374248900446}
+  _playingGameObjectsParent: {fileID: 0}
 --- !u!1 &6159771112427533248
 GameObject:
   m_ObjectHideFlags: 0
@@ -1593,69 +1594,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1344145353147130413}
     m_Modifications:
-    - target: {fileID: 620068971153502989, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 958849227534129052, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 1548125952599858797, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3447623362938358263, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: _snapHapticFeedback
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: _onlySelectIfSnapped
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3473973540226443158, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: _snapHapticFeedbackAmplitude
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3640525454267803793, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_Size.z
-      value: 0.013391153
-      objectReference: {fileID: 0}
-    - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_Center.x
-      value: 0.0007359533
-      objectReference: {fileID: 0}
-    - target: {fileID: 3646016127585053114, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_Center.z
-      value: -0.006166035
-      objectReference: {fileID: 0}
-    - target: {fileID: 4031031559943584065, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4051841836568405156, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4791604933395434882, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
     - target: {fileID: 5268226434138909590, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_Name
       value: Back Glass
-      objectReference: {fileID: 0}
-    - target: {fileID: 5268226434138909590, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8744181627615887008, guid: 46ce4bcad17875b48a6243e395e38327, type: 3}
       propertyPath: m_LocalPosition.x

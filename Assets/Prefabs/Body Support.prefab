@@ -252,121 +252,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1739741152967320662}
     m_Modifications:
-    - target: {fileID: 74304917890791210, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 74304917890791210, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 187729799955343193, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 2606266587966814538, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 2670611362817209993, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: _screwPrefab
+    - target: {fileID: 267442557380846774, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+      propertyPath: _bodyBaseBack
       value: 
-      objectReference: {fileID: 2723634274337317392, guid: bf1ad02d6e2ae514799caebcd29e92cb, type: 3}
+      objectReference: {fileID: 2838723656602972878}
     - target: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_Name
       value: Phone Body
-      objectReference: {fileID: 0}
-    - target: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: _onlySelectIfSnaped
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: _snapHapticFeedback
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: _onlySelectIfSnapped
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: _snapHapticFeedbackAmplitude
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6119160611955364736}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6119160611955364736}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DestroyAll
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Spawn
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: com.NW84P.BodyAssemblyManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: com.NW84P.BodyAssemblyManager, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectExited.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3756413509540241427, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_SelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 3961954562281075807, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 4683443362020135320, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 5076410800653862999, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5076410800653862999, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 5339885457436951001, guid: ab53bcfde8092544aa53407281991d75, type: 3}
       propertyPath: m_LocalPosition.x
@@ -408,75 +300,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
       objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Size.x
-      value: 0.00015659397
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Size.y
-      value: 0.00068063196
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Size.z
-      value: 0.0015236628
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Center.x
-      value: -0.00004718253
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Center.y
-      value: 0.000019765197
-      objectReference: {fileID: 0}
-    - target: {fileID: 6762013501701582631, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_Center.z
-      value: 0.00000071562863
-      objectReference: {fileID: 0}
-    - target: {fileID: 7342683665730635821, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 7953088550673282321, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8391436251540533196, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 2147483647
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 2670611362817209993, guid: ab53bcfde8092544aa53407281991d75, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6119160611955364736}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab53bcfde8092544aa53407281991d75, type: 3}
---- !u!1 &433680159344792006 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2861613542759209603, guid: ab53bcfde8092544aa53407281991d75, type: 3}
-  m_PrefabInstance: {fileID: 2428218196767902533}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6119160611955364736
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 433680159344792006}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c770e831380e6c544ac1b211023766e0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _screwPrefab: {fileID: 2723634274337317392, guid: bf1ad02d6e2ae514799caebcd29e92cb, type: 3}
-  _assembledPhonePrefab: {fileID: 9093188801932034433, guid: 892f39287d552c44488172f135f363b9, type: 3}
-  _bodyBaseBack: {fileID: 2838723656602972878}
 --- !u!4 &7757967256263346844 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5339885457436951001, guid: ab53bcfde8092544aa53407281991d75, type: 3}

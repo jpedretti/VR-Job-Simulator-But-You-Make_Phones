@@ -1,6 +1,12 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+#if UNITY_EDITOR
+
+using Unity.VisualScripting;
+
+#endif
+
 namespace com.NW84P
 {
     public class PressMachineController : MonoBehaviour
@@ -123,6 +129,11 @@ namespace com.NW84P
             if (_cylinderBaseAudioSource == null)
             {
                 Debug.LogError("Cylinder Base Audio Source is not assigned.");
+            }
+
+            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
+            {
+                Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
             }
         }
     }

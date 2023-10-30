@@ -2,6 +2,12 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Transformers;
 
+#if UNITY_EDITOR
+
+using Unity.VisualScripting;
+
+#endif
+
 namespace com.NW84P
 {
     [RequireComponent(typeof(CustomSocket))]
@@ -112,6 +118,11 @@ namespace com.NW84P
             if (_phoneDonePrefab == null)
             {
                 Debug.LogError("Phone Done Prefab is null");
+            }
+
+            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
+            {
+                Debug.LogError("Playing Game Objects Parent is null");
             }
         }
     }

@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
+#if UNITY_EDITOR
+
+using Unity.VisualScripting;
+
+#endif
+
 namespace com.NW84P
 {
     public class BodyAssemblyManager : MonoBehaviour
@@ -131,23 +137,29 @@ namespace com.NW84P
             }
         }
 
-#if UNITY_EDITOR
+        [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
         {
-            if(_screwPrefab == null)
+            if (_screwPrefab == null)
             {
                 Debug.LogError($"Screw prefab is null in {gameObject.name}");
             }
 
-            if(_assembledPhonePrefab == null)
+            if (_assembledPhonePrefab == null)
             {
                 Debug.LogError($"Assembled phone prefab is null in {gameObject.name}");
             }
 
-            if(_bodyBaseBack == null)
+            if (_bodyBaseBack == null && !this.IsPrefabDefinition())
             {
                 Debug.LogError($"Body base back is null in {gameObject.name}");
             }
+
+            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
+            {
+                Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
+            }
+
 
             InitScrewSpawnPoints();
 
@@ -156,6 +168,5 @@ namespace com.NW84P
                 Debug.LogError($"Screw spawn points are not set in {gameObject.name}");
             }
         }
-#endif
     }
 }

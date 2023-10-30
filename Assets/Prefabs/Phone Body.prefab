@@ -14,7 +14,7 @@ GameObject:
   m_TagString: ScrewSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7901850570083933427
 Transform:
@@ -47,7 +47,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6716167630842741545
 Transform:
@@ -129,7 +129,7 @@ GameObject:
   m_TagString: ScrewSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7304487085684805729
 Transform:
@@ -159,13 +159,13 @@ GameObject:
   - component: {fileID: 9051272171240178038}
   - component: {fileID: 3756413509540241427}
   - component: {fileID: 6762013501701582631}
-  - component: {fileID: 2670611362817209993}
+  - component: {fileID: 267442557380846774}
   m_Layer: 0
   m_Name: Phone Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5339885457436951001
 Transform:
@@ -272,10 +272,34 @@ MonoBehaviour:
       m_Calls: []
   m_SelectEntered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 267442557380846774}
+        m_TargetAssemblyTypeName: com.NW84P.BodyAssemblyManager, Assembly-CSharp
+        m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_SelectExited:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 267442557380846774}
+        m_TargetAssemblyTypeName: com.NW84P.BodyAssemblyManager, Assembly-CSharp
+        m_MethodName: DestroyAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_StartingHoverFilters: []
   m_StartingSelectFilters: []
   m_OnHoverEntered:
@@ -301,6 +325,12 @@ MonoBehaviour:
   m_SocketScaleMode: 0
   m_FixedScale: {x: 1, y: 1, z: 1}
   m_TargetBoundsSize: {x: 1, y: 1, z: 1}
+  _onlySelectIfSnapped: 1
+  _snapAlignmentThreshold: 0.92
+  _unsnapDistance: 0.8
+  _snapHapticFeedback: 1
+  _snapHapticFeedbackAmplitude: 1
+  _snapHapticFeedbackDuration: 0.1
 --- !u!65 &6762013501701582631
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -320,9 +350,9 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.00012615143, y: 0.00017328635, z: 0.00022754665}
-  m_Center: {x: -0.000027420532, y: 0, z: 0}
---- !u!114 &2670611362817209993
+  m_Size: {x: 0.00015659397, y: 0.00068063196, z: 0.0015236628}
+  m_Center: {x: -0.00004718253, y: 0.000019765197, z: 0.00000071562863}
+--- !u!114 &267442557380846774
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -331,14 +361,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2861613542759209603}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fdee7b29f2d69cd448accca6e4a6a2b3, type: 3}
+  m_Script: {fileID: 11500000, guid: c770e831380e6c544ac1b211023766e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _screwPrefabs:
-  - {fileID: 2606266587966814538}
-  - {fileID: 5076410800653862999}
-  - {fileID: 74304917890791210}
-  - {fileID: 8391436251540533196}
+  _screwPrefab: {fileID: 2723634274337317392, guid: bf1ad02d6e2ae514799caebcd29e92cb, type: 3}
+  _assembledPhonePrefab: {fileID: 9093188801932034433, guid: 892f39287d552c44488172f135f363b9, type: 3}
+  _bodyBaseBack: {fileID: 0}
+  _playingGameObjectsParent: {fileID: 0}
 --- !u!1 &3961954562281075807
 GameObject:
   m_ObjectHideFlags: 0
@@ -355,7 +384,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6488270490419197604
 Transform:
@@ -436,7 +465,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &1735528354780133797
 Transform:
@@ -467,7 +496,7 @@ GameObject:
   m_TagString: ScrewSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4152875140053405282
 Transform:
@@ -500,7 +529,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &3385759647793202115
 Transform:
@@ -584,7 +613,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5998368625279740571
 Transform:
@@ -667,7 +696,7 @@ GameObject:
   m_TagString: ScrewSpawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &395710012335499760
 Transform:
