@@ -123,11 +123,33 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &26272394 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3489402114321025665, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
+  m_PrefabInstance: {fileID: 3414713128160538302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac216f0eb04754b1d938aac6380b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &40882812 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 869479845884021014, guid: 57609e34c24698448ac10ec5a18ccd2f, type: 3}
   m_PrefabInstance: {fileID: 3827744911616432380}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &45473791 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4375660242871879338, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
+  m_PrefabInstance: {fileID: 3414713128160538302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ac216f0eb04754b1d938aac6380b31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &127658617
 GameObject:
   m_ObjectHideFlags: 0
@@ -1162,6 +1184,8 @@ MonoBehaviour:
   _resumeButton: {fileID: 956793835}
   _gameObjectsParent: {fileID: 412100473}
   _pauseObjectsParent: {fileID: 693288201}
+  _rightActionBasedControllerManager: {fileID: 45473791}
+  _leftActionBasedControllerManager: {fileID: 26272394}
 --- !u!1 &1014404830
 GameObject:
   m_ObjectHideFlags: 0

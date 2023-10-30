@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 namespace com.NW84P
 {
@@ -13,6 +14,12 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _pauseObjectsParent;
 
+        [SerializeField]
+        private ActionBasedControllerManager _rightActionBasedControllerManager;
+
+        [SerializeField]
+        private ActionBasedControllerManager _leftActionBasedControllerManager;
+
         public bool ResumePressed { get; set; }
 
         public GameObject GameObjectsParent => _gameObjectsParent;
@@ -22,6 +29,21 @@ namespace com.NW84P
         public void OnEnable() => _resumeButton.onClick.AddListener(OnResumePressed);
 
         public void OnDisable() => _resumeButton.onClick.RemoveListener(OnResumePressed);
+
+        // Disable teleportation when the pause menu is open
+        public void EnableLocomotionActions(bool enable)
+        {
+            if (enable)
+            {
+                _rightActionBasedControllerManager.EnableLocomotionActions(teleportActivate: true, teleportCancel: true, turn: true, snapTurn: true);
+                _leftActionBasedControllerManager.EnableLocomotionActions(move: true);
+            }
+            else
+            {
+                _rightActionBasedControllerManager.DisableAllLocomotionActions();
+                _leftActionBasedControllerManager.DisableAllLocomotionActions();
+            }
+        }
 
         private void OnResumePressed() => ResumePressed = true;
 
@@ -41,6 +63,16 @@ namespace com.NW84P
             if (_pauseObjectsParent == null)
             {
                 Debug.LogError("PauseMenu: Pause Objects Parent is not set");
+            }
+
+            if (_rightActionBasedControllerManager == null)
+            {
+                Debug.LogError("PauseMenu: Action Based Controller Manager is not set");
+            }
+
+            if (_leftActionBasedControllerManager == null)
+            {
+                Debug.LogError("PauseMenu: Action Based Controller Manager is not set");
             }
         }
     }

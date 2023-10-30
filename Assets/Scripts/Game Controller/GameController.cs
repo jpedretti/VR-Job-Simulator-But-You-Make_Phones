@@ -19,9 +19,6 @@ namespace com.NW84P
         private UnityEngine.UI.Button _pauseButton;
 
         [SerializeField]
-        private GameObject _locomotionSystem;
-
-        [SerializeField]
         private Transform _myXRTransformf;
 
         private bool _pausePressed;
@@ -41,7 +38,6 @@ namespace com.NW84P
                     interactableParts: _interactableParts,
                     timerText: _timerText,
                     pauseMenu: GetComponent<PauseMenu>(),
-                    locomotionSystem: _locomotionSystem,
                     myXRTransform: _myXRTransformf,
                     pauseButton: _pauseButton
                 );
@@ -92,11 +88,6 @@ namespace com.NW84P
             if (_pauseButton == null)
             {
                 Debug.LogError("Pause Button is not set.");
-            }
-
-            if (_locomotionSystem == null)
-            {
-                Debug.LogError("Locomotion System is not set.");
             }
 
             if (_myXRTransformf == null)
