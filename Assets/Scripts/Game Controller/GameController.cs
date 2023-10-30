@@ -18,9 +18,6 @@ namespace com.NW84P
         [SerializeField]
         private UnityEngine.UI.Button _pauseButton;
 
-        [SerializeField]
-        private Transform _myXRTransformf;
-
         private bool _pausePressed;
         private IGameState _gameState;
         private GameStateData _gameStateData;
@@ -38,7 +35,6 @@ namespace com.NW84P
                     interactableParts: _interactableParts,
                     timerText: _timerText,
                     pauseMenu: GetComponent<PauseMenu>(),
-                    myXRTransform: _myXRTransformf,
                     pauseButton: _pauseButton
                 );
                 _gameState = new GameStart();
@@ -88,11 +84,6 @@ namespace com.NW84P
             if (_pauseButton == null)
             {
                 Debug.LogError("Pause Button is not set.");
-            }
-
-            if (_myXRTransformf == null)
-            {
-                Debug.LogError("My XR Transform is not set.");
             }
         }
     }

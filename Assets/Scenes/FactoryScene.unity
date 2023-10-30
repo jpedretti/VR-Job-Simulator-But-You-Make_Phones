@@ -719,11 +719,6 @@ Transform:
   - {fileID: 1438523435}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &765899780 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3862803087515685739, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-  m_PrefabInstance: {fileID: 3414713128160538302}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &835176562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 704525989449365111, guid: 76ca4870828d62041a5ebbd699de5271, type: 3}
@@ -1167,8 +1162,6 @@ MonoBehaviour:
   _interactableParts: {fileID: 873168274}
   _timerText: {fileID: 1663327009}
   _pauseButton: {fileID: 1279166559}
-  _locomotionSystem: {fileID: 765899780}
-  _myXRTransformf: {fileID: 1368429717}
 --- !u!114 &983584241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,6 +1179,7 @@ MonoBehaviour:
   _pauseObjectsParent: {fileID: 693288201}
   _rightActionBasedControllerManager: {fileID: 45473791}
   _leftActionBasedControllerManager: {fileID: 26272394}
+  _myXRTransform: {fileID: 1368429717}
 --- !u!1 &1014404830
 GameObject:
   m_ObjectHideFlags: 0

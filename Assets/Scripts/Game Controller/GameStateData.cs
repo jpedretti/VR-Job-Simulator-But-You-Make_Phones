@@ -9,13 +9,11 @@ namespace com.NW84P
             GameObject interactableParts,
             TextMeshProUGUI timerText,
             PauseMenu pauseMenu,
-            Transform myXRTransform,
             UnityEngine.UI.Button pauseButton)
         {
             InteractableParts = interactableParts;
             TimerText = timerText;
             PauseMenu = pauseMenu;
-            MyXRTransform = myXRTransform;
             ButtonPressed = false;
             PauseButtonPressed = false;
             InsertedSinCard = false;
@@ -28,7 +26,6 @@ namespace com.NW84P
         public GameObject InteractableParts { get; private set; }
         public TextMeshProUGUI TimerText { get; private set; }
         public PauseMenu PauseMenu { get; private set; }
-        public Transform MyXRTransform { get; private set; }
         public UnityEngine.UI.Button PauseButton { get; private set; }
 
         public void Update(

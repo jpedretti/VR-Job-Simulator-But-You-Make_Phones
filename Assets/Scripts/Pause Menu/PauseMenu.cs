@@ -20,18 +20,42 @@ namespace com.NW84P
         [SerializeField]
         private ActionBasedControllerManager _leftActionBasedControllerManager;
 
+        [SerializeField]
+        private Transform _myXRTransform;
+
+        private Vector3 _previousPosition;
+        private Quaternion _previousRotation;
+
         public bool ResumePressed { get; set; }
 
-        public GameObject GameObjectsParent => _gameObjectsParent;
-
-        public GameObject PauseObjectsParent => _pauseObjectsParent;
+        public bool IsPauseConfigured => _pauseObjectsParent.activeSelf && !_gameObjectsParent.activeSelf;
 
         public void OnEnable() => _resumeButton.onClick.AddListener(OnResumePressed);
 
         public void OnDisable() => _resumeButton.onClick.RemoveListener(OnResumePressed);
 
-        // Disable teleportation when the pause menu is open
-        public void EnableLocomotionActions(bool enable)
+        public void ConfigurePausedState()
+        {
+            _gameObjectsParent.SetActive(false);
+            _pauseObjectsParent.SetActive(true);
+            EnableLocomotionActions(false);
+            _previousPosition = _myXRTransform.position;
+            _previousRotation = _myXRTransform.rotation;
+            _myXRTransform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
+
+        public void ConfigureUnpausedState()
+        {
+            ResumePressed = false;
+            _gameObjectsParent.SetActive(true);
+            _pauseObjectsParent.SetActive(false);
+            EnableLocomotionActions(true);
+            _myXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
+        }
+
+        private void OnResumePressed() => ResumePressed = true;
+
+        private void EnableLocomotionActions(bool enable)
         {
             if (enable)
             {
@@ -44,8 +68,6 @@ namespace com.NW84P
                 _leftActionBasedControllerManager.DisableAllLocomotionActions();
             }
         }
-
-        private void OnResumePressed() => ResumePressed = true;
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
@@ -73,6 +95,11 @@ namespace com.NW84P
             if (_leftActionBasedControllerManager == null)
             {
                 Debug.LogError("PauseMenu: Action Based Controller Manager is not set");
+            }
+
+            if (_myXRTransform == null)
+            {
+                Debug.LogError("PauseMenu: XR Transform is not set");
             }
         }
     }

@@ -1,12 +1,8 @@
-﻿using UnityEngine;
-
-namespace com.NW84P
+﻿namespace com.NW84P
 {
     public class GamePaused : BaseGameState
     {
         private IGameState _previousGameState;
-        private Vector3 _previousPosition;
-        private Quaternion _previousRotation;
 
         public GamePaused(IGameState previousGameState) => _previousGameState = previousGameState;
 
@@ -14,23 +10,14 @@ namespace com.NW84P
         {
             if (gameStateData.PauseMenu.ResumePressed)
             {
-                gameStateData.PauseMenu.ResumePressed = false;
-                gameStateData.PauseMenu.PauseObjectsParent.SetActive(false);
-                gameStateData.PauseMenu.GameObjectsParent.SetActive(true);
-                gameStateData.MyXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
+                gameStateData.PauseMenu.ConfigureUnpausedState();
                 gameStateData.PauseButton.enabled = true;
-                gameStateData.PauseMenu.EnableLocomotionActions(true);
                 return _previousGameState;
             }
-            else if (!gameStateData.PauseMenu.PauseObjectsParent.activeSelf)
+            else if (!gameStateData.PauseMenu.IsPauseConfigured)
             {
-                gameStateData.PauseMenu.GameObjectsParent.SetActive(false);
-                gameStateData.PauseMenu.PauseObjectsParent.SetActive(true);
-                _previousPosition = gameStateData.MyXRTransform.position;
-                _previousRotation = gameStateData.MyXRTransform.rotation;
-                gameStateData.MyXRTransform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+                gameStateData.PauseMenu.ConfigurePausedState();
                 gameStateData.PauseButton.enabled = false;
-                gameStateData.PauseMenu.EnableLocomotionActions(false);
             }
 
             return base.Update(gameStateData);
