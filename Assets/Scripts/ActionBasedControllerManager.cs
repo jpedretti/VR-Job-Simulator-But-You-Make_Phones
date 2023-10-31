@@ -434,31 +434,14 @@ namespace com.NW84P
             DisableAction(m_SnapTurn);
         }
 
-        public void DisableAllLocomotionActions() => EnableLocomotionActions();
-
-        public void EnableLocomotionActions(
-            bool move = false,
-            bool teleportActivate = false,
-            bool teleportCancel = false,
-            bool turn = false,
-            bool snapTurn = false
-        )
+        public void EnableLocomotionActions(bool enabled)
         {
-            SetEnabled(m_Move, move);
-            m_shouldMove = move;
-            SetEnabled(m_TeleportModeActivate, teleportActivate);
-            m_shouldTeleport = teleportActivate;
-            SetEnabled(m_TeleportModeCancel, teleportCancel);
-            m_shouldTeleportCancel = teleportCancel;
-            SetEnabled(m_Turn, turn);
-            m_shouldTurn = turn;
-            SetEnabled(m_SnapTurn, snapTurn);
-            m_shouldSnapTurn = snapTurn;
-        }
-
-        public void EnableTeleportActivateAction(bool enabled)
-        {
-            SetEnabled(m_TeleportModeActivate, enabled);
+            m_shouldMove = enabled;
+            m_shouldTeleport = enabled;
+            m_shouldTeleportCancel = enabled;
+            m_shouldTurn = enabled;
+            m_shouldSnapTurn = enabled;
+            UpdateLocomotionActions();
         }
 
         void UpdateUIActions()

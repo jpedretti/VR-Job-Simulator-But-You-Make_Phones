@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.XR.Interaction.Toolkit.Samples.StarterAssets;
 
 namespace com.NW84P
 {
@@ -57,16 +56,8 @@ namespace com.NW84P
 
         private void EnableLocomotionActions(bool enable)
         {
-            if (enable)
-            {
-                _rightActionBasedControllerManager.EnableLocomotionActions(teleportActivate: true, teleportCancel: true, turn: true, snapTurn: true);
-                _leftActionBasedControllerManager.EnableLocomotionActions(move: true);
-            }
-            else
-            {
-                _rightActionBasedControllerManager.DisableAllLocomotionActions();
-                _leftActionBasedControllerManager.DisableAllLocomotionActions();
-            }
+            _rightActionBasedControllerManager.EnableLocomotionActions(enabled: enable);
+            _leftActionBasedControllerManager.EnableLocomotionActions(enabled: enable);
         }
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
