@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace com.NW84P
@@ -6,6 +7,9 @@ namespace com.NW84P
     {
         [SerializeField]
         private UnityEngine.UI.Button _resumeButton;
+
+        [SerializeField]
+        private UnityEngine.UI.Button _resetButton;
 
         [SerializeField]
         private GameObject _gameObjectsParent;
@@ -29,9 +33,26 @@ namespace com.NW84P
 
         public bool IsPauseConfigured => _pauseObjectsParent.activeSelf && !_gameObjectsParent.activeSelf;
 
-        public void OnEnable() => _resumeButton.onClick.AddListener(OnResumePressed);
+        public void OnEnable()
+        {
+            _resumeButton.onClick.AddListener(OnResumePressed);
+            _resetButton.onClick.AddListener(OnResetPressed);
+        }
 
-        public void OnDisable() => _resumeButton.onClick.RemoveListener(OnResumePressed);
+
+        public void OnDisable()
+        {
+            _resumeButton.onClick.RemoveListener(OnResumePressed);
+            _resetButton.onClick.RemoveListener(OnResetPressed);
+        }
+
+        private void OnResetPressed()
+        {
+            var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
+            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene.name);
+        }
+
+        private void OnResumePressed() => ResumePressed = true;
 
         public void ConfigurePausedState()
         {
@@ -52,8 +73,6 @@ namespace com.NW84P
             _myXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
         }
 
-        private void OnResumePressed() => ResumePressed = true;
-
         private void EnableLocomotionActions(bool enable)
         {
             _rightActionBasedControllerManager.EnableLocomotionActions(enabled: enable);
@@ -66,6 +85,11 @@ namespace com.NW84P
             if (_resumeButton == null)
             {
                 Debug.LogError("PauseMenu: Resume Button is not set");
+            }
+
+            if (_resetButton == null)
+            {
+                Debug.LogError("PauseMenu: Reset Button is not set");
             }
 
             if (_gameObjectsParent == null)
