@@ -12,6 +12,12 @@ namespace com.NW84P
         private UnityEngine.UI.Button _resetButton;
 
         [SerializeField]
+        private UnityEngine.UI.Button _settingsButton;
+
+        [SerializeField]
+        private UnityEngine.UI.Button _mainMenuButton;
+
+        [SerializeField]
         private GameObject _gameObjectsParent;
 
         [SerializeField]
@@ -26,6 +32,12 @@ namespace com.NW84P
         [SerializeField]
         private Transform _myXRTransform;
 
+        [SerializeField]
+        private GameObject _pauseMenu;
+
+        [SerializeField]
+        private GameObject _settingsMenu;
+
         private Vector3 _previousPosition;
         private Quaternion _previousRotation;
 
@@ -37,6 +49,8 @@ namespace com.NW84P
         {
             _resumeButton.onClick.AddListener(OnResumePressed);
             _resetButton.onClick.AddListener(OnResetPressed);
+            _settingsButton.onClick.AddListener(OnSettingsPressed);
+            _mainMenuButton.onClick.AddListener(OnMainMenuPressed);
         }
 
 
@@ -44,6 +58,8 @@ namespace com.NW84P
         {
             _resumeButton.onClick.RemoveListener(OnResumePressed);
             _resetButton.onClick.RemoveListener(OnResetPressed);
+            _settingsButton.onClick.RemoveListener(OnSettingsPressed);
+            _mainMenuButton.onClick.RemoveListener(OnMainMenuPressed);
         }
 
         private void OnResetPressed()
@@ -53,6 +69,17 @@ namespace com.NW84P
         }
 
         private void OnResumePressed() => ResumePressed = true;
+
+        private void OnSettingsPressed()
+        {
+            _settingsMenu.SetActive(true);
+            _pauseMenu.SetActive(false);
+        }
+
+        private void OnMainMenuPressed()
+        {
+            Debug.Log("Main Menu Pressed");
+        }
 
         public void ConfigurePausedState()
         {
@@ -90,6 +117,16 @@ namespace com.NW84P
             if (_resetButton == null)
             {
                 Debug.LogError("PauseMenu: Reset Button is not set");
+            }
+
+            if (_settingsButton == null)
+            {
+                Debug.LogError("PauseMenu: Settings Button is not set");
+            }
+
+            if (_mainMenuButton == null)
+            {
+                Debug.LogError("PauseMenu: Main Menu Button is not set");
             }
 
             if (_gameObjectsParent == null)
