@@ -20,4 +20,5 @@ public const string Target = @"Target";
 public const string Hammer = @"Hammer";
 public const string FrontGlass = @"FrontGlass";
 public const string PhoneDone = @"PhoneDone";
+public const string Teleporter = @"Teleporter";
 }

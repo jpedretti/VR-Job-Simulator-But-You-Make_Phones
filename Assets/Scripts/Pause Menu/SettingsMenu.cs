@@ -45,6 +45,12 @@ namespace com.NW84P
         [SerializeField]
         private XRRayInteractor[] _xRRayInteractors;
 
+        [SerializeField]
+        private Toggle _useComfortVignette;
+
+        [SerializeField]
+        private TunnelingVignetteController _tunnelingVignetteController;
+
         private Color _fadeColor = new(0, 0, 0, 0);
         private bool _isFading;
 
@@ -55,6 +61,7 @@ namespace com.NW84P
             _rayToggle.onValueChanged.AddListener(OnRayToggleChanged);
             _seatdModeToggle.onValueChanged.AddListener(OnSeatedModeToggleChanged);
             _seatedModeHeightSlider.onValueChanged.AddListener(OnSeatedModeHeightChanged);
+            _useComfortVignette.onValueChanged.AddListener(OnUseVignetteChanged);
         }
 
         public void OnDisable()
@@ -63,6 +70,18 @@ namespace com.NW84P
             _rayToggle.onValueChanged.RemoveListener(OnRayToggleChanged);
             _seatdModeToggle.onValueChanged.RemoveListener(OnSeatedModeToggleChanged);
             _seatedModeHeightSlider.onValueChanged.RemoveListener(OnSeatedModeHeightChanged);
+            _useComfortVignette.onValueChanged.RemoveListener(OnUseVignetteChanged);
+        }
+
+        private void OnUseVignetteChanged(bool enable)
+        {
+            foreach(var provider in _tunnelingVignetteController.locomotionVignetteProviders)
+            {
+                if (!provider.locomotionProvider.gameObject.CompareTag(Tags.Teleporter))
+                {
+                    provider.enabled = enable;
+                }
+            }
         }
 
         private void OnBackPressed()
@@ -174,6 +193,16 @@ namespace com.NW84P
             if (_xRRayInteractors == null || _xRRayInteractors.Length != 2)
             {
                 Debug.LogError("XR Ray Interactors is null");
+            }
+
+            if (_useComfortVignette == null)
+            {
+                Debug.LogError("Use Comfort Vignette is null");
+            }
+
+            if (_tunnelingVignetteController == null)
+            {
+                Debug.LogError("Tunneling Vignette Controller is null");
             }
         }
 

@@ -17,6 +17,7 @@ TagManager:
   - Hammer
   - FrontGlass
   - PhoneDone
+  - Teleporter
   layers:
   - Default
   - TransparentFX
