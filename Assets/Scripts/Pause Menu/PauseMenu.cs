@@ -152,6 +152,16 @@ namespace com.NW84P
             {
                 Debug.LogError("PauseMenu: XR Transform is not set");
             }
+
+            if (_pauseMenu == null)
+            {
+                Debug.LogError("PauseMenu: Pause Menu is not set");
+            }
+
+            if (_settingsMenu == null)
+            {
+                Debug.LogError("PauseMenu: Settings Menu is not set");
+            }
         }
 
 #endif

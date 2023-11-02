@@ -3,6 +3,7 @@ using System.Collections;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.XR.Interaction.Toolkit;
 using static Unity.XR.CoreUtils.XROrigin;
 
 namespace com.NW84P
@@ -41,6 +42,9 @@ namespace com.NW84P
         [SerializeField]
         private SpriteRenderer _SeatedModeFadeSprite;
 
+        [SerializeField]
+        private XRRayInteractor[] _xRRayInteractors;
+
         private Color _fadeColor = new(0, 0, 0, 0);
         private bool _isFading;
 
@@ -69,7 +73,12 @@ namespace com.NW84P
 
         private void OnRayToggleChanged(bool enable)
         {
-            Debug.Log($"Ray toggle changed to => {enable}");
+            var layerName = enable ? LayerMasks.DEFAULT : LayerMasks.NOTHING;
+            var layer = LayerMask.GetMask(layerName);
+            for (var i = 0; i < _xRRayInteractors.Length; i++)
+            {
+                _xRRayInteractors[i].interactionLayers = layer;
+            }
         }
 
         private void OnSeatedModeToggleChanged(bool _) => StartCoroutine(SeatedModeFade());
@@ -160,6 +169,11 @@ namespace com.NW84P
             if (_SeatedModeFadeSprite == null)
             {
                 Debug.LogError("Seated Mode Fade Sprite is null");
+            }
+
+            if (_xRRayInteractors == null || _xRRayInteractors.Length != 2)
+            {
+                Debug.LogError("XR Ray Interactors is null");
             }
         }
 
