@@ -51,6 +51,12 @@ namespace com.NW84P
         [SerializeField]
         private TunnelingVignetteController _tunnelingVignetteController;
 
+        [SerializeField]
+        private Toggle _snapTurnToggle;
+
+        [SerializeField]
+        private ActionBasedControllerManager _rightActionBasedControllerManager;
+
         private Color _fadeColor = new(0, 0, 0, 0);
         private bool _isFading;
 
@@ -62,6 +68,7 @@ namespace com.NW84P
             _seatdModeToggle.onValueChanged.AddListener(OnSeatedModeToggleChanged);
             _seatedModeHeightSlider.onValueChanged.AddListener(OnSeatedModeHeightChanged);
             _useComfortVignette.onValueChanged.AddListener(OnUseVignetteChanged);
+            _snapTurnToggle.onValueChanged.AddListener(OnSnapTurnToggleChanged);
         }
 
         public void OnDisable()
@@ -71,7 +78,10 @@ namespace com.NW84P
             _seatdModeToggle.onValueChanged.RemoveListener(OnSeatedModeToggleChanged);
             _seatedModeHeightSlider.onValueChanged.RemoveListener(OnSeatedModeHeightChanged);
             _useComfortVignette.onValueChanged.RemoveListener(OnUseVignetteChanged);
+            _snapTurnToggle.onValueChanged.RemoveListener(OnSnapTurnToggleChanged);
         }
+
+        private void OnSnapTurnToggleChanged(bool enable) => _rightActionBasedControllerManager.smoothTurnEnabled = !enable;
 
         private void OnUseVignetteChanged(bool enable)
         {
@@ -145,65 +155,20 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (_pauseMenu == null)
-            {
-                Debug.LogError("Pause Menu is null");
-            }
-
-            if (_settingsMenu == null)
-            {
-                Debug.LogError("Settings Menu is null");
-            }
-
-            if (_backButton == null)
-            {
-                Debug.LogError("Back Button is null");
-            }
-
-            if (_rayToggle == null)
-            {
-                Debug.LogError("Ray Toggle is null");
-            }
-
-            if (_seatdModeToggle == null)
-            {
-                Debug.LogError("Seated Mode Toggle is null");
-            }
-
-            if (_seatedModeHeightSlider == null)
-            {
-                Debug.LogError("Seated Mode Height is null");
-            }
-
-            if (_xrOrigin == null)
-            {
-                Debug.LogError("XR Origin is null");
-            }
-
-            if (_canvasHeightUpdate == null)
-            {
-                Debug.LogError("Canvas Height Update is null");
-            }
-
-            if (_SeatedModeFadeSprite == null)
-            {
-                Debug.LogError("Seated Mode Fade Sprite is null");
-            }
-
-            if (_xRRayInteractors == null || _xRRayInteractors.Length != 2)
-            {
-                Debug.LogError("XR Ray Interactors is null");
-            }
-
-            if (_useComfortVignette == null)
-            {
-                Debug.LogError("Use Comfort Vignette is null");
-            }
-
-            if (_tunnelingVignetteController == null)
-            {
-                Debug.LogError("Tunneling Vignette Controller is null");
-            }
+            Debug.Assert(_pauseMenu != null, "Pause Menu is null");
+            Debug.Assert(_settingsMenu != null, "Settings Menu is null");
+            Debug.Assert(_backButton != null, "Back Button is null");
+            Debug.Assert(_rayToggle != null, "Ray Toggle is null");
+            Debug.Assert(_seatdModeToggle != null, "Seated Mode Toggle is null");
+            Debug.Assert(_seatedModeHeightSlider != null, "Seated Mode Height is null");
+            Debug.Assert(_xrOrigin != null, "XR Origin is null");
+            Debug.Assert(_canvasHeightUpdate != null, "Canvas Height Update is null");
+            Debug.Assert(_SeatedModeFadeSprite != null, "Seated Mode Fade Sprite is null");
+            Debug.Assert(_xRRayInteractors != null, "XR Ray Interactors is null");
+            Debug.Assert(_useComfortVignette != null, "Use Comfort Vignette is null");
+            Debug.Assert(_tunnelingVignetteController != null, "Tunneling Vignette Controller is null");
+            Debug.Assert(_snapTurnToggle != null, "Snap Turn Toggle is null");
+            Debug.Assert(_rightActionBasedControllerManager != null, "Right Action Based Controller Manager is null");
         }
 
 #endif

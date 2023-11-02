@@ -2833,6 +2833,8 @@ MonoBehaviour:
   - {fileID: 1012855491}
   _useComfortVignette: {fileID: 1949343180}
   _tunnelingVignetteController: {fileID: 951240936}
+  _snapTurnToggle: {fileID: 1572612524}
+  _rightActionBasedControllerManager: {fileID: 45473791}
 --- !u!114 &1012855491 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8241866328517719404, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
