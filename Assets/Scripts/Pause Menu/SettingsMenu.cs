@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Unity.XR.CoreUtils;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,6 +12,7 @@ namespace com.NW84P
         private const float _MIN_SEATED_HEIGHT = 1f;
         private const float _MAX_SEATED_HEIGHT = 2.5f;
         private const float _DEFAULT_SEATED_HEIGHT = 1.36144f;
+        private const float _FADE_DURATION = 0.1f;
 
         [SerializeField]
         private GameObject _pauseMenu;
@@ -34,6 +37,12 @@ namespace com.NW84P
 
         [SerializeField]
         private PauseCanvasHeightUpdate _canvasHeightUpdate;
+
+        [SerializeField]
+        private SpriteRenderer _SeatedModeFadeSprite;
+
+        private Color _fadeColor = new(0, 0, 0, 0);
+        private bool _isFading;
 
         public void OnEnable()
         {
@@ -63,16 +72,39 @@ namespace com.NW84P
             Debug.Log($"Ray toggle changed to => {enable}");
         }
 
-        private void OnSeatedModeToggleChanged(bool _)
+        private void OnSeatedModeToggleChanged(bool _) => StartCoroutine(SeatedModeFade());
+
+        private IEnumerator SeatedModeFade()
         {
+            // fade in
+            StartCoroutine(Fade(duration: _FADE_DURATION / 2, condition: alpha => alpha < 1, alphaFunction: alpha => alpha));
+            yield return new WaitUntil(() => !_isFading);
+
+            // change mode
             _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
             _xrOrigin.RequestedTrackingOriginMode = _seatdModeToggle.isOn ? TrackingOriginMode.Device : TrackingOriginMode.Floor;
+            yield return WaitForSecondsCache.Get(_FADE_DURATION);
+
+            // fade out
+            StartCoroutine(Fade(duration: _FADE_DURATION, condition: alpha => alpha > 0, alphaFunction: alpha => 1 - alpha));
+            yield return new WaitUntil(() => !_isFading);
         }
 
-        private void OnSeatedModeHeightChanged(float _)
+        private IEnumerator Fade(float duration, Func<float, bool> condition, Func<float, float> alphaFunction)
         {
-            _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
+            _isFading = true;
+            var fadeTimer = 0f;
+            while (condition(_fadeColor.a))
+            {
+                fadeTimer += Time.deltaTime;
+                _fadeColor.a = alphaFunction(fadeTimer / duration);
+                _SeatedModeFadeSprite.color = _fadeColor;
+                yield return null;
+            }
+            _isFading = false;
         }
+
+        private void OnSeatedModeHeightChanged(float _) => _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
 
         private void ConfigureSliderSeated()
         {
@@ -123,6 +155,11 @@ namespace com.NW84P
             if (_canvasHeightUpdate == null)
             {
                 Debug.LogError("Canvas Height Update is null");
+            }
+
+            if (_SeatedModeFadeSprite == null)
+            {
+                Debug.LogError("Seated Mode Fade Sprite is null");
             }
         }
 

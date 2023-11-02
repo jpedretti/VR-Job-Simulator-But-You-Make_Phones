@@ -2736,6 +2736,7 @@ MonoBehaviour:
   _seatedModeHeightSlider: {fileID: 571573196}
   _xrOrigin: {fileID: 3414713128160538303}
   _canvasHeightUpdate: {fileID: 1438523440}
+  _SeatedModeFadeSprite: {fileID: 3414713128160538304}
 --- !u!1 &1014404830
 GameObject:
   m_ObjectHideFlags: 0
@@ -3851,7 +3852,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 1
   m_SortingLayerID: 0
-  m_SortingOrder: 99
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &1438523440
 MonoBehaviour:
@@ -3866,7 +3867,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 1382169321}
-  _heightOffset: -0.13
+  _heightOffset: -0.1
 --- !u!1 &1533147826
 GameObject:
   m_ObjectHideFlags: 0
@@ -5024,49 +5025,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 548927205611646160, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221854119328490963, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_Colors.m_PressedColor.b
-      value: 0.46226418
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221854119328490963, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_Colors.m_PressedColor.g
-      value: 0.2900481
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221854119328490963, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221854119328490963, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.g
-      value: 0.627451
-      objectReference: {fileID: 0}
-    - target: {fileID: 2221854119328490963, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_Colors.m_HighlightedColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2620090576404741491, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_TrackingStateInput.m_UseReference
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6985753706304740785, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_Name
       value: My XR Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 7095612600172871244, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_CameraYOffset
-      value: 1.36144
-      objectReference: {fileID: 0}
-    - target: {fileID: 7095612600172871244, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_RequestedTrackingOriginMode
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7346532173636878285, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7819824948688707756, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5108,10 +5069,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7939070474923236905, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
-      propertyPath: m_RaycastTarget
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5128,6 +5085,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!212 &3414713128160538304 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6139235777187506112, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
+  m_PrefabInstance: {fileID: 3414713128160538302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3827744911616432380
 PrefabInstance:
   m_ObjectHideFlags: 0
