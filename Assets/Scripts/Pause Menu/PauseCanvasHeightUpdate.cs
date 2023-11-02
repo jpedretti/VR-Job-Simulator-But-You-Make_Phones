@@ -11,8 +11,7 @@ namespace com.NW84P
 
         public void Awake() => _canvasInitalPosition = transform.position;
 
-        public void OnEnable()
-            => transform.position = _canvasInitalPosition + new Vector3(0, _mainCamera.transform.position.y, 0);
+#if UNITY_EDITOR
 
         [System.Diagnostics.Conditional("UNITY_EDITOR")]
         public void OnValidate()
@@ -22,5 +21,7 @@ namespace com.NW84P
                 Debug.LogError("PauseCanvasHeightUpdate: Main Camera Transform is null");
             }
         }
+
+#endif
     }
 }

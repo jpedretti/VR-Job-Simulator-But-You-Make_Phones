@@ -60,7 +60,8 @@ namespace com.NW84P
             Debug.Log($"Seated mode height changed to => {height}");
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_pauseMenu == null)
@@ -93,5 +94,7 @@ namespace com.NW84P
                 Debug.LogError("Seated Mode Height is null");
             }
         }
+
+#endif
     }
 }

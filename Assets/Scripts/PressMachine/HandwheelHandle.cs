@@ -91,7 +91,8 @@ namespace com.NW84P
             _handController = null;
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_handwheel == null)
@@ -99,5 +100,7 @@ namespace com.NW84P
                 Debug.LogError($"Handwheel is not set in {gameObject}.");
             }
         }
+
+#endif
     }
 }

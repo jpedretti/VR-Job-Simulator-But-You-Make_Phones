@@ -28,7 +28,7 @@ namespace com.NW84P
             }
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
 
         public void OnValidate()
         {
@@ -42,5 +42,7 @@ namespace com.NW84P
                 Debug.LogError("HammerController needs an AudioSource component");
             }
         }
+
+#endif
     }
 }

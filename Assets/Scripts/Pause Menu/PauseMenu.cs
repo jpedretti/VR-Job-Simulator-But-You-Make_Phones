@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace com.NW84P
@@ -53,7 +52,6 @@ namespace com.NW84P
             _mainMenuButton.onClick.AddListener(OnMainMenuPressed);
         }
 
-
         public void OnDisable()
         {
             _resumeButton.onClick.RemoveListener(OnResumePressed);
@@ -106,7 +104,8 @@ namespace com.NW84P
             _leftActionBasedControllerManager.EnableLocomotionActions(enabled: enable);
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_resumeButton == null)
@@ -154,5 +153,7 @@ namespace com.NW84P
                 Debug.LogError("PauseMenu: XR Transform is not set");
             }
         }
+
+#endif
     }
 }

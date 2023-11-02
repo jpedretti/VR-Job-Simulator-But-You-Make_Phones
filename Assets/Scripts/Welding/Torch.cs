@@ -113,7 +113,8 @@ namespace com.NW84P
             _fireCollider.center = _fireColliderCenter;
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         private void OnValidate()
         {
             if (GetComponentInChildren<ParticleSystem>() == null)
@@ -131,5 +132,7 @@ namespace com.NW84P
                 Debug.LogError($"No Audio Source found in any {gameObject} children");
             }
         }
+
+#endif
     }
 }

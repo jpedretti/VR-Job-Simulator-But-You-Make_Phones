@@ -103,7 +103,8 @@ namespace com.NW84P
             }
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_phoneBackGlass == null)
@@ -136,5 +137,7 @@ namespace com.NW84P
                 Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
             }
         }
+
+#endif
     }
 }

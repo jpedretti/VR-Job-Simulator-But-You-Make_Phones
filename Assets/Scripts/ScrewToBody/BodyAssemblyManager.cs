@@ -137,7 +137,8 @@ namespace com.NW84P
             }
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_screwPrefab == null)
@@ -160,7 +161,6 @@ namespace com.NW84P
                 Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
             }
 
-
             InitScrewSpawnPoints();
 
             if (_screwSpawnPoints.Length == 0)
@@ -168,5 +168,7 @@ namespace com.NW84P
                 Debug.LogError($"Screw spawn points are not set in {gameObject.name}");
             }
         }
+
+#endif
     }
 }

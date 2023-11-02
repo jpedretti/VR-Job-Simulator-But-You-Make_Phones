@@ -163,7 +163,8 @@ namespace com.NW84P
             InvokeAction(pressed: false, () => OnButtonReleased.Invoke());
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (m_ButtonOriginalLocalPosition.y != Vector3.positiveInfinity.y)
@@ -181,5 +182,7 @@ namespace com.NW84P
                 Debug.LogError($"The button transform is not a child of {gameObject}");
             }
         }
+
+#endif
     }
 }

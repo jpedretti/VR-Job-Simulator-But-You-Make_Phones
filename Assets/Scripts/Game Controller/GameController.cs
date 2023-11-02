@@ -63,7 +63,8 @@ namespace com.NW84P
             _pausePressed = false;
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (_startButton == null)
@@ -86,5 +87,7 @@ namespace com.NW84P
                 Debug.LogError("Pause Button is not set.");
             }
         }
+
+#endif
     }
 }

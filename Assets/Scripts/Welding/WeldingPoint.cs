@@ -73,7 +73,8 @@ namespace com.NW84P
             _weldingPath.StoppedWelding();
         }
 
-        [System.Diagnostics.Conditional("UNITY_EDITOR")]
+#if UNITY_EDITOR
+
         public void OnValidate()
         {
             if (GetComponent<ParticleSystem>() == null)
@@ -85,5 +86,7 @@ namespace com.NW84P
                 Debug.LogError($"LineRenderer is null on {gameObject.name}");
             }
         }
+
+#endif
     }
 }
