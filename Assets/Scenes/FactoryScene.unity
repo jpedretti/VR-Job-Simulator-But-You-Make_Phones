@@ -3866,6 +3866,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainCamera: {fileID: 1382169321}
+  _heightOffset: -0.13
 --- !u!1 &1533147826
 GameObject:
   m_ObjectHideFlags: 0
@@ -5062,6 +5063,10 @@ PrefabInstance:
     - target: {fileID: 7095612600172871244, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_RequestedTrackingOriginMode
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346532173636878285, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7819824948688707756, guid: 2a88cf3fcd0686242b778952b0453584, type: 3}
       propertyPath: m_LocalPosition.x
