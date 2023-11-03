@@ -11,7 +11,7 @@ namespace com.NW84P
     public class SettingsMenu : MonoBehaviour
     {
         private const float _MIN_SEATED_HEIGHT = 1f;
-        private const float _MAX_SEATED_HEIGHT = 2.5f;
+        private const float _MAX_SEATED_HEIGHT = 2.1f;
         private const float _DEFAULT_SEATED_HEIGHT = 1.36144f;
         private const float _FADE_DURATION = 0.1f;
 
