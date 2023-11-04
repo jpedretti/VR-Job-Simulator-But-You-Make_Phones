@@ -26,7 +26,7 @@ namespace com.NW84P
         private void UpdateTimeText(TextMeshProUGUI timerText)
         {
             var timeSpan = TimeSpan.FromSeconds(_timer);
-            var timer = string.Format("{0:D2}:{1:D2}:{2:D3}", timeSpan.Minutes, timeSpan.Seconds, timeSpan.Milliseconds);
+            var timer = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}:{timeSpan.Milliseconds:D3}";
             if (timeSpan.Hours > 0)
             {
                 timer = $"\n{timeSpan.Hours:D2}:{timer}";
