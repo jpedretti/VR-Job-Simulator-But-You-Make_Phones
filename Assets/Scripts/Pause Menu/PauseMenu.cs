@@ -4,6 +4,8 @@ namespace com.NW84P
 {
     public class PauseMenu : MonoBehaviour
     {
+        private const float _CAMERA_MENU_DISTANCE = -1.6f;
+
         [SerializeField]
         private UnityEngine.UI.Button _resumeButton;
 
@@ -15,9 +17,6 @@ namespace com.NW84P
 
         [SerializeField]
         private UnityEngine.UI.Button _mainMenuButton;
-
-        [SerializeField]
-        private GameObject _gameObjectsParent;
 
         [SerializeField]
         private GameObject _pauseObjectsParent;
@@ -35,14 +34,17 @@ namespace com.NW84P
         private GameObject _pauseMenu;
 
         [SerializeField]
-        private GameObject _settingsMenu;
+        private GameObject _settingsMenuUI;
+
+        [SerializeField]
+        private SettingsMenu _settingsMenu;
 
         private Vector3 _previousPosition;
         private Quaternion _previousRotation;
 
         public bool ResumePressed { get; set; }
 
-        public bool IsPauseConfigured => _pauseObjectsParent.activeSelf && !_gameObjectsParent.activeSelf;
+        public bool IsPauseConfigured => _pauseObjectsParent.activeSelf;
 
         public void OnEnable()
         {
@@ -70,7 +72,7 @@ namespace com.NW84P
 
         private void OnSettingsPressed()
         {
-            _settingsMenu.SetActive(true);
+            _settingsMenuUI.SetActive(true);
             _pauseMenu.SetActive(false);
         }
 
@@ -81,21 +83,21 @@ namespace com.NW84P
 
         public void ConfigurePausedState()
         {
-            _gameObjectsParent.SetActive(false);
             _pauseObjectsParent.SetActive(true);
             EnableLocomotionActions(false);
             _previousPosition = _myXRTransform.position;
             _previousRotation = _myXRTransform.rotation;
-            _myXRTransform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+            _settingsMenu.DisableRays();
+            _myXRTransform.SetPositionAndRotation(new(0, 0, _CAMERA_MENU_DISTANCE), Quaternion.identity);
         }
 
         public void ConfigureUnpausedState()
         {
             ResumePressed = false;
-            _gameObjectsParent.SetActive(true);
             _pauseObjectsParent.SetActive(false);
             EnableLocomotionActions(true);
             _myXRTransform.SetPositionAndRotation(_previousPosition, _previousRotation);
+            _settingsMenu.TogglesRays();
         }
 
         private void EnableLocomotionActions(bool enable)
@@ -108,60 +110,17 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (_resumeButton == null)
-            {
-                Debug.LogError("PauseMenu: Resume Button is not set");
-            }
-
-            if (_resetButton == null)
-            {
-                Debug.LogError("PauseMenu: Reset Button is not set");
-            }
-
-            if (_settingsButton == null)
-            {
-                Debug.LogError("PauseMenu: Settings Button is not set");
-            }
-
-            if (_mainMenuButton == null)
-            {
-                Debug.LogError("PauseMenu: Main Menu Button is not set");
-            }
-
-            if (_gameObjectsParent == null)
-            {
-                Debug.LogError("PauseMenu: Game Objects Parent is not set");
-            }
-
-            if (_pauseObjectsParent == null)
-            {
-                Debug.LogError("PauseMenu: Pause Objects Parent is not set");
-            }
-
-            if (_rightActionBasedControllerManager == null)
-            {
-                Debug.LogError("PauseMenu: Action Based Controller Manager is not set");
-            }
-
-            if (_leftActionBasedControllerManager == null)
-            {
-                Debug.LogError("PauseMenu: Action Based Controller Manager is not set");
-            }
-
-            if (_myXRTransform == null)
-            {
-                Debug.LogError("PauseMenu: XR Transform is not set");
-            }
-
-            if (_pauseMenu == null)
-            {
-                Debug.LogError("PauseMenu: Pause Menu is not set");
-            }
-
-            if (_settingsMenu == null)
-            {
-                Debug.LogError("PauseMenu: Settings Menu is not set");
-            }
+            Debug.Assert(_resumeButton != null, "PauseMenu: Resume Button is not set");
+            Debug.Assert(_resetButton != null, "PauseMenu: Reset Button is not set");
+            Debug.Assert(_settingsButton != null, "PauseMenu: Settings Button is not set");
+            Debug.Assert(_mainMenuButton != null, "PauseMenu: Main Menu Button is not set");
+            Debug.Assert(_pauseObjectsParent != null, "PauseMenu: Pause Objects Parent is not set");
+            Debug.Assert(_rightActionBasedControllerManager != null, "PauseMenu: Action Based Controller Manager is not set");
+            Debug.Assert(_leftActionBasedControllerManager != null, "PauseMenu: Action Based Controller Manager is not set");
+            Debug.Assert(_myXRTransform != null, "PauseMenu: XR Transform is not set");
+            Debug.Assert(_pauseMenu != null, "PauseMenu: Pause Menu is not set");
+            Debug.Assert(_settingsMenuUI != null, "PauseMenu: Settings Menu UI is not set");
+            Debug.Assert(_settingsMenu != null, "PauseMenu: Settings Menu is not set");
         }
 
 #endif

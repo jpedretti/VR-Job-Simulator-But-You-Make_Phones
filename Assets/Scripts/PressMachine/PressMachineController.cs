@@ -1,12 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-#if UNITY_EDITOR
-
-using Unity.VisualScripting;
-
-#endif
-
 namespace com.NW84P
 {
     public class PressMachineController : MonoBehaviour
@@ -25,9 +19,6 @@ namespace com.NW84P
 
         [SerializeField]
         private AudioSource _cylinderBaseAudioSource;
-
-        [SerializeField]
-        private Transform _playingGameObjectsParent;
 
         private GameObject _oldPhoneBody;
         private XRGrabInteractable _newPhoneGrabInteractable;
@@ -72,8 +63,7 @@ namespace com.NW84P
             var newPhone = Instantiate(
                 _bodyWithBackGlassPrefab,
                 _oldPhoneBody.transform.position,
-                _phoneBackGlass.transform.rotation,
-                _playingGameObjectsParent
+                _phoneBackGlass.transform.rotation
             );
             _newPhoneGrabInteractable = newPhone.GetComponent<XRGrabInteractable>();
             _newPhoneGrabInteractable.selectEntered.AddListener(NewPhoneSelected);
@@ -107,35 +97,11 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (_phoneBackGlass == null)
-            {
-                Debug.LogError("Phone Back Glass is not assigned.");
-            }
-
-            if (_handwheel == null)
-            {
-                Debug.LogError("Handwheel is not assigned.");
-            }
-
-            if (_handwheelHandles == null || _handwheelHandles.Length != 3)
-            {
-                Debug.LogError("Handwheel Handles are not assigned.");
-            }
-
-            if (_bodyWithBackGlassPrefab == null)
-            {
-                Debug.LogError("Body With Back Glass Prefab is not assigned.");
-            }
-
-            if (_cylinderBaseAudioSource == null)
-            {
-                Debug.LogError("Cylinder Base Audio Source is not assigned.");
-            }
-
-            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
-            {
-                Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
-            }
+            Debug.Assert(_phoneBackGlass != null, "Phone Back Glass is not assigned.");
+            Debug.Assert(_handwheel != null, "Handwheel is not assigned.");
+            Debug.Assert(_handwheelHandles != null && _handwheelHandles.Length == 3, "Handwheel Handles are not assigned.");
+            Debug.Assert(_bodyWithBackGlassPrefab != null, "Body With Back Glass Prefab is not assigned.");
+            Debug.Assert(_cylinderBaseAudioSource != null, "Cylinder Base Audio Source is not assigned.");
         }
 
 #endif

@@ -1,12 +1,6 @@
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 
-#if UNITY_EDITOR
-
-using Unity.VisualScripting;
-
-#endif
-
 namespace com.NW84P
 {
     public class WeldedMainBoardSpawner : MonoBehaviour
@@ -14,12 +8,9 @@ namespace com.NW84P
         [SerializeField]
         private GameObject _weldedMainBoardPrefab;
 
-        [SerializeField]
-        private Transform _playingGameObjectsParent;
-
         public void Spawn()
         {
-            Instantiate(_weldedMainBoardPrefab, transform.position, transform.rotation, _playingGameObjectsParent);
+            Instantiate(_weldedMainBoardPrefab, transform.position, transform.rotation);
             DestroyBattery();
             Destroy(gameObject);
         }
@@ -43,17 +34,7 @@ namespace com.NW84P
 #if UNITY_EDITOR
 
         public void OnValidate()
-        {
-            if (_weldedMainBoardPrefab == null)
-            {
-                Debug.LogError($"WeldedMainBoardSpawner is null on {gameObject.name}");
-            }
-
-            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
-            {
-                Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
-            }
-        }
+            => Debug.Assert(_weldedMainBoardPrefab != null, $"WeldedMainBoardSpawner is null on {gameObject.name}");
 
 #endif
     }

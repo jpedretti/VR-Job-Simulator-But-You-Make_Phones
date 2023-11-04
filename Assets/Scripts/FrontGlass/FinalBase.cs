@@ -2,12 +2,6 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.XR.Interaction.Toolkit.Transformers;
 
-#if UNITY_EDITOR
-
-using Unity.VisualScripting;
-
-#endif
-
 namespace com.NW84P
 {
     [RequireComponent(typeof(CustomSocket))]
@@ -15,9 +9,6 @@ namespace com.NW84P
     {
         [SerializeField]
         private GameObject _phoneDonePrefab;
-
-        [SerializeField]
-        private Transform _playingGameObjectsParent;
 
         private CustomSocket _socket;
         private CustomSocket _phoneSocket;
@@ -88,7 +79,7 @@ namespace com.NW84P
             _glassController.OnGlassFixated -= GlassFixed;
             RemovePhoneSocketListeners();
             var phone = _phoneSocket.transform.gameObject;
-            Instantiate(_phoneDonePrefab, phone.transform.position, phone.transform.rotation, _playingGameObjectsParent);
+            Instantiate(_phoneDonePrefab, phone.transform.position, phone.transform.rotation);
             Destroy(phone);
             _phoneSocket = null;
         }
@@ -114,18 +105,7 @@ namespace com.NW84P
 
 #if UNITY_EDITOR
 
-        public void OnValidate()
-        {
-            if (_phoneDonePrefab == null)
-            {
-                Debug.LogError("Phone Done Prefab is null");
-            }
-
-            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
-            {
-                Debug.LogError("Playing Game Objects Parent is null");
-            }
-        }
+        public void OnValidate() => Debug.Assert(_phoneDonePrefab != null, "Phone Done Prefab is not set");
 
 #endif
     }

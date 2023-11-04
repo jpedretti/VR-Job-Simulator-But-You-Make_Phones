@@ -22,9 +22,6 @@ namespace com.NW84P
         [SerializeField]
         private Transform _bodyBaseBack;
 
-        [SerializeField]
-        private Transform _playingGameObjectsParent;
-
         private GameObject[] _screwSpawnPoints;
         private List<Screw> _screws;
         private byte _screwedCount;
@@ -112,7 +109,7 @@ namespace com.NW84P
 
         private void SwapPhoneBodies()
         {
-            Instantiate(_assembledPhonePrefab, transform.position, _bodyBaseBack.rotation, _playingGameObjectsParent);
+            Instantiate(_assembledPhonePrefab, transform.position, _bodyBaseBack.rotation);
             DestroyRotateInteractableScript();
             DestroySelectedInteractables();
             Destroy(gameObject);
@@ -141,32 +138,11 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (_screwPrefab == null)
-            {
-                Debug.LogError($"Screw prefab is null in {gameObject.name}");
-            }
-
-            if (_assembledPhonePrefab == null)
-            {
-                Debug.LogError($"Assembled phone prefab is null in {gameObject.name}");
-            }
-
-            if (_bodyBaseBack == null && !this.IsPrefabDefinition())
-            {
-                Debug.LogError($"Body base back is null in {gameObject.name}");
-            }
-
-            if (_playingGameObjectsParent == null && !this.IsPrefabDefinition())
-            {
-                Debug.LogError($"PlayingGameObjectsParent is null on {gameObject.name}");
-            }
-
+            Debug.Assert(_screwPrefab != null, "Screw Prefab is not set");
+            Debug.Assert(_assembledPhonePrefab != null, "Assembled Phone Prefab is not set");
+            Debug.Assert(_bodyBaseBack != null || this.IsPrefabDefinition(), "Body Base Back is not set");
             InitScrewSpawnPoints();
-
-            if (_screwSpawnPoints.Length == 0)
-            {
-                Debug.LogError($"Screw spawn points are not set in {gameObject.name}");
-            }
+            Debug.Assert(_screwSpawnPoints.Length > 0, "Screw Spawn Points are not set");
         }
 
 #endif

@@ -367,7 +367,6 @@ MonoBehaviour:
   _screwPrefab: {fileID: 2723634274337317392, guid: bf1ad02d6e2ae514799caebcd29e92cb, type: 3}
   _assembledPhonePrefab: {fileID: 9093188801932034433, guid: 892f39287d552c44488172f135f363b9, type: 3}
   _bodyBaseBack: {fileID: 0}
-  _playingGameObjectsParent: {fileID: 0}
 --- !u!1 &3961954562281075807
 GameObject:
   m_ObjectHideFlags: 0

@@ -59,6 +59,7 @@ namespace com.NW84P
 
         private Color _fadeColor = new(0, 0, 0, 0);
         private bool _isFading;
+        private bool _isRaysEnabled = true;
 
         public void OnEnable()
         {
@@ -79,6 +80,24 @@ namespace com.NW84P
             _seatedModeHeightSlider.onValueChanged.RemoveListener(OnSeatedModeHeightChanged);
             _useComfortVignette.onValueChanged.RemoveListener(OnUseVignetteChanged);
             _snapTurnToggle.onValueChanged.RemoveListener(OnSnapTurnToggleChanged);
+        }
+
+        public void TogglesRays()
+        {
+            var layerName = _isRaysEnabled ? LayerMasks.DEFAULT : LayerMasks.NOTHING;
+            var layer = LayerMask.GetMask(layerName);
+            for (var i = 0; i < _xRRayInteractors.Length; i++)
+            {
+                _xRRayInteractors[i].interactionLayers = layer;
+            }
+        }
+
+        public void DisableRays()
+        {
+            var currentRaysEnabled = _isRaysEnabled;
+            _isRaysEnabled = false;
+            TogglesRays();
+            _isRaysEnabled = currentRaysEnabled;
         }
 
         private void OnSnapTurnToggleChanged(bool enable) => _rightActionBasedControllerManager.smoothTurnEnabled = !enable;
@@ -102,12 +121,8 @@ namespace com.NW84P
 
         private void OnRayToggleChanged(bool enable)
         {
-            var layerName = enable ? LayerMasks.DEFAULT : LayerMasks.NOTHING;
-            var layer = LayerMask.GetMask(layerName);
-            for (var i = 0; i < _xRRayInteractors.Length; i++)
-            {
-                _xRRayInteractors[i].interactionLayers = layer;
-            }
+            _isRaysEnabled = enable;
+            TogglesRays();
         }
 
         private void OnSeatedModeToggleChanged(bool _) => StartCoroutine(SeatedModeFade());
