@@ -63,7 +63,10 @@ namespace com.NW84P
 
         public void OnEnable()
         {
-            ConfigureSliderSeated();
+            InitialRaysConfiguration();
+            InitialSnapTurnConfiguration();
+            InitialVignetteConfiguration();
+            InitialSeatdSliderConfiguration();
             _backButton.onClick.AddListener(OnBackPressed);
             _rayToggle.onValueChanged.AddListener(OnRayToggleChanged);
             _seatdModeToggle.onValueChanged.AddListener(OnSeatedModeToggleChanged);
@@ -100,11 +103,23 @@ namespace com.NW84P
             _isRaysEnabled = currentRaysEnabled;
         }
 
-        private void OnSnapTurnToggleChanged(bool enable) => _rightActionBasedControllerManager.smoothTurnEnabled = !enable;
+        private void EnableSnapTurn(bool enable) => _rightActionBasedControllerManager.smoothTurnEnabled = !enable;
+
+        private void OnSnapTurnToggleChanged(bool enable)
+        {
+            PlayerPrefsExtensions.SetBool(SettingsConstants.SNAP_TURN_ENABLED_KEY, enable);
+            EnableSnapTurn(enable);
+        }
 
         private void OnUseVignetteChanged(bool enable)
         {
-            foreach(var provider in _tunnelingVignetteController.locomotionVignetteProviders)
+            PlayerPrefsExtensions.SetBool(SettingsConstants.USE_VIGNETTE_KEY, enable);
+            EnableVignette(enable);
+        }
+
+        private void EnableVignette(bool enable)
+        {
+            foreach (var provider in _tunnelingVignetteController.locomotionVignetteProviders)
             {
                 if (!provider.locomotionProvider.gameObject.CompareTag(Tags.Teleporter))
                 {
@@ -122,6 +137,7 @@ namespace com.NW84P
         private void OnRayToggleChanged(bool enable)
         {
             _isRaysEnabled = enable;
+            PlayerPrefsExtensions.SetBool(SettingsConstants.RAYS_ENABLED_KEY, enable);
             TogglesRays();
         }
 
@@ -157,13 +173,36 @@ namespace com.NW84P
             _isFading = false;
         }
 
-        private void OnSeatedModeHeightChanged(float _) => _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
+        private void OnSeatedModeHeightChanged(float newHeight)
+        {
+            PlayerPrefs.SetFloat(SettingsConstants.SEATED_MODE_HEIGHT_KEY, newHeight);
+            _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
+        }
 
-        private void ConfigureSliderSeated()
+        private void InitialSeatdSliderConfiguration()
         {
             _seatedModeHeightSlider.minValue = _MIN_SEATED_HEIGHT;
             _seatedModeHeightSlider.maxValue = _MAX_SEATED_HEIGHT;
-            if (!_seatdModeToggle.isOn) _seatedModeHeightSlider.value = _DEFAULT_SEATED_HEIGHT;
+            _seatedModeHeightSlider.value = PlayerPrefs.GetFloat(SettingsConstants.SEATED_MODE_HEIGHT_KEY, _DEFAULT_SEATED_HEIGHT);
+        }
+
+        private void InitialRaysConfiguration()
+        {
+            _isRaysEnabled = PlayerPrefsExtensions.GetBool(SettingsConstants.RAYS_ENABLED_KEY, true);
+            _rayToggle.isOn = _isRaysEnabled;
+            TogglesRays();
+        }
+
+        private void InitialSnapTurnConfiguration()
+        {
+            _snapTurnToggle.isOn = PlayerPrefsExtensions.GetBool(SettingsConstants.SNAP_TURN_ENABLED_KEY, true);
+            EnableSnapTurn(_snapTurnToggle.isOn);
+        }
+
+        private void InitialVignetteConfiguration()
+        {
+            _useComfortVignette.isOn = PlayerPrefsExtensions.GetBool(SettingsConstants.USE_VIGNETTE_KEY, true);
+            EnableVignette(_useComfortVignette.isOn);
         }
 
 #if UNITY_EDITOR
