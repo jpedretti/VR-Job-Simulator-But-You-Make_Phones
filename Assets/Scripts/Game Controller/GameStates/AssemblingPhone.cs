@@ -12,7 +12,7 @@ namespace com.NW84P
         {
             if (gameStateData.ButtonPressed && gameStateData.InsertedSinCard)
             {
-                return new GameEnd();
+                return new GameEnd(gameStateData.TimerText, gameStateData.MessageText);
             }
             else
             {
@@ -26,10 +26,14 @@ namespace com.NW84P
         private void UpdateTimeText(TextMeshProUGUI timerText)
         {
             var timeSpan = TimeSpan.FromSeconds(_timer);
-            var timer = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}:{timeSpan.Milliseconds:D3}";
+            string timer;
             if (timeSpan.Hours > 0)
             {
-                timer = $"\n{timeSpan.Hours:D2}:{timer}";
+                timer = $"{timeSpan.Hours:D2}:{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            }
+            else
+            {
+                timer = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}:{timeSpan.Milliseconds:D3}";
             }
 
             timerText.text = $"Total Time: {timer}";

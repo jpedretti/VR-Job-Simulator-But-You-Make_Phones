@@ -9,7 +9,8 @@ namespace com.NW84P
             GameObject interactableParts,
             TextMeshProUGUI timerText,
             PauseMenu pauseMenu,
-            UnityEngine.UI.Button pauseButton)
+            UnityEngine.UI.Button pauseButton,
+            TextMeshProUGUI messageText)
         {
             InteractableParts = interactableParts;
             TimerText = timerText;
@@ -18,6 +19,7 @@ namespace com.NW84P
             PauseButtonPressed = false;
             InsertedSinCard = false;
             PauseButton = pauseButton;
+            MessageText = messageText;
         }
 
         public bool ButtonPressed { get; private set; }
@@ -25,6 +27,7 @@ namespace com.NW84P
         public bool InsertedSinCard { get; private set; }
         public GameObject InteractableParts { get; private set; }
         public TextMeshProUGUI TimerText { get; private set; }
+        public TextMeshProUGUI MessageText { get; private set; }
         public PauseMenu PauseMenu { get; private set; }
         public UnityEngine.UI.Button PauseButton { get; private set; }
 

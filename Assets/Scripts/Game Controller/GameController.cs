@@ -18,6 +18,9 @@ namespace com.NW84P
         [SerializeField]
         private UnityEngine.UI.Button _pauseButton;
 
+        [SerializeField]
+        private TextMeshProUGUI _messageText;
+
         private bool _pausePressed;
         private IGameState _gameState;
         private GameStateData _gameStateData;
@@ -31,11 +34,14 @@ namespace com.NW84P
             if (Instance == null)
             {
                 Instance = this;
+                _timerText.text = "Total Time: 00:00:000";
+                _messageText.text = "Press the <color=\"red\">red button</color> to get the rest of the parts.\nPress it again when you finish.\n<size=110%><b>You need to use all the parts to finish the phone.</b></size>";
                 _gameStateData = new GameStateData(
                     interactableParts: _interactableParts,
                     timerText: _timerText,
                     pauseMenu: GetComponent<PauseMenu>(),
-                    pauseButton: _pauseButton
+                    pauseButton: _pauseButton,
+                    messageText: _messageText
                 );
                 _gameState = new GameStart();
             }
@@ -67,25 +73,11 @@ namespace com.NW84P
 
         public void OnValidate()
         {
-            if (_startButton == null)
-            {
-                Debug.LogError("Start Button is not set.");
-            }
-
-            if (_interactableParts == null)
-            {
-                Debug.LogError("Interactable Parts is not set.");
-            }
-
-            if (_timerText == null)
-            {
-                Debug.LogError("Timer Text is not set.");
-            }
-
-            if (_pauseButton == null)
-            {
-                Debug.LogError("Pause Button is not set.");
-            }
+            Debug.Assert(_startButton != null, "Start Button is not set.");
+            Debug.Assert(_interactableParts != null, "Interactable Parts is not set.");
+            Debug.Assert(_timerText != null, "Timer Text is not set.");
+            Debug.Assert(_pauseButton != null, "Pause Button is not set.");
+            Debug.Assert(_messageText != null, "Message Text is not set.");
         }
 
 #endif
