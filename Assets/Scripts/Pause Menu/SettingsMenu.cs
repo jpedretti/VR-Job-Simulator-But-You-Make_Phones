@@ -60,6 +60,7 @@ namespace com.NW84P
         private Color _fadeColor = new(0, 0, 0, 0);
         private bool _isFading;
         private bool _isRaysEnabled = true;
+        private static bool _isSeatedModeEnabled;
 
         public void OnEnable()
         {
@@ -67,6 +68,7 @@ namespace com.NW84P
             InitialSnapTurnConfiguration();
             InitialVignetteConfiguration();
             InitialSeatdSliderConfiguration();
+            InitialSeatedToggleConfiguration();
             _backButton.onClick.AddListener(OnBackPressed);
             _rayToggle.onValueChanged.AddListener(OnRayToggleChanged);
             _seatdModeToggle.onValueChanged.AddListener(OnSeatedModeToggleChanged);
@@ -141,7 +143,11 @@ namespace com.NW84P
             TogglesRays();
         }
 
-        private void OnSeatedModeToggleChanged(bool _) => StartCoroutine(SeatedModeFade());
+        private void OnSeatedModeToggleChanged(bool enable)
+        {
+            _isSeatedModeEnabled = enable;
+            StartCoroutine(SeatedModeFade());
+        }
 
         private IEnumerator SeatedModeFade()
         {
@@ -150,13 +156,18 @@ namespace com.NW84P
             yield return new WaitUntil(() => !_isFading);
 
             // change mode
-            _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
-            _xrOrigin.RequestedTrackingOriginMode = _seatdModeToggle.isOn ? TrackingOriginMode.Device : TrackingOriginMode.Floor;
+            SetMode();
             yield return WaitForSecondsCache.Get(_FADE_DURATION);
 
             // fade out
             StartCoroutine(Fade(duration: _FADE_DURATION, condition: alpha => alpha > 0, alphaFunction: alpha => 1 - alpha));
             yield return new WaitUntil(() => !_isFading);
+        }
+
+        private void SetMode()
+        {
+            _xrOrigin.CameraYOffset = _seatedModeHeightSlider.value;
+            _xrOrigin.RequestedTrackingOriginMode = _seatdModeToggle.isOn ? TrackingOriginMode.Device : TrackingOriginMode.Floor;
         }
 
         private IEnumerator Fade(float duration, Func<float, bool> condition, Func<float, float> alphaFunction)
@@ -184,6 +195,12 @@ namespace com.NW84P
             _seatedModeHeightSlider.minValue = _MIN_SEATED_HEIGHT;
             _seatedModeHeightSlider.maxValue = _MAX_SEATED_HEIGHT;
             _seatedModeHeightSlider.value = PlayerPrefs.GetFloat(SettingsConstants.SEATED_MODE_HEIGHT_KEY, _DEFAULT_SEATED_HEIGHT);
+        }
+
+        private void InitialSeatedToggleConfiguration()
+        {
+            _seatdModeToggle.isOn = _isSeatedModeEnabled;
+            SetMode();
         }
 
         private void InitialRaysConfiguration()
