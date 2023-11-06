@@ -12,7 +12,7 @@ This is a VR project that clones the popular VR game Job Simulator, but with a t
 ## Requirements
 
 - Unity 2022.3 or later
-- A VR headset and controllers compatible with Unity's XR Plugin Management system
+- A VR headset and controllers compatible with OpenXR
 - A PC that meets the minimum VR specifications
 - Or an Oculus Quest 2/Pro
 
