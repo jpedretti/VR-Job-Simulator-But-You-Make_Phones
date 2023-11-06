@@ -24,16 +24,13 @@ namespace com.NW84P
         public void LateUpdate() => UpdateCanvasHeight();
 
         private void UpdateCanvasHeight()
-            => _thisTransform.position = _canvasInitalPosition + new Vector3(0, _mainCameraTransform.position.y + _heightOffset, 0);
+            => _thisTransform.position = new Vector3(_canvasInitalPosition.x, _mainCameraTransform.position.y + _heightOffset, _canvasInitalPosition.z);
 
 #if UNITY_EDITOR
 
         public void OnValidate()
         {
-            if (_mainCamera == null)
-            {
-                Debug.LogError("PauseCanvasHeightUpdate: Main Camera Transform is null");
-            }
+            Debug.Assert(_mainCamera != null, "PauseCanvasHeightUpdate: Main Camera is null");
         }
 
 #endif

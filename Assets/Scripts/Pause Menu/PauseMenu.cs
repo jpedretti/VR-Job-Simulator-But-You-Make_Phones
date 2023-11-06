@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace com.NW84P
 {
-    public class PauseMenu : MonoBehaviour
+    public class PauseMenu : SceneLoader
     {
         private const float _CAMERA_MENU_DISTANCE = -1.6f;
 
@@ -64,8 +65,8 @@ namespace com.NW84P
 
         private void OnResetPressed()
         {
-            var currentScene = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
-            UnityEngine.SceneManagement.SceneManager.LoadScene(currentScene.name);
+            var currentScene = SceneManager.GetActiveScene();
+            SceneManager.LoadScene(currentScene.buildIndex);
         }
 
         private void OnResumePressed() => ResumePressed = true;
@@ -76,10 +77,7 @@ namespace com.NW84P
             _pauseMenu.SetActive(false);
         }
 
-        private void OnMainMenuPressed()
-        {
-            Debug.Log("Main Menu Pressed");
-        }
+        private void OnMainMenuPressed() => StartCoroutine(FadeAndLoadScene(0));
 
         public void ConfigurePausedState()
         {
@@ -108,8 +106,9 @@ namespace com.NW84P
 
 #if UNITY_EDITOR
 
-        public void OnValidate()
+        public override void OnValidate()
         {
+            base.OnValidate();
             Debug.Assert(_resumeButton != null, "PauseMenu: Resume Button is not set");
             Debug.Assert(_resetButton != null, "PauseMenu: Reset Button is not set");
             Debug.Assert(_settingsButton != null, "PauseMenu: Settings Button is not set");

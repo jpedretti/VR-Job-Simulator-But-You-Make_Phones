@@ -4,7 +4,7 @@ using UnityEngine;
 namespace com.NW84P
 {
     [RequireComponent(typeof(PauseMenu))]
-    public partial class GameController : MonoBehaviour
+    public class GameController : SceneLoader
     {
         [SerializeField]
         private Button _startButton;
@@ -52,6 +52,8 @@ namespace com.NW84P
             }
         }
 
+        public void Start() => StartCoroutine(FadeOut());
+
         public void OnEnable() => _pauseButton.onClick.AddListener(OnPausePressed);
 
         public void OnDisable() => _pauseButton.onClick.RemoveListener(OnPausePressed);
@@ -71,8 +73,9 @@ namespace com.NW84P
 
 #if UNITY_EDITOR
 
-        public void OnValidate()
+        public override void OnValidate()
         {
+            base.OnValidate();
             Debug.Assert(_startButton != null, "Start Button is not set.");
             Debug.Assert(_interactableParts != null, "Interactable Parts is not set.");
             Debug.Assert(_timerText != null, "Timer Text is not set.");
