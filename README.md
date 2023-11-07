@@ -1,6 +1,6 @@
 # VR Job Simulator, But You Make Phones
 
-This is a VR project that clones the popular VR game Job Simulator, but with a twist: instead of working in an office, a store, or a kitchen, you work in a phone factory. Your job is to assemble different parts of phones according to the orders and specifications. You can also interact with various objects and tools in the factory, such as hammers, screwdrivers, wires, batteries, etc.
+This is a VR project that clones the popular VR game Job Simulator, but with a twist: instead of working in an office, a store, or a kitchen, you work in a phone factory. Your job is to assemble phones as fast as you can. You can also interact with various objects and tools in the factory, such as hammers, screwdrivers, batteries, etc.
 
 ## Features
 
