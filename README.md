@@ -1,6 +1,6 @@
 # VR Job Simulator, But You Make Phones
 
-This is a VR project that clones the popular VR game Job Simulator, but with a twist: instead of working in an office, a store, or a kitchen, you work in a phone factory. Your job is to assemble different parts of phones according to the orders and specifications. You can also interact with various objects and tools in the factory, such as hammers, screwdrivers, wires, batteries, etc.
+This is a VR project that clones the popular VR game Job Simulator, but with a twist: instead of working in an office, a store, or a kitchen, you work in a phone factory. Your task is to assemble smartphones as quickly and efficiently as possible. This will involve interacting with various tools and objects in the factory, such as hammers, screwdrivers, and batteries. You’ll need to weld, screw, press, and fit parts together to create a fully functional smartphone. Are you ready to take on this challenge? Can you keep up the pace?
 
 ## Features
 
@@ -12,7 +12,7 @@ This is a VR project that clones the popular VR game Job Simulator, but with a t
 ## Requirements
 
 - Unity 2022.3 or later
-- A VR headset and controllers compatible with Unity's XR Plugin Management system
+- A VR headset and controllers compatible with OpenXR
 - A PC that meets the minimum VR specifications
 - Or an Oculus Quest 2/Pro
 
