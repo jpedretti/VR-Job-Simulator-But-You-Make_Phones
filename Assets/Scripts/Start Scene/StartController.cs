@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace com.NW84P
@@ -7,11 +8,32 @@ namespace com.NW84P
         [SerializeField]
         private UnityEngine.UI.Button _startGameButton;
 
+        [SerializeField]
+        private UnityEngine.UI.Button _quitGameButton;
+
         public void Start() => StartCoroutine(FadeOut());
 
-        public void OnEnable() => _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+        public void OnEnable()
+        {
+            _startGameButton.onClick.AddListener(OnStartGameButtonClicked);
+            _quitGameButton.onClick.AddListener(OnQuitClicked);
+        }
 
-        public void OnDisable() => _startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
+        private void OnQuitClicked()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+
+        }
+
+        public void OnDisable()
+        {
+            _startGameButton.onClick.RemoveListener(OnStartGameButtonClicked);
+            _quitGameButton.onClick.RemoveListener(OnQuitClicked);
+        }
 
         private void OnStartGameButtonClicked() => StartCoroutine(FadeAndLoadScene(1));
 
