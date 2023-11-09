@@ -2,6 +2,8 @@
 
 This is a VR project that clones the popular VR game Job Simulator, but with a twist: instead of working in an office, a store, or a kitchen, you work in a phone factory. Your task is to assemble smartphones as quickly and efficiently as possible. This will involve interacting with various tools and objects in the factory, such as hammers, screwdrivers, and batteries. You’ll need to weld, screw, press, and fit parts together to create a fully functional smartphone. Are you ready to take on this challenge? Can you keep up the pace?
 
+You can get it on [jpedretti.itch.io](https://jpedretti.itch.io/phone-factory-simulator)
+
 ## Features
 
 - VR interactions using Unity's XR Interaction Toolkit
